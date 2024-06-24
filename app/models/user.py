@@ -1,3 +1,4 @@
+from flask_sqlalchemy import SQLAlchemy
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -10,9 +11,17 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
+    first_name = db.Column(db.String(30), nullable=False)
+    last_name = db.Column(db.String(30), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
+    role = db.Column(db.String(15), nullable=False)
+    suffix = db.Column(db.String(30))
+    points = db.Column(db.Integer)
+    phone_number = db.Column(db.String(15))
+    created_at = db.Column(db.DateTime, nullable=True)
+    updated_at = db.Column(db.DateTime, nullable=True)
+
 
     @property
     def password(self):
@@ -28,6 +37,11 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
-            'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'role': self.role,
+            'suffix': self.suffix,
+            'points': self.points,
+            'phone_number': self.phone_number
         }
