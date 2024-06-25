@@ -40,6 +40,24 @@ export const thunkLogin = (credentials) => async dispatch => {
   }
 };
 
+export const thunkDemoLogin = (role) => async dispatch => {
+  const res = await fetch("/api/auth/demo-login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(role)
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(setUser(data));
+  } else if (res.status < 500) {
+    const errorMessages = await res.json();
+    return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
 export const thunkSignup = (user) => async (dispatch) => {
   const response = await fetch("/api/auth/signup", {
     method: "POST",
@@ -49,11 +67,14 @@ export const thunkSignup = (user) => async (dispatch) => {
 
   if(response.ok) {
     const data = await response.json();
+    console.log("SERVER RESPONSE", data)
     dispatch(setUser(data));
   } else if (response.status < 500) {
     const errorMessages = await response.json();
+    console.log("SERVER RESPONSE", errorMessages)
     return errorMessages
   } else {
+    console.log("SERVER RESPONSE", response)
     return { server: "Something went wrong. Please try again" }
   }
 };

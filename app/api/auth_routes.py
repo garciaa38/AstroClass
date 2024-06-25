@@ -33,6 +33,20 @@ def login():
         return user.to_dict()
     return form.errors, 401
 
+@auth_routes.route('/demo-login', methods=['POST'])
+def demo_login():
+    data = request.get_json()
+    role = data.get("role")
+
+    if role == 'teacher':
+        user = User.query.filter(User.email == 'demoTeacher1@aa.io').first()
+        login_user(user)
+        return user.to_dict()
+    elif role == 'student':
+        user = User.query.filter(User.email == 'demoKid1@aa.io').first()
+        login_user(user)
+        return user.to_dict()
+    return jsonify({error: "Something went wrong"})
 
 @auth_routes.route('/logout')
 def logout():
@@ -49,18 +63,19 @@ def sign_up():
     Creates a new user and logs them in
     """
     data = request.get_json()
+    print("NEW USER", data)
     email = data.get("email")
-    first_name = data.get("first_name")
-    last_name = data.get("last_name")
+    first_name = data.get("firstName")
+    last_name = data.get("lastName")
     password = data.get("password")
     role = data.get("role")
     suffix = data.get("suffix")
     points = data.get("points")
-    phone_number = data.get("phone_number")
+    phone_number = data.get("phoneNumber")
 
     user = User (
         email=email,
-        hashed_password=password,
+        password=password,
         first_name=first_name,
         last_name=last_name,
         role=role,
@@ -69,7 +84,9 @@ def sign_up():
         phone_number=phone_number
     )
 
-    db.seesion.add(user)
+    print("NEW USER", user.to_dict())
+
+    db.session.add(user)
     db.session.commit()
     login_user(user)
     return jsonify(user.to_dict())
