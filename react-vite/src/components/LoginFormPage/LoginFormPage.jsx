@@ -1,64 +1,31 @@
-import { useState } from "react";
-import { thunkLogin } from "../../redux/session";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import SignupFormModal from "../SignupFormModal/SignupFormModal";
 import "./LoginForm.css";
+import LoginFormModal from "../LoginFormModal";
 
 function LoginFormPage() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
-
-  if (sessionUser) return <Navigate to="/" replace={true} />;
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const serverResponse = await dispatch(
-      thunkLogin({
-        email,
-        password,
-      })
-    );
-
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
-      navigate("/");
-    }
-  };
+  if (sessionUser) return <Navigate to="/classes" replace={true} />;
 
   return (
     <>
-      <h1>Log In</h1>
-      {errors.length > 0 &&
-        errors.map((message) => <p key={message}>{message}</p>)}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
-      </form>
+      <h1>Welcome to AstroClass!</h1>
+      <h2>Sign Up as a...</h2>
+      <OpenModalButton
+        buttonText="Teacher"
+        modalComponent={<SignupFormModal role="teacher"/>}
+      />
+      <OpenModalButton
+        buttonText="Student"
+        modalComponent={<SignupFormModal role="student"/>}
+      />
+      <OpenModalButton
+        buttonText="Parent"
+        modalComponent={<SignupFormModal role="parent"/>}
+      />
+      <h3>Already a part of the team? Then <OpenModalButton buttonText="log back in" modalComponent={<LoginFormModal />}/> to get back to class!</h3>
     </>
   );
 }
