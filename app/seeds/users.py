@@ -1,4 +1,4 @@
-from app.models import db, User, environment, SCHEMA, Class, StudentClass
+from app.models import db, User, environment, SCHEMA, Class, StudentClass, Reward
 from sqlalchemy.sql import text
 
 
@@ -233,6 +233,66 @@ def seed_student_class():
     db.session.add(demo_student_class_10)
     db.session.commit()
 
+def seed_rewards():
+    hard_working_1 = Reward(
+        reward_type="Hard Working",
+        points=3,
+        class_id=1
+    )
+
+    kind_to_others_1 = Reward(
+        reward_type="Kind to others",
+        points=3,
+        class_id=1
+    )
+
+    completed_homework_1 = Reward(
+        reward_type="Completed Homework",
+        points=3,
+        class_id=1
+    )
+
+    test_passed_1 = Reward(
+        reward_type="Completed Homework",
+        points=3,
+        class_id=1
+    )
+
+    hard_working_2 = Reward(
+        reward_type="Hard Working",
+        points=3,
+        class_id=2
+    )
+
+    kind_to_others_2 = Reward(
+        reward_type="Kind to others",
+        points=3,
+        class_id=2
+    )
+
+    completed_homework_2 = Reward(
+        reward_type="Completed Homework",
+        points=3,
+        class_id=2
+    )
+
+    test_passed_2 = Reward(
+        reward_type="Completed Homework",
+        points=3,
+        class_id=2
+    )
+
+    db.session.add(hard_working_1)
+    db.session.add(kind_to_others_1)
+    db.session.add(completed_homework_1)
+    db.session.add(test_passed_1)
+    db.session.add(hard_working_2)
+    db.session.add(kind_to_others_2)
+    db.session.add(completed_homework_2)
+    db.session.add(test_passed_2)
+    db.session.commit()
+
+
 
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
@@ -248,5 +308,6 @@ def undo_users():
         db.session.execute(text("DELETE FROM users"))
         db.session.execute(text("DELETE FROM classes"))
         db.session.execute(text("DELETE FROM student_class"))
+        db.session.execute(text("DELETE FROM rewards"))
         
     db.session.commit()

@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
-from app.models import User, Class, StudentClass, db
+from app.models import User, Class, StudentClass, db, Reward
 import uuid
 
 class_routes = Blueprint('classes', __name__)
@@ -79,6 +79,7 @@ def get_classes(teacher_id):
 
     class_data = []
     for class_ in classes:
+        print("CLASSES DICT", class_.to_dict())
         class_info ={
             'id': class_.id,
             'student_count': class_.student_count,
@@ -86,7 +87,8 @@ def get_classes(teacher_id):
             'student_invite_code': class_.student_invite_code,
             'parent_invite_code': class_.parent_invite_code,
             'teacher_id': class_.teacher_id,
-            'students': [{'id': student.user.id, 'email': student.user.email, 'first_name': student.user.first_name, 'last_name': student.user.last_name, 'points': student.user.points} for student in class_.student_class_rel]
+            'students': [{'id': student.user.id, 'email': student.user.email, 'first_name': student.user.first_name, 'last_name': student.user.last_name, 'points': student.user.points} for student in class_.student_class_rel],
+            'rewards': [{'id': reward.id, 'reward_type': reward.reward_type, 'points': reward.points} for reward in class_.class_reward_rel]
         }
 
         class_data.append(class_info)
@@ -117,7 +119,8 @@ def get_class(teacher_id, class_id):
         'student_invite_code': requested_class.student_invite_code,
         'parent_invite_code': requested_class.parent_invite_code,
         'teacher_id': requested_class.teacher_id,
-        'students': [{'id': student.user.id, 'email': student.user.email, 'first_name': student.user.first_name, 'last_name': student.user.last_name, 'points': student.user.points} for student in requested_class.student_class_rel]
+        'students': [{'id': student.user.id, 'email': student.user.email, 'first_name': student.user.first_name, 'last_name': student.user.last_name, 'points': student.user.points} for student in requested_class.student_class_rel],
+        'rewards': [{'id': reward.id, 'reward_type': reward.reward_type, 'points': reward.points} for reward in requested_class.class_reward_rel]
     }
     
     return jsonify(class_info)
@@ -210,3 +213,54 @@ def delete_class(class_id):
     db.session.commit()
 
     return jsonify({"message": "Class successfully deleted."})
+
+# Get all rewards from a class
+@class_routes.route('/class/<int:class_id>/rewards')
+@login_required
+def get_rewards(class_id):
+    requested_class = Class.query.get_or_404(class_id)
+
+    if (teacher_check(current_user) is False) or (current_user.id != requested_class.teacher_id):
+        return jsonify({"error": "Unauthorized access"}), 403
+    
+    class_rewards = (
+        db.session.query(Reward)
+            .filter(Reward.class_id == class_id)
+            .all()
+    )
+
+
+    reward_data = []
+    for reward in class_rewards:
+        reward_info ={
+            'id': reward.id,
+            'reward_type': reward.reward_type,
+            'points': reward.points
+        }
+
+        reward_data.append(reward_info)
+    
+    return jsonify(reward_data)
+
+@class_routes.route('/class/<int:class_id>/rewards', methods=["POST"])
+@login_required
+def create_reward(class_id):
+    requested_class = Class.query.get_or_404(class_id)
+
+    if (teacher_check(current_user) is False) or (current_user.id != requested_class.teacher_id):
+        return jsonify({"error": "Unauthorized access"}), 403
+    
+    data = request.get_json()
+    reward_type = data.get("reward_type")
+    points = data.get("points")
+    
+    new_reward = Reward(
+        reward_type=reward_type,
+        points=points,
+        class_id=class_id
+    )
+
+    db.session.add(new_reward)
+    db.session.commit()
+
+    return jsonify(new_reward.to_dict()), 201

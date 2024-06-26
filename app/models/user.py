@@ -56,7 +56,7 @@ class Class(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    student_count = db.Column(db.Integer, nullable=False)
+    student_count = db.Column(db.Integer, nullable=False, default=0)
     subject = db.Column(db.String(30), nullable=False)
     student_invite_code = db.Column(db.String(255), nullable=False)
     parent_invite_code = db.Column(db.String(255), nullable=False)
@@ -65,6 +65,7 @@ class Class(db.Model):
     updated_at = db.Column(db.DateTime, nullable=True)
 
     student_class_rel = db.relationship('StudentClass', backref='class', cascade="all, delete", lazy=True)
+    class_reward_rel = db.relationship('Reward', backref='class', cascade="all, delete", lazy=True)
 
     def to_dict(self):
         students = [{
@@ -75,6 +76,12 @@ class Class(db.Model):
             'points': student.user.points
         } for student in self.student_class_rel]
 
+        rewards = [{
+            'id': reward.id,
+            'reward_type': reward.reward_type,
+            'points': reward.points
+        } for reward in self.class_reward_rel ]
+
         return {
             'id': self.id,
             'student_count': self.student_count,
@@ -82,7 +89,8 @@ class Class(db.Model):
             'student_invite_code': self.student_invite_code,
             'parent_invite_code': self.parent_invite_code,
             'teacher_id': self.teacher_id,
-            'students': students
+            'students': students,
+            'rewards': rewards
         }
 
 class StudentClass(db.Model):
@@ -103,4 +111,27 @@ class StudentClass(db.Model):
             'student_id': self.student_id,
             'class_id': self.class_id,
             'student': self.user.to_dict(),
+        }
+
+class Reward(db.Model):
+    __tablename__ = 'rewards'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+    
+    id = db.Column(db.Integer, primary_key=True)
+    reward_type = db.Column(db.String(20), nullable=False)
+    points = db.Column(db.Integer, nullable=False)
+    class_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('classes.id')), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=True)
+    updated_at = db.Column(db.DateTime, nullable=True)
+
+    reward_class_rel = db.relationship('Class', backref='reward', lazy=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'reward_type': self.reward_type,
+            'points': self.points,
+            'class_id': self.class_id
         }
