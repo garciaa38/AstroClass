@@ -67,13 +67,22 @@ class Class(db.Model):
     student_class_rel = db.relationship('StudentClass', backref='class', cascade="all, delete", lazy=True)
 
     def to_dict(self):
+        students = [{
+            'id': student.user.id,
+            'email': student.user.email,
+            'first_name': student.user.first_name,
+            'last_name': student.user.last_name,
+            'points': student.user.points
+        } for student in self.student_class_rel]
+
         return {
             'id': self.id,
             'student_count': self.student_count,
             'subject': self.subject,
             'student_invite_code': self.student_invite_code,
             'parent_invite_code': self.parent_invite_code,
-            'teacher_id': self.teacher_id
+            'teacher_id': self.teacher_id,
+            'students': students
         }
 
 class StudentClass(db.Model):

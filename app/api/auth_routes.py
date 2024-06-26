@@ -63,7 +63,6 @@ def sign_up():
     Creates a new user and logs them in
     """
     data = request.get_json()
-    print("NEW USER", data)
     email = data.get("email")
     first_name = data.get("firstName")
     last_name = data.get("lastName")
