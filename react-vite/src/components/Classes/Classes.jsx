@@ -1,26 +1,29 @@
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
+import { fetchAllClassesThunk } from "../../redux/classes";
+import { fetchAllStudentsThunk } from "../../redux/students";
 import SignOutModal from "../SignOutModal/SignOutModal";
+import ClassTeacherView from "../ClassTeacherView/ClassTeacherView";
 
 function Classes() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
     const sessionUser = useSelector((state) => state.session.user)
+    const allClasses = Object.values(useSelector((state) => state.classes))
+    useEffect(() => {
+        dispatch(fetchAllClassesThunk(sessionUser?.id))
+        dispatch(fetchAllStudentsThunk())
+    }, [dispatch, sessionUser?.id])
 
     if (sessionUser) {
-        const {first_name, last_name, suffix, role} = sessionUser
-    
-        console.log("SESSION USER", sessionUser)
-    
-        if (role === 'teacher') {
+        console.log("ALL CLASSES", allClasses)
+        if (sessionUser?.role === 'teacher') {
             return (
-                <>
-                    <h1>Hey there {suffix} {last_name}.</h1>
-                    <h2>You are currently signed in as a teacher!</h2>
-                    <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
-                </>
+                <ClassTeacherView sessionUser={sessionUser} navigate={navigate} classes={allClasses}/>
             )
-        } else if (role === 'student') {
+        } else if (sessionUser?.role === 'student') {
             return (
                 <>
                     <h1>Hey there {first_name} {last_name}.</h1>
