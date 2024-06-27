@@ -1,5 +1,5 @@
 export const LOAD_CLASSES = 'classes/LOAD_CLASSES'
-// export const LOAD_CLASS = 'classes/LOAD_CLASS'
+export const LOAD_CLASS = 'classes/LOAD_CLASS'
 
 // ================= ACTION CREATORS =================
 export const loadClasses = (classes) => ({
@@ -7,10 +7,10 @@ export const loadClasses = (classes) => ({
     classes
 })
 
-// export const loadClass = (cls) => ({
-//     type: LOAD_CLASS,
-//     cls
-// })
+export const loadClass = (cls) => ({
+    type: LOAD_CLASS,
+    cls
+})
 
 // ================= THUNKS =================
 
@@ -26,14 +26,17 @@ export const fetchAllClassesThunk = (teacherId) => async (dispatch) => {
 }
 
 export const addStudentToClassThunk = (classId, studentId) => async (dispatch) => {
-    await fetch(`/api/classes/class/${classId}/students/${studentId}`, {
+    const res = await fetch(`/api/classes/class/${classId}/students/${studentId}`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify()
     })
         .then(res => res.json())
         .catch(e => console.error(e))
+    
+    dispatch(loadClass(res))
     }
+
 
 // ================= REDUCER =================
 const classesReducer = (state = {}, action) => {
@@ -46,9 +49,9 @@ const classesReducer = (state = {}, action) => {
             return classesState
         }
 
-        // case LOAD_CLASS: {
-        //     return {...state, [action.class.id]: action.class};
-        // }
+        case LOAD_CLASS: {
+            return {...state, [action.cls.id]: action.cls};
+        }
 
         default:
             return state;
