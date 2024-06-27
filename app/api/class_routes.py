@@ -38,6 +38,7 @@ def check_student_in_class(student_id, student_list):
 @login_required
 def create_class(teacher_id):
     data = request.get_json()
+    class_name = data.get("class_name")
     subject = data.get("subject")
     student_invite_code = generate_student_code()
     parent_invite_code = generate_parent_code()
@@ -50,6 +51,7 @@ def create_class(teacher_id):
 
     new_class = Class(
         student_count=0,
+        class_name=class_name,
         subject=subject,
         student_invite_code=student_invite_code,
         parent_invite_code=parent_invite_code,
@@ -82,6 +84,7 @@ def get_classes(teacher_id):
         print("CLASSES DICT", class_.to_dict())
         class_info ={
             'id': class_.id,
+            'class_name': class_.class_name,
             'student_count': class_.student_count,
             'subject': class_.subject,
             'student_invite_code': class_.student_invite_code,
@@ -114,6 +117,7 @@ def get_class(teacher_id, class_id):
 
     class_info = {
         'id': requested_class.id,
+        'class_name': requested_class.class_name,
         'student_count': requested_class.student_count,
         'subject': requested_class.subject,
         'student_invite_code': requested_class.student_invite_code,
@@ -183,14 +187,16 @@ def remove_student_from_class(class_id, student_id):
     return jsonify({"message": "Student removed from class successfully"}), 200
 
 
-# Edit a class's subject
+# Edit a class
 @class_routes.route('/class/<int:class_id>', methods=['PUT'])
 @login_required
-def edit_class_subject(class_id):
+def edit_class(class_id):
     requested_class = Class.query.get_or_404(class_id)
     data = request.get_json()
+    class_name = data.get('class_name')
     subject = data.get('subject')
 
+    requested_class.class_name = class_name
     requested_class.subject = subject
 
     if (teacher_check(current_user) is False) or (current_user.id != requested_class.teacher_id):

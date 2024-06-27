@@ -152,6 +152,7 @@ def seed_users():
 def seed_classes():
     demo_class_1 = Class(
         student_count=5,
+        class_name='Class 5-1',
         subject='Math',
         student_invite_code='4dDxP5dl',
         parent_invite_code='kL4hKiGu',
@@ -160,14 +161,25 @@ def seed_classes():
 
     demo_class_2 = Class(
         student_count=5,
+        class_name='Class 5-2',
         subject='Reading',
         student_invite_code='NmhbVKZF',
         parent_invite_code='QqGHDK33',
         teacher_id=2
     )
 
+    demo_class_3 = Class(
+        student_count=5,
+        class_name='Class 5-3',
+        subject='Math',
+        student_invite_code='4dDxP5dl',
+        parent_invite_code='kL4hKiGu',
+        teacher_id=1
+    )
+
     db.session.add(demo_class_1)
     db.session.add(demo_class_2)
+    db.session.add(demo_class_3)
     db.session.commit()
 
 def seed_student_class():
@@ -221,6 +233,31 @@ def seed_student_class():
         class_id=2
     )
 
+    demo_student_class_11 = StudentClass(
+        student_id=4,
+        class_id=3
+    )
+
+    demo_student_class_12 = StudentClass(
+        student_id=6,
+        class_id=3
+    )
+
+    demo_student_class_13 = StudentClass(
+        student_id=8,
+        class_id=3
+    )
+
+    demo_student_class_14 = StudentClass(
+        student_id=10,
+        class_id=3
+    )
+
+    demo_student_class_15 = StudentClass(
+        student_id=12,
+        class_id=3
+    )
+
     db.session.add(demo_student_class_1)
     db.session.add(demo_student_class_2)
     db.session.add(demo_student_class_3)
@@ -231,6 +268,11 @@ def seed_student_class():
     db.session.add(demo_student_class_8)
     db.session.add(demo_student_class_9)
     db.session.add(demo_student_class_10)
+    db.session.add(demo_student_class_11)
+    db.session.add(demo_student_class_12)
+    db.session.add(demo_student_class_13)
+    db.session.add(demo_student_class_14)
+    db.session.add(demo_student_class_15)
     db.session.commit()
 
 def seed_rewards():

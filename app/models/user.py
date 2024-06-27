@@ -56,6 +56,7 @@ class Class(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
+    class_name = db.Column(db.String, nullable=False)
     student_count = db.Column(db.Integer, nullable=False, default=0)
     subject = db.Column(db.String(30), nullable=False)
     student_invite_code = db.Column(db.String(255), nullable=False)
@@ -84,6 +85,7 @@ class Class(db.Model):
 
         return {
             'id': self.id,
+            'class_name': self.class_name,
             'student_count': self.student_count,
             'subject': self.subject,
             'student_invite_code': self.student_invite_code,
@@ -104,6 +106,8 @@ class StudentClass(db.Model):
     class_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('classes.id')), nullable=False)
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
+
+    
 
     def to_dict(self):
         return {
