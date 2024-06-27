@@ -157,7 +157,7 @@ def add_student_to_class(class_id, student_id):
 
     db.session.commit()
 
-    return jsonify(new_student.to_dict())
+    return jsonify(requested_class.to_dict())
 
 # Remove a student from a class
 @class_routes.route('/class/<int:class_id>/students/<int:student_id>', methods=['DELETE'])
