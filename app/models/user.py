@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(15), nullable=False)
     suffix = db.Column(db.String(30))
-    points = db.Column(db.Integer)
+    points = db.Column(db.Integer, default=0)
     phone_number = db.Column(db.String(15))
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
