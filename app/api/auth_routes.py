@@ -83,11 +83,39 @@ def sign_up():
         phone_number=phone_number
     )
 
-    print("NEW USER", user.to_dict())
-
     db.session.add(user)
     db.session.commit()
     login_user(user)
+    return jsonify(user.to_dict())
+
+@auth_routes.route('/student-signup', methods=['POST'])
+def student_sign_up():
+    """
+    Creates a new user and logs them in
+    """
+    data = request.get_json()
+    email = data.get("email")
+    first_name = data.get("firstName")
+    last_name = data.get("lastName")
+    password = data.get("password")
+    role = data.get("role")
+    suffix = data.get("suffix")
+    points = data.get("points")
+    phone_number = data.get("phoneNumber")
+
+    user = User (
+        email=email,
+        password=password,
+        first_name=first_name,
+        last_name=last_name,
+        role=role,
+        suffix=suffix,
+        points=points,
+        phone_number=phone_number
+    )
+
+    db.session.add(user)
+    db.session.commit()
     return jsonify(user.to_dict())
 
 @auth_routes.route('/unauthorized')

@@ -1,70 +1,30 @@
-import { useState, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addStudentToClassThunk } from "../../redux/classes";
-import { useModal } from "../../context/Modal";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import StudentSearch from "../StudentSearch/StudentSearch";
+import StudentSignUp from "../StudentSignUp/StudentSignUp";
 
 function AddStudentModal({ cls }) {
-    const dispatch = useDispatch();
-    const { closeModal } = useModal()
     const { id: classId } = cls;
-    const [name, setName] = useState("");
+    const [formAppear, setFormAppear] = useState(false)
     const allStudents = useSelector((state) => Object.values(state.students));
 
-    const searchStudents = useMemo(() => {
-        if (!name) return [];
-        
-        const [firstName, lastName] = name.split(" ");
-        if (!firstName) return [];
-
-        return allStudents.filter(student => {
-            const { first_name, last_name } = student;
-            const matchesFirstName = first_name.toLowerCase().startsWith(firstName.toLowerCase());
-            const matchesLastName = lastName ? last_name.toLowerCase().startsWith(lastName.toLowerCase()) : true;
-            const isInClass = student.classes.some(cls => cls.id === classId);
-
-            return (matchesFirstName && matchesLastName) && !isInClass;
-        });
-    }, [name, classId, allStudents]);
-
-    const handleInputChange = (e) => {
-        setName(e.target.value);
-    };
-
-    const addStudent = async student => {
-        console.log("ADDING STUDENT", student)
-        await dispatch(addStudentToClassThunk(classId, student.id))
-        closeModal();
+    if (!formAppear) {
+        return (
+            <>
+                <h1>Add a Student here!</h1>
+                <StudentSearch allStudents={allStudents} classId={classId} />
+                <h3>{`Don't see your student?`} <button onClick={() => setFormAppear(true)}>Sign them up ahead of time to get them started!</button></h3>
+            </>
+        );
+    } else {
+        return (
+            <>
+                <h1>Sign up your student below using their school email and password!</h1>
+                <StudentSignUp classId={classId} />
+            </>
+        )
     }
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-    };
-
-    return (
-        <>
-            <h1>Add a Student here!</h1>
-            <form onSubmit={handleFormSubmit}>
-                <label>
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={handleInputChange}
-                        placeholder="Enter first and last name"
-                    />
-                </label>
-                {name && (
-                    <div>
-                        <h2>Search Results:</h2>
-                        <ul>
-                            {searchStudents.map(student => (
-                                <button key={student.id} onClick={() => addStudent(student)}>{student.first_name} {student.last_name}</button>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-            </form>
-        </>
-    );
 }
 
 export default AddStudentModal;
