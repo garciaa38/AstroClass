@@ -1,5 +1,12 @@
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import StudentInfoModal from "../StudentInfoModal/StudentInfoModal";
+
 function ClassInfo({cls}) {
-    const {class_name, students, subject, rewards} = cls
+    const {class_name, students, id: classId, rewards, feedback} = cls;
+
+    console.log("CLASS", cls)
+
+    console.log("ALL STUDENTS", students)
 
     const sortStudents = studentArr => {
         if (studentArr.length <= 1) {
@@ -26,17 +33,19 @@ function ClassInfo({cls}) {
 
         return [...sortStudents(leftArr), pivot, ...sortStudents(rightArr)]
     }
-        
+
     return (
         <>
             <h1>This is {class_name}</h1>
             <h2>Here are your students:</h2>
             {sortStudents(students).map((student) => {
                 return(
-                    <>
-                        <h3>{student.first_name} {student.last_name}</h3>
-                        <h4>Points: {student.points}</h4>
-                    </>
+                    <div key={student.id}>
+                        <OpenModalButton 
+                            buttonText={`${student.first_name} ${student.last_name} Points: ${student.points}`}
+                            modalComponent={<StudentInfoModal student={student} classId={classId} rewards={rewards} feedback={feedback}/>}
+                        />
+                    </div>
                 )
             })}
         </>

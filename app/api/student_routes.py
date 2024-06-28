@@ -23,6 +23,7 @@ def get_students():
     for student in all_students:
         class_info = [{
             'id': student_class.class_id,
+            'points': student_class.points
         } for student_class in student.class_student_rel]
 
         student_info = {

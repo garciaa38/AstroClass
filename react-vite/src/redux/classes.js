@@ -35,7 +35,19 @@ export const addStudentToClassThunk = (classId, studentId) => async (dispatch) =
         .catch(e => console.error(e))
     
     dispatch(loadClass(res))
-    }
+}
+
+export const addRewardToClassThunk = (classId, reward) => async (dispatch) => {
+    const res = await fetch(`/api/classes/class/${classId}/rewards`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(reward)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    
+    dispatch(loadClass(res))
+}
 
 
 // ================= REDUCER =================

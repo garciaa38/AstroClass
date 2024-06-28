@@ -5,7 +5,7 @@ from app.models import User, Class, StudentClass, db, Reward
 
 reward_routes = Blueprint('rewards', __name__)
 
-#Get reward by id
+# Get reward by id
 @reward_routes.route('/<int:reward_id>')
 @login_required
 def get_reward_by_id(reward_id):
@@ -13,7 +13,7 @@ def get_reward_by_id(reward_id):
 
     return jsonify(requested_reward.to_dict())
 
-#Update a reward
+# Update a reward
 @reward_routes.route('/<int:reward_id>', methods=["PUT"])
 @login_required
 def update_reward(reward_id):
@@ -29,7 +29,7 @@ def update_reward(reward_id):
 
     return jsonify(requested_reward.to_dict())
 
-#Delete a reward
+# Delete a reward
 @reward_routes.route('/<int:reward_id>', methods=["DELETE"])
 @login_required
 def delete_reward(reward_id):

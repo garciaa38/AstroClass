@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
-from app.models import User, Class, StudentClass, db, Reward
+from app.models import User, Class, StudentClass, db, Reward, Feedback
 import uuid
 
 class_routes = Blueprint('classes', __name__)
@@ -82,18 +82,7 @@ def get_classes(teacher_id):
     class_data = []
     for class_ in classes:
         print("CLASSES DICT", class_.to_dict())
-        class_info ={
-            'id': class_.id,
-            'class_name': class_.class_name,
-            'student_count': class_.student_count,
-            'subject': class_.subject,
-            'student_invite_code': class_.student_invite_code,
-            'parent_invite_code': class_.parent_invite_code,
-            'teacher_id': class_.teacher_id,
-            'students': [{'id': student.user.id, 'email': student.user.email, 'first_name': student.user.first_name, 'last_name': student.user.last_name, 'points': student.user.points} for student in class_.student_class_rel],
-            'rewards': [{'id': reward.id, 'reward_type': reward.reward_type, 'points': reward.points} for reward in class_.class_reward_rel]
-        }
-
+        class_info = class_.to_dict()
         class_data.append(class_info)
     
     return jsonify(class_data)
@@ -114,20 +103,8 @@ def get_class(teacher_id, class_id):
 
     if (current_user.id != teacher_id) or (teacher_check(current_user) is False) or (current_user.id != requested_class.teacher_id):
         return jsonify({"error": "Unauthorized access"}), 403
-
-    class_info = {
-        'id': requested_class.id,
-        'class_name': requested_class.class_name,
-        'student_count': requested_class.student_count,
-        'subject': requested_class.subject,
-        'student_invite_code': requested_class.student_invite_code,
-        'parent_invite_code': requested_class.parent_invite_code,
-        'teacher_id': requested_class.teacher_id,
-        'students': [{'id': student.user.id, 'email': student.user.email, 'first_name': student.user.first_name, 'last_name': student.user.last_name, 'points': student.user.points} for student in requested_class.student_class_rel],
-        'rewards': [{'id': reward.id, 'reward_type': reward.reward_type, 'points': reward.points} for reward in requested_class.class_reward_rel]
-    }
     
-    return jsonify(class_info)
+    return jsonify(requested_class.to_dict())
 
 # Add a student to a class
 @class_routes.route('/class/<int:class_id>/students/<int:student_id>', methods=['POST'])
@@ -144,7 +121,8 @@ def add_student_to_class(class_id, student_id):
 
     new_student = StudentClass(
         student_id=requested_student.id,
-        class_id=requested_class.id
+        class_id=requested_class.id,
+        points=0
     )
 
     if (teacher_check(current_user) is False) or (current_user.id != requested_class.teacher_id):
@@ -248,6 +226,8 @@ def get_rewards(class_id):
     
     return jsonify(reward_data)
 
+
+# Create a reward for a class
 @class_routes.route('/class/<int:class_id>/rewards', methods=["POST"])
 @login_required
 def create_reward(class_id):
@@ -259,6 +239,9 @@ def create_reward(class_id):
     data = request.get_json()
     reward_type = data.get("reward_type")
     points = data.get("points")
+
+    if int(points) <= 0:
+        return jsonify({"error": "Rewards must be higher than 0 points."})
     
     new_reward = Reward(
         reward_type=reward_type,
@@ -269,4 +252,53 @@ def create_reward(class_id):
     db.session.add(new_reward)
     db.session.commit()
 
-    return jsonify(new_reward.to_dict()), 201
+    return jsonify(requested_class.to_dict()), 201
+
+# Get all feedback from a class
+@class_routes.route('/class/<int:class_id>/feedback')
+@login_required
+def get_feedback(class_id):
+    requested_class = Class.query.get_or_404(class_id)
+
+    if (teacher_check(current_user) is False) or (current_user.id != requested_class.teacher_id):
+        return jsonify({"error": "Unauthorized access"}), 403
+    
+    class_feedback = (
+        db.session.query(Feedback)
+            .filter(Feedback.class_id == class_id)
+            .all()
+    )
+
+    feedback_data = []
+    for feedback in class_feedback:
+        feedback_data.append(feedback.to_dict())
+    
+    return jsonify(feedback_data)
+
+
+# Create feedback for a class
+@class_routes.route('/class/<int:class_id>/feedback', methods=["POST"])
+@login_required
+def create_feedback(class_id):
+    requested_class = Class.query.get_or_404(class_id)
+
+    if (teacher_check(current_user) is False) or (current_user.id != requested_class.teacher_id):
+        return jsonify({"error": "Unauthorized access"}), 403
+    
+    data = request.get_json()
+    feedback_type = data.get("feedback_type")
+    points = data.get("points")
+
+    if points >= 0:
+        return jsonify({"error": "Feedback points must be negative."})
+    
+    new_feedback = Feedback(
+        feedback_type=feedback_type,
+        points=points,
+        class_id=class_id
+    )
+
+    db.session.add(new_feedback)
+    db.session.commit()
+
+    return jsonify(new_feedback.to_dict()), 201

@@ -46,7 +46,7 @@ def demo_login():
         user = User.query.filter(User.email == 'demoKid1@aa.io').first()
         login_user(user)
         return user.to_dict()
-    return jsonify({error: "Something went wrong"})
+    return jsonify({"error": "Something went wrong"})
 
 @auth_routes.route('/logout')
 def logout():
