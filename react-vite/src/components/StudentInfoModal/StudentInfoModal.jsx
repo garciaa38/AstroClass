@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import AddReward from "../AddReward/AddReward";
 import AddFeedback from "../AddFeedback/AddFeedback";
 import RewardForm from "../RewardForm/RewardForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchAllRewardsThunk } from "../../redux/rewards";
 
 function StudentInfoModal({student, classId, rewards, feedback}) {
@@ -11,6 +11,17 @@ function StudentInfoModal({student, classId, rewards, feedback}) {
     const [addRewardFormAppear, setAddRewardFormAppear] = useState(false);
     const [addFeedbackFormAppear, setAddFeedbackFormAppear] = useState(false);
     const [editStudentInfoAppear, setEditStudentInfoAppear] = useState(false);
+    const [rewardsState, setRewardsState] = useState(rewards);
+
+    useEffect(() => {
+        dispatch(fetchAllRewardsThunk(classId))
+    }, [dispatch, classId])
+
+    const handleRewardUpdate = (newReward) => {
+        setRewardsState((prevRewards) => [...prevRewards, newReward]);
+    }
+
+    console.log("CLASS REWARDS", rewardsState)
 
     if (!addRewardFormAppear && !addFeedbackFormAppear && !editStudentInfoAppear) {
         return (
@@ -18,7 +29,7 @@ function StudentInfoModal({student, classId, rewards, feedback}) {
                 <h1>{`${first_name} ${last_name}`}</h1>
                 <h2>{`Points: ${points}`}</h2>
 
-                <AddReward first_name={first_name} rewards={rewards}/>
+                <AddReward first_name={first_name} rewards={rewardsState}/>
                 <button onClick={() => setAddRewardFormAppear(true)}>Add a Reward</button>
 
                 <AddFeedback first_name={first_name} feedback={feedback}/>
@@ -30,7 +41,7 @@ function StudentInfoModal({student, classId, rewards, feedback}) {
     } else if (addRewardFormAppear) {
         return (
             <>
-                <RewardForm classId={classId} setAddRewardFormAppear={setAddRewardFormAppear}/>
+                <RewardForm classId={classId} setAddRewardFormAppear={setAddRewardFormAppear} handleRewardUpdate={handleRewardUpdate}/>
             </>
         )
     } else if (addFeedbackFormAppear) {

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addRewardToClassThunk } from "../../redux/classes";
-import { fetchAllRewardsThunk } from "../../redux/rewards";
 
-function RewardForm({classId, setAddRewardFormAppear}) {
+function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
     const dispatch = useDispatch()
     const [rewardType, setRewardType] = useState("");
     const [pointsEarned, setPointsEarned] = useState(1);
@@ -11,14 +10,14 @@ function RewardForm({classId, setAddRewardFormAppear}) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        await dispatch(
-            addRewardToClassThunk(classId, {
-                reward_type: rewardType,
-                points: pointsEarned
-            })
-        )
+        const newReward = {
+            reward_type: rewardType,
+            points: pointsEarned
+        }
 
-        await dispatch(fetchAllRewardsThunk(classId));
+        await dispatch(addRewardToClassThunk(classId, newReward))
+
+        handleRewardUpdate(newReward)
 
         setAddRewardFormAppear(false);
     }
