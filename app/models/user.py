@@ -36,6 +36,13 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+    
+    def get_classes(self):
+        return [{
+            'id': student_class.id,
+            'class_id': student_class.class_id,
+            'points': student_class.points
+        } for student_class in self.class_student_rel]
 
     def to_dict(self):
         return {
@@ -46,7 +53,8 @@ class User(db.Model, UserMixin):
             'role': self.role,
             'suffix': self.suffix,
             'points': self.points,
-            'phone_number': self.phone_number
+            'phone_number': self.phone_number,
+            'classes': self.get_classes()
         }
 
 class Class(db.Model):
@@ -67,6 +75,7 @@ class Class(db.Model):
 
     student_class_rel = db.relationship('StudentClass', backref='class', cascade="all, delete", lazy=True)
     class_reward_rel = db.relationship('Reward', backref='class', cascade="all, delete", lazy=True)
+    class_feedback_rel = db.relationship('Feedback', backref='class', cascade="all, delete", lazy=True)
 
     def to_dict(self):
         students = [{
@@ -74,14 +83,23 @@ class Class(db.Model):
             'email': student.user.email,
             'first_name': student.user.first_name,
             'last_name': student.user.last_name,
-            'points': student.user.points
+            'points': student.points,
+            'student_class_id': student.id
         } for student in self.student_class_rel]
+
+        print("STUDENT POINTS", students)
 
         rewards = [{
             'id': reward.id,
             'reward_type': reward.reward_type,
             'points': reward.points
         } for reward in self.class_reward_rel ]
+
+        feedback = [{
+            'id': feedback.id,
+            'feedback_type': feedback.feedback_type,
+            'points': feedback.points
+        } for feedback in self.class_feedback_rel ]
 
         return {
             'id': self.id,
@@ -92,7 +110,8 @@ class Class(db.Model):
             'parent_invite_code': self.parent_invite_code,
             'teacher_id': self.teacher_id,
             'students': students,
-            'rewards': rewards
+            'rewards': rewards,
+            'feedback': feedback
         }
 
 class StudentClass(db.Model):
@@ -104,6 +123,7 @@ class StudentClass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     class_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('classes.id')), nullable=False)
+    points = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
 
@@ -114,6 +134,7 @@ class StudentClass(db.Model):
             'id': self.id,
             'student_id': self.student_id,
             'class_id': self.class_id,
+            'points': self.points,
             'student': self.user.to_dict(),
         }
 
@@ -136,6 +157,29 @@ class Reward(db.Model):
         return {
             'id': self.id,
             'reward_type': self.reward_type,
+            'points': self.points,
+            'class_id': self.class_id
+        }
+
+class Feedback(db.Model):
+    __tablename__ = 'feedback'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+    
+    id = db.Column(db.Integer, primary_key=True)
+    feedback_type = db.Column(db.String(20), nullable=False)
+    points = db.Column(db.Integer, nullable=False)
+    class_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('classes.id')), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=True)
+    updated_at = db.Column(db.DateTime, nullable=True)
+
+    feedback_class_rel = db.relationship('Class', backref='feedback', lazy=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'feedback_type': self.feedback_type,
             'points': self.points,
             'class_id': self.class_id
         }

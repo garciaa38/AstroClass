@@ -1,4 +1,4 @@
-from app.models import db, User, environment, SCHEMA, Class, StudentClass, Reward
+from app.models import db, User, environment, SCHEMA, Class, StudentClass, Reward, Feedback
 from sqlalchemy.sql import text
 
 
@@ -185,77 +185,92 @@ def seed_classes():
 def seed_student_class():
     demo_student_class_1 = StudentClass(
         student_id=3,
-        class_id=1
+        class_id=1,
+        points=10
     )
 
     demo_student_class_2 = StudentClass(
         student_id=5,
-        class_id=1
+        class_id=1,
+        points=9
     )
 
     demo_student_class_3 = StudentClass(
         student_id=7,
-        class_id=1
+        class_id=1,
+        points=8
     )
 
     demo_student_class_4 = StudentClass(
         student_id=9,
-        class_id=1
+        class_id=1,
+        points=7
     )
 
     demo_student_class_5 = StudentClass(
         student_id=11,
-        class_id=1
+        class_id=1,
+        points=6
     )
 
     demo_student_class_6 = StudentClass(
         student_id=4,
-        class_id=2
+        class_id=2,
+        points=5
     )
 
     demo_student_class_7 = StudentClass(
         student_id=6,
-        class_id=2
+        class_id=2,
+        points=4
     )
 
     demo_student_class_8 = StudentClass(
         student_id=8,
-        class_id=2
+        class_id=2,
+        points=3
     )
 
     demo_student_class_9 = StudentClass(
         student_id=10,
-        class_id=2
+        class_id=2,
+        points=2
     )
 
     demo_student_class_10 = StudentClass(
         student_id=12,
-        class_id=2
+        class_id=2,
+        points=1
     )
 
     demo_student_class_11 = StudentClass(
         student_id=4,
-        class_id=3
+        class_id=3,
+        points=5
     )
 
     demo_student_class_12 = StudentClass(
         student_id=6,
-        class_id=3
+        class_id=3,
+        points=4
     )
 
     demo_student_class_13 = StudentClass(
         student_id=8,
-        class_id=3
+        class_id=3,
+        points=3
     )
 
     demo_student_class_14 = StudentClass(
         student_id=10,
-        class_id=3
+        class_id=3,
+        points=2
     )
 
     demo_student_class_15 = StudentClass(
         student_id=12,
-        class_id=3
+        class_id=3,
+        points=1
     )
 
     db.session.add(demo_student_class_1)
@@ -334,6 +349,51 @@ def seed_rewards():
     db.session.add(test_passed_2)
     db.session.commit()
 
+def seed_feedback():
+    lack_of_effort_1 = Feedback(
+        feedback_type="Lack of Effort",
+        points=-1,
+        class_id=1,
+    )
+
+    lack_of_effort_2 = Feedback(
+        feedback_type="Lack of Effort",
+        points=-1,
+        class_id=2,
+    )
+
+    missing_homework_1 = Feedback(
+        feedback_type="Missing Homework",
+        points=-2,
+        class_id=1,
+    )
+
+    missing_homework_2 = Feedback(
+        feedback_type="Missing Homework",
+        points=-2,
+        class_id=2,
+    )
+
+    disrupting_class_1 = Feedback(
+        feedback_type="Disruptive Behavior",
+        points=-3,
+        class_id=1,
+    )
+
+    disrupting_class_2 = Feedback(
+        feedback_type="Disruptive Behavior",
+        points=-3,
+        class_id=2,
+    )
+
+    db.session.add(lack_of_effort_1)
+    db.session.add(lack_of_effort_2)
+    db.session.add(missing_homework_1)
+    db.session.add(missing_homework_2)
+    db.session.add(disrupting_class_1)
+    db.session.add(disrupting_class_2)
+    db.session.commit()
+
 
 
 
@@ -351,5 +411,6 @@ def undo_users():
         db.session.execute(text("DELETE FROM classes"))
         db.session.execute(text("DELETE FROM student_class"))
         db.session.execute(text("DELETE FROM rewards"))
+        db.session.execute(text("DELETE FROM feedback"))
         
     db.session.commit()

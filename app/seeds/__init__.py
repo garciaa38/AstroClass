@@ -1,5 +1,5 @@
 from flask.cli import AppGroup
-from .users import seed_users, undo_users, seed_classes, seed_student_class, seed_rewards
+from .users import seed_users, undo_users, seed_classes, seed_student_class, seed_rewards, seed_feedback
 
 from app.models.db import db, environment, SCHEMA
 
@@ -21,6 +21,7 @@ def seed():
     seed_classes()
     seed_student_class()
     seed_rewards()
+    seed_feedback()
     # Add other seed functions here
 
 

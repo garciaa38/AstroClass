@@ -21,9 +21,9 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
             <h3>Please select a class below:</h3>
             {classes?.map((cls, index) => {
                 return (
-                    <>
+                    <div key={cls?.id}>
                         <button onClick={() => setCurrClassIdx(index)}>{cls.class_name}</button>
-                    </>
+                    </div>
                 )
             })}
 

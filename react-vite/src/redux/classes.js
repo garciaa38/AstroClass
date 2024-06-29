@@ -35,7 +35,57 @@ export const addStudentToClassThunk = (classId, studentId) => async (dispatch) =
         .catch(e => console.error(e))
     
     dispatch(loadClass(res))
-    }
+}
+
+export const addRewardToClassThunk = (classId, reward) => async (dispatch) => {
+    const res = await fetch(`/api/classes/class/${classId}/rewards`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(reward)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+        
+    dispatch(loadClass(res[0]))
+    return res[1]
+}
+
+export const addFeedbackToClassThunk = (classId, feedback) => async (dispatch) => {
+    const res = await fetch(`/api/classes/class/${classId}/feedback`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(feedback)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    
+    dispatch(loadClass(res[0]))
+    return res[1]
+}
+
+export const addPointsToStudentThunk = (student_class_id, reward_id) => async (dispatch) => {
+    const res = await fetch(`/api/students/student-class/${student_class_id}/rewards/${reward_id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify()
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    
+    dispatch(loadClass(res))
+}
+
+export const removePointsFromStudentThunk = (student_class_id, feedback_id) => async (dispatch) => {
+    const res = await fetch(`/api/students/student-class/${student_class_id}/feedback/${feedback_id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify()
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    
+    dispatch(loadClass(res))
+}
 
 
 // ================= REDUCER =================

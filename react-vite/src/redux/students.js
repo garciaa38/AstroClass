@@ -13,7 +13,7 @@ export const fetchAllStudentsThunk = () => async (dispatch) => {
         .then(res => res.json())
         .catch(e => console.error(e))
     
-        dispatch(loadStudents(res))
+    dispatch(loadStudents(res))
 }
 
 // ================= REDUCER =================
