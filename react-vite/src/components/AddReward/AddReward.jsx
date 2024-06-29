@@ -5,7 +5,7 @@ import { useModal } from "../../context/Modal";
 
 function AddReward({first_name, rewards, student_class_id }) {
     const dispatch = useDispatch();
-    const { closeModal } = useModal()
+    const { closeModal } = useModal();
 
 
     const addPoints = async (student_class_id, rewardId) => {

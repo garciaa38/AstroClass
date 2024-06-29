@@ -124,3 +124,15 @@ def edit_student(student_id, class_id):
 
     return jsonify(requested_class.to_dict())
 
+# Remove student from class
+@student_routes.route('/<int:student_class_id>', methods=["DELETE"])
+@login_required
+def remove_student(student_class_id):
+    student = StudentClass.query.get_or_404(student_class_id)
+    requested_class = Class.query.get_or_404(student.class_id)
+
+    db.session.delete(student)
+    db.session.commit()
+
+    return jsonify(requested_class.to_dict())
+
