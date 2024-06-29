@@ -3,6 +3,7 @@ import AddReward from "../AddReward/AddReward";
 import AddFeedback from "../AddFeedback/AddFeedback";
 import RewardForm from "../RewardForm/RewardForm";
 import FeedbackForm from "../FeedbackForm/FeedbackForm";
+import EditStudentForm from "../EditStudentForm/EditStudentForm";
 import { useDispatch } from "react-redux";
 import { fetchAllRewardsThunk } from "../../redux/rewards";
 import { fetchAllFeedbackThunk } from "../../redux/feedback";
@@ -63,7 +64,7 @@ function StudentInfoModal({student, classId, rewards, feedback}) {
     } else if (editStudentInfoAppear) {
         return (
             <>
-                Edit student info here
+                <EditStudentForm student={student} classId={classId}/>
             </>
         )
     }

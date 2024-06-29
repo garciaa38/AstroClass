@@ -38,7 +38,7 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
             <label>
                 <input
                     type="number"
-                    placeholder="points earned"
+                    placeholder="Points Earned"
                     value={pointsEarned}
                     onChange={(e) => setPointsEarned(e.target.value)}
                     min="1"

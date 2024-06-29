@@ -25,6 +25,15 @@ export const fetchAllClassesThunk = (teacherId) => async (dispatch) => {
     
 }
 
+export const fetchClassByIdThunk = (teacher_id, classId) => async (dispatch) => {
+    const res = await fetch(`/api/classes/${classId}/teacher/${teacher_id}`)
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    
+        dispatch(loadClass(res))
+}
+
+
 export const addStudentToClassThunk = (classId, studentId) => async (dispatch) => {
     const res = await fetch(`/api/classes/class/${classId}/students/${studentId}`, {
         method: 'POST',
@@ -85,6 +94,19 @@ export const removePointsFromStudentThunk = (student_class_id, feedback_id) => a
         .catch(e => console.error(e))
     
     dispatch(loadClass(res))
+}
+
+export const editStudentInfoThunk = (student, class_id) => async (dispatch) => {
+    console.log("EDIT STUDENT", student)
+    const res = await fetch(`/api/students/${student.id}/class/${class_id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(student)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    
+        dispatch(loadClass(res))
 }
 
 

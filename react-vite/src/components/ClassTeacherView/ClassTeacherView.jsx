@@ -3,10 +3,19 @@ import SignOutModal from "../SignOutModal/SignOutModal";
 import AddStudentModal from "../AddStudentModal/AddStudentModal";
 import ClassInfo from "../ClassInfo/ClassInfo";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchClassByIdThunk } from "../../redux/classes";
 
 function ClassTeacherView({sessionUser, navigate, classes}) {
+    const dispatch = useDispatch()
     const {last_name, suffix} = sessionUser;
     const [currClassIdx, setCurrClassIdx] = useState(0)
+
+    const switchClass = async (idx, classId, teacherId) => {
+        await dispatch(fetchClassByIdThunk(teacherId, classId))
+
+        await setCurrClassIdx(idx)
+    }
 
     
 
@@ -22,7 +31,8 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
             {classes?.map((cls, index) => {
                 return (
                     <div key={cls?.id}>
-                        <button onClick={() => setCurrClassIdx(index)}>{cls.class_name}</button>
+                        {/* <button onClick={() => setCurrClassIdx(index)}>{cls.class_name}</button> */}
+                        <button onClick={() => switchClass(index, cls.id, sessionUser.id)}>{cls.class_name}</button>
                     </div>
                 )
             })}
