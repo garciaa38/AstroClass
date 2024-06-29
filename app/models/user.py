@@ -39,6 +39,7 @@ class User(db.Model, UserMixin):
     
     def get_classes(self):
         return [{
+            'id': student_class.id,
             'class_id': student_class.class_id,
             'points': student_class.points
         } for student_class in self.class_student_rel]
@@ -82,7 +83,8 @@ class Class(db.Model):
             'email': student.user.email,
             'first_name': student.user.first_name,
             'last_name': student.user.last_name,
-            'points': student.points
+            'points': student.points,
+            'student_class_id': student.id
         } for student in self.student_class_rel]
 
         print("STUDENT POINTS", students)

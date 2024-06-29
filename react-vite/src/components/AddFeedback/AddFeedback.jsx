@@ -1,7 +1,15 @@
-import { useState } from "react"
+import { removePointsFromStudentThunk } from "../../redux/classes";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
 
-function AddFeedback({first_name, feedback }) {
+function AddFeedback({first_name, feedback, student_class_id }) {
+    const dispatch = useDispatch();
+    const { closeModal } = useModal();
 
+    const removePoints = async (student_class_id, rewardId) => {
+        await dispatch(removePointsFromStudentThunk(student_class_id, rewardId))
+        closeModal()
+    }
 
     return (
         <>
@@ -9,7 +17,7 @@ function AddFeedback({first_name, feedback }) {
                 {feedback.map(feedback => {
                     return (
                         <div key={feedback.id}>
-                            <h4>{feedback.feedback_type} {feedback.points}</h4>
+                            <button onClick={() => removePoints(student_class_id, feedback.id)}>{feedback.feedback_type} {feedback.points}</button>
                         </div>
                     )
                 })}

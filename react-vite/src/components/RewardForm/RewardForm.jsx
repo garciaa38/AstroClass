@@ -15,9 +15,9 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
             points: pointsEarned
         }
 
-        await dispatch(addRewardToClassThunk(classId, newReward))
+        const serverResponse = await dispatch(addRewardToClassThunk(classId, newReward))
 
-        handleRewardUpdate(newReward)
+        handleRewardUpdate(serverResponse)
 
         setAddRewardFormAppear(false);
     }

@@ -252,7 +252,7 @@ def create_reward(class_id):
     db.session.add(new_reward)
     db.session.commit()
 
-    return jsonify(requested_class.to_dict()), 201
+    return jsonify(requested_class.to_dict(), new_reward.to_dict()), 201
 
 # Get all feedback from a class
 @class_routes.route('/class/<int:class_id>/feedback')
@@ -301,4 +301,4 @@ def create_feedback(class_id):
     db.session.add(new_feedback)
     db.session.commit()
 
-    return jsonify(requested_class.to_dict()), 201
+    return jsonify(requested_class.to_dict(), new_feedback.to_dict()), 201

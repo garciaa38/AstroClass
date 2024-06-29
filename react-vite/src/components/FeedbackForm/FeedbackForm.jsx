@@ -15,9 +15,9 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
             points: pointsLost
         }
 
-        await dispatch(addFeedbackToClassThunk(classId, newFeedback))
+        const serverResponse = await dispatch(addFeedbackToClassThunk(classId, newFeedback))
 
-        handleFeedbackUpdate(newFeedback)
+        handleFeedbackUpdate(serverResponse)
 
         setAddFeedbackFormAppear(false);
     }

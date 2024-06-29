@@ -9,12 +9,14 @@ import { fetchAllFeedbackThunk } from "../../redux/feedback";
 
 function StudentInfoModal({student, classId, rewards, feedback}) {
     const dispatch = useDispatch()
-    const {first_name, last_name, email, points, id: studentId} = student;
+    const {first_name, last_name, email, points, id: studentId, student_class_id} = student;
     const [addRewardFormAppear, setAddRewardFormAppear] = useState(false);
     const [addFeedbackFormAppear, setAddFeedbackFormAppear] = useState(false);
     const [editStudentInfoAppear, setEditStudentInfoAppear] = useState(false);
     const [rewardsState, setRewardsState] = useState(rewards);
     const [feedbackState, setFeedbackState] = useState(feedback);
+
+    console.log("ONE STUDENT", student)
 
     useEffect(() => {
         dispatch(fetchAllRewardsThunk(classId))
@@ -37,10 +39,10 @@ function StudentInfoModal({student, classId, rewards, feedback}) {
                 <h1>{`${first_name} ${last_name}`}</h1>
                 <h2>{`Points: ${points}`}</h2>
 
-                <AddReward first_name={first_name} rewards={rewardsState}/>
+                <AddReward first_name={first_name} rewards={rewardsState} student_class_id={student_class_id}/>
                 <button onClick={() => setAddRewardFormAppear(true)}>Add a Reward</button>
 
-                <AddFeedback first_name={first_name} feedback={feedbackState}/>
+                <AddFeedback first_name={first_name} feedback={feedbackState} student_class_id={student_class_id}/>
                 <button onClick={() => setAddFeedbackFormAppear(true)}>Add Feedback</button>
 
                 <button onClick={() => setEditStudentInfoAppear(true)}>{`Edit ${first_name}'s information.`}</button>
