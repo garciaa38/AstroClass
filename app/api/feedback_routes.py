@@ -17,25 +17,34 @@ def get_reward_by_id(feedback_id):
 @feedback_routes.route('/<int:feedback_id>', methods=["PUT"])
 @login_required
 def update_feedback(feedback_id):
+    print("HELLOO???")
     data = request.get_json()
     feedback_type = data.get('feedback_type')
     points = data.get('points')
+    classId = data.get('classId')
 
-    requested_feedback = Reward.query.get_or_404(feedback_id)
+
+    requested_feedback = Feedback.query.get_or_404(feedback_id)
     requested_feedback.feedback_type = feedback_type
     requested_feedback.points = points
 
     db.session.commit()
 
-    return jsonify(requested_feedback.to_dict())
+    requested_class = Class.query.get_or_404(classId)
+
+    return jsonify(requested_class.to_dict())
 
 # Delete feedback
 @feedback_routes.route('/<int:feedback_id>', methods=["DELETE"])
 @login_required
 def delete_feedback(feedback_id):
     requested_feedback = Feedback.query.get_or_404(feedback_id)
+    data = request.get_json()
+    classId = data.get('classId')
 
     db.session.delete(requested_feedback)
     db.session.commit()
 
-    return jsonify({'message': 'Feedback successfully deleted!'})
+    requested_class = Class.query.get_or_404(classId)
+
+    return jsonify(requested_class.to_dict(), {'message': 'Feedback successfully deleted!'})

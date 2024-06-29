@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editStudentInfoThunk } from "../../redux/classes";
+import { editStudentInfoThunk, removeStudentFromClassThunk } from "../../redux/classes";
 import { useModal } from "../../context/Modal";
 
 function EditStudentForm({student, classId}) {
@@ -27,6 +27,11 @@ function EditStudentForm({student, classId}) {
 
     }
 
+    const removeStudent = async (student_class_id) => {
+        await dispatch(removeStudentFromClassThunk(student_class_id))
+        closeModal()
+    }
+
     return (
         <>
             <h2>Edit Student Information</h2>
@@ -49,6 +54,7 @@ function EditStudentForm({student, classId}) {
                 </label>
                 <button type="submit">Update Student Info</button>
             </form>
+            <button onClick={() => removeStudent(student_class_id)}>Remove student from class</button>
         </>
     )
 }

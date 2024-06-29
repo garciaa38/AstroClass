@@ -20,6 +20,8 @@ def update_reward(reward_id):
     data = request.get_json()
     reward_type = data.get('reward_type')
     points = data.get('points')
+    classId = data.get('classId')
+
 
     requested_reward = Reward.query.get_or_404(reward_id)
     requested_reward.reward_type = reward_type
@@ -27,15 +29,21 @@ def update_reward(reward_id):
 
     db.session.commit()
 
-    return jsonify(requested_reward.to_dict())
+    requested_class = Class.query.get_or_404(classId)
+
+    return jsonify(requested_class.to_dict())
 
 # Delete a reward
 @reward_routes.route('/<int:reward_id>', methods=["DELETE"])
 @login_required
 def delete_reward(reward_id):
     requested_reward = Reward.query.get_or_404(reward_id)
+    data = request.get_json()
+    classId = data.get('classId')
 
     db.session.delete(requested_reward)
     db.session.commit()
 
-    return jsonify({'message': 'Reward successfully deleted!'})
+    requested_class = Class.query.get_or_404(classId)
+
+    return jsonify(requested_class.to_dict(), {'message': 'Reward successfully deleted!'})

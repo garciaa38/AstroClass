@@ -2,6 +2,7 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import SignOutModal from "../SignOutModal/SignOutModal";
 import AddStudentModal from "../AddStudentModal/AddStudentModal";
 import ClassInfo from "../ClassInfo/ClassInfo";
+import AddClassModal from "../AddClassModal/AddClassModal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchClassByIdThunk } from "../../redux/classes";
@@ -20,7 +21,16 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
     
 
     if (classes.length < 1) {
-        return <h1>Loading...</h1>
+        return (
+            <>
+                <h1>You have no classes</h1>
+                <OpenModalButton
+                    buttonText="Add a class now to get started!"
+                    modalComponent={<AddClassModal sessionUser={sessionUser} />}
+                />
+                <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
+            </>
+        )
     }
 
     return (
@@ -36,8 +46,9 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                     </div>
                 )
             })}
+            <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} />}/>
 
-            <ClassInfo cls={classes[currClassIdx]} />
+            <ClassInfo cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} />
 
             <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={classes[currClassIdx]}/>}/>
 

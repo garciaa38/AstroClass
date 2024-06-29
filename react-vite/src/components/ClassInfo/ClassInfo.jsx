@@ -1,7 +1,8 @@
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import StudentInfoModal from "../StudentInfoModal/StudentInfoModal";
+import EditClass from "../EditClass/EditClass";
 
-function ClassInfo({cls}) {
+function ClassInfo({cls, currClassIdx, setCurrClassIdx}) {
     const {class_name, students, id: classId, rewards, feedback} = cls;
 
     console.log("CLASS", cls)
@@ -34,9 +35,15 @@ function ClassInfo({cls}) {
         return [...sortStudents(leftArr), pivot, ...sortStudents(rightArr)]
     }
 
+    
+
     return (
         <>
             <h1>This is {class_name}</h1>
+            <OpenModalButton 
+                buttonText="Class Settings"
+                modalComponent={<EditClass cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={rewards} feedback={feedback}/>}
+            />
             <h2>Here are your students:</h2>
             {sortStudents(students).map((student) => {
                 return(

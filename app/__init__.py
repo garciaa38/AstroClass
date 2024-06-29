@@ -10,6 +10,7 @@ from .api.auth_routes import auth_routes
 from .api.class_routes import class_routes
 from .api.reward_routes import reward_routes
 from .api.student_routes import student_routes
+from .api.feedback_routes import feedback_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -34,6 +35,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(class_routes, url_prefix='/api/classes')
 app.register_blueprint(reward_routes, url_prefix='/api/rewards')
 app.register_blueprint(student_routes, url_prefix='/api/students')
+app.register_blueprint(feedback_routes, url_prefix='/api/feedback')
 db.init_app(app)
 Migrate(app, db)
 
