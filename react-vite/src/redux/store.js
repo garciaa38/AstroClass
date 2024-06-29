@@ -8,13 +8,15 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import classesReducer from "./classes";
 import studentsReducer from "./students";
-import rewardsReducer from "./rewards"
+import rewardsReducer from "./rewards";
+import feedbackReducer from "./feedback";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   classes: classesReducer,
   students: studentsReducer,
-  rewards: rewardsReducer
+  rewards: rewardsReducer,
+  feedback: feedbackReducer
 });
 
 let enhancer;

@@ -289,7 +289,7 @@ def create_feedback(class_id):
     feedback_type = data.get("feedback_type")
     points = data.get("points")
 
-    if points >= 0:
+    if int(points) >= 0:
         return jsonify({"error": "Feedback points must be negative."})
     
     new_feedback = Feedback(
@@ -301,4 +301,4 @@ def create_feedback(class_id):
     db.session.add(new_feedback)
     db.session.commit()
 
-    return jsonify(new_feedback.to_dict()), 201
+    return jsonify(requested_class.to_dict()), 201

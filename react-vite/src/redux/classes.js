@@ -49,6 +49,18 @@ export const addRewardToClassThunk = (classId, reward) => async (dispatch) => {
     dispatch(loadClass(res))
 }
 
+export const addFeedbackToClassThunk = (classId, feedback) => async (dispatch) => {
+    const res = await fetch(`/api/classes/class/${classId}/feedback`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(feedback)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    
+    dispatch(loadClass(res))
+}
+
 
 // ================= REDUCER =================
 const classesReducer = (state = {}, action) => {

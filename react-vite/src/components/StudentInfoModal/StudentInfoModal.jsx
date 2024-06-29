@@ -2,8 +2,10 @@ import { useState, useEffect } from "react"
 import AddReward from "../AddReward/AddReward";
 import AddFeedback from "../AddFeedback/AddFeedback";
 import RewardForm from "../RewardForm/RewardForm";
+import FeedbackForm from "../FeedbackForm/FeedbackForm";
 import { useDispatch } from "react-redux";
 import { fetchAllRewardsThunk } from "../../redux/rewards";
+import { fetchAllFeedbackThunk } from "../../redux/feedback";
 
 function StudentInfoModal({student, classId, rewards, feedback}) {
     const dispatch = useDispatch()
@@ -12,13 +14,19 @@ function StudentInfoModal({student, classId, rewards, feedback}) {
     const [addFeedbackFormAppear, setAddFeedbackFormAppear] = useState(false);
     const [editStudentInfoAppear, setEditStudentInfoAppear] = useState(false);
     const [rewardsState, setRewardsState] = useState(rewards);
+    const [feedbackState, setFeedbackState] = useState(feedback);
 
     useEffect(() => {
         dispatch(fetchAllRewardsThunk(classId))
+        dispatch(fetchAllFeedbackThunk(classId))
     }, [dispatch, classId])
 
     const handleRewardUpdate = (newReward) => {
         setRewardsState((prevRewards) => [...prevRewards, newReward]);
+    }
+
+    const handleFeedbackUpdate = (newFeedback) => {
+        setFeedbackState((prevFeedback) => [...prevFeedback, newFeedback])
     }
 
     console.log("CLASS REWARDS", rewardsState)
@@ -32,7 +40,7 @@ function StudentInfoModal({student, classId, rewards, feedback}) {
                 <AddReward first_name={first_name} rewards={rewardsState}/>
                 <button onClick={() => setAddRewardFormAppear(true)}>Add a Reward</button>
 
-                <AddFeedback first_name={first_name} feedback={feedback}/>
+                <AddFeedback first_name={first_name} feedback={feedbackState}/>
                 <button onClick={() => setAddFeedbackFormAppear(true)}>Add Feedback</button>
 
                 <button onClick={() => setEditStudentInfoAppear(true)}>{`Edit ${first_name}'s information.`}</button>
@@ -47,7 +55,7 @@ function StudentInfoModal({student, classId, rewards, feedback}) {
     } else if (addFeedbackFormAppear) {
         return (
             <>
-                Add some feedback here.
+                <FeedbackForm classId={classId} setAddFeedbackFormAppear={setAddFeedbackFormAppear} handleFeedbackUpdate={handleFeedbackUpdate}/>
             </>
         )
     } else if (editStudentInfoAppear) {
