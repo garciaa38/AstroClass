@@ -87,7 +87,6 @@ def give_student_points(student_class_id, reward_id):
     return jsonify(requested_class.to_dict())
 
 # Remove student points
-# Give student points
 @student_routes.route('/student-class/<int:student_class_id>/feedback/<int:feedback_id>', methods=['PUT'])
 @login_required
 def remove_student_points(student_class_id, feedback_id):
@@ -102,6 +101,26 @@ def remove_student_points(student_class_id, feedback_id):
     student.points += lost_points
 
     db.session.commit()
+
+    return jsonify(requested_class.to_dict())
+
+# Edit student information
+@student_routes.route('/<int:student_id>/class/<int:class_id>', methods=['PUT'])
+@login_required
+def edit_student(student_id, class_id):
+    student = User.query.get_or_404(student_id)
+    print("EDIT STUDENT", student.to_dict())
+
+    data = request.get_json()
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
+
+    student.first_name = first_name
+    student.last_name = last_name
+
+    db.session.commit()
+
+    requested_class = Class.query.get_or_404(class_id)
 
     return jsonify(requested_class.to_dict())
 

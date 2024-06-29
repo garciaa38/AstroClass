@@ -88,9 +88,9 @@ def get_classes(teacher_id):
     return jsonify(class_data)
 
 # Get a class by it's class id
-@class_routes.route('/<int:teacher_id>/class/<int:class_id>', methods=['GET'])
+@class_routes.route('/<int:class_id>/teacher/<int:teacher_id>', methods=['GET'])
 @login_required
-def get_class(teacher_id, class_id):
+def get_class(class_id, teacher_id):
     teacher = User.query.get_or_404(teacher_id)
 
 
@@ -103,6 +103,8 @@ def get_class(teacher_id, class_id):
 
     if (current_user.id != teacher_id) or (teacher_check(current_user) is False) or (current_user.id != requested_class.teacher_id):
         return jsonify({"error": "Unauthorized access"}), 403
+    
+    print("REQUESTED CLASS", requested_class)
     
     return jsonify(requested_class.to_dict())
 
