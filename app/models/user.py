@@ -12,8 +12,8 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    first_name = db.Column(db.String(30), nullable=False)
-    last_name = db.Column(db.String(30), nullable=False)
+    first_name = db.Column(db.String(20), nullable=False)
+    last_name = db.Column(db.String(20), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(15), nullable=False)
     suffix = db.Column(db.String(30))
@@ -38,11 +38,17 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
     
     def get_classes(self):
-        return [{
-            'id': student_class.id,
-            'class_id': student_class.class_id,
-            'points': student_class.points
-        } for student_class in self.class_student_rel]
+        classes = []
+        for student_class in self.class_student_rel:
+            class_data = Class.query.get(student_class.class_id)
+            if class_data:
+                classes.append({
+                    'class_id': class_data.id,
+                    'class_name': class_data.class_name,
+                    'subject': class_data.subject,
+                    'points': student_class.points
+                })
+        return classes
 
     def to_dict(self):
         return {
@@ -64,9 +70,9 @@ class Class(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    class_name = db.Column(db.String, nullable=False)
+    class_name = db.Column(db.String(10), nullable=False)
     student_count = db.Column(db.Integer, nullable=False, default=0)
-    subject = db.Column(db.String(30), nullable=False)
+    subject = db.Column(db.String(20), nullable=False)
     student_invite_code = db.Column(db.String(255), nullable=False)
     parent_invite_code = db.Column(db.String(255), nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete="CASCADE"), nullable=False)

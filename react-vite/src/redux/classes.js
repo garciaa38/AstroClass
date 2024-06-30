@@ -25,11 +25,23 @@ export const fetchAllClassesThunk = (teacherId) => async (dispatch) => {
     
 }
 
-export const fetchClassByIdThunk = (teacher_id, classId) => async (dispatch) => {
-    const res = await fetch(`/api/classes/${classId}/teacher/${teacher_id}`)
+export const fetchClassByIdThunk = (user_id, classId) => async (dispatch) => {
+    const res = await fetch(`/api/classes/${classId}/user/${user_id}`)
         .then(res => res.json())
         .catch(e => console.error(e))
     
+        dispatch(loadClass(res))
+}
+
+export const studentJoinClassThunk = (student_id, inviteCode) => async (dispatch) => {
+    const res = await fetch(`/api/students/${student_id}`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(inviteCode)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+
         dispatch(loadClass(res))
 }
 

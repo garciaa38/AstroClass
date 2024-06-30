@@ -10,11 +10,28 @@ function EditStudentForm({student, classId}) {
 
     const {first_name, last_name, student_class_id, id: studentId} = student;
 
-    const [firstName, setFirstName] = useState(first_name)
-    const [lastName, setLastName] = useState(last_name)
+    const [firstName, setFirstName] = useState(first_name);
+    const [lastName, setLastName] = useState(last_name);
+    const [formErrors, setFormErrors] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const errors = {};
+        setFormErrors({});
+
+        if (firstName.length <= 2 || firstName.length > 20) {
+            errors.firstName = "First Name must be between 3 and 20 characters."
+        }
+
+        if (lastName.length <= 2 || lastName.length > 20) {
+            errors.lastName = "Last Name must be between 3 and 20 characters."
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors)
+            return;
+        }
 
         const updateStudent = {
             id: studentId,
@@ -44,6 +61,7 @@ function EditStudentForm({student, classId}) {
                         onChange={(e) => setFirstName(e.target.value)}
                     />
                 </label>
+                {formErrors.firstName && <p>{formErrors.firstName}</p>}
                 <label>
                     <input
                         type="text"
@@ -52,6 +70,7 @@ function EditStudentForm({student, classId}) {
                         onChange={(e) => setLastName(e.target.value)}
                     />
                 </label>
+                {formErrors.lastName && <p>{formErrors.lastName}</p>}
                 <button type="submit">Update Student Info</button>
             </form>
             <button onClick={() => removeStudent(student_class_id)}>Remove student from class</button>

@@ -6,9 +6,26 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
     const dispatch = useDispatch()
     const [rewardType, setRewardType] = useState("");
     const [pointsEarned, setPointsEarned] = useState(1);
+    const [formErrors, setFormErrors] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const errors = {};
+        setFormErrors({});
+
+        if (rewardType.length > 20 || rewardType.length < 3) {
+            errors.rewardType = "Reward Type must be between 3 and 20 characters."
+        }
+
+        if (pointsEarned < 1 || pointsEarned > 10) {
+            errors.pointsEarned = "Can only set between 1 and 10 points per reward."
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors)
+            return;
+        }
 
         const newReward = {
             reward_type: rewardType,
@@ -35,6 +52,7 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
                     required
                 />
             </label>
+            {formErrors.rewardType && <p>{formErrors.rewardType}</p>}
             <label>
                 <input
                     type="number"
@@ -46,6 +64,7 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
                     required
                 />
             </label>
+            {formErrors.pointsEarned && <p>{formErrors.pointsEarned}</p>}
             <button type="submit">Add Class Reward</button>
         </form>
     </>

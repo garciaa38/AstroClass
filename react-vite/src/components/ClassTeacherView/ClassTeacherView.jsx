@@ -47,7 +47,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
             })}
             <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} />}/>
 
-            <ClassInfo cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} />
+            <ClassInfo cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} />
 
             <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={classes[currClassIdx]}/>}/>
 

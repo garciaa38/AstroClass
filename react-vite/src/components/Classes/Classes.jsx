@@ -1,5 +1,5 @@
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
 import { fetchAllClassesThunk } from "../../redux/classes";
@@ -13,6 +13,7 @@ function Classes() {
     const dispatch = useDispatch()
     const sessionUser = useSelector((state) => state.session.user)
     const allClasses = Object.values(useSelector((state) => state.classes))
+    const [currentUser, setCurrentUser] = useState(sessionUser)
     useEffect(() => {
         dispatch(fetchAllClassesThunk(sessionUser?.id))
         dispatch(fetchAllStudentsThunk())
@@ -22,12 +23,12 @@ function Classes() {
         console.log("ALL CLASSES", allClasses)
         if (sessionUser?.role === 'teacher') {
             return (
-                <ClassTeacherView sessionUser={sessionUser} navigate={navigate} classes={allClasses}/>
+                <ClassTeacherView sessionUser={currentUser} navigate={navigate} classes={allClasses}/>
             )
         } else if (sessionUser?.role === 'student') {
             return (
                 <>
-                    <ClassStudentView sessionUser={sessionUser} navigate={navigate} />
+                    <ClassStudentView sessionUser={currentUser} setCurrentUser={setCurrentUser} navigate={navigate} />
                 </>
             )
         } else {

@@ -14,6 +14,7 @@ function SignupFormModal({role}) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({});
   const { closeModal } = useModal();
 
   const signUpMessage = () => {
@@ -29,12 +30,38 @@ function SignupFormModal({role}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      return setErrors({
-        confirmPassword:
-          "Confirm Password field must be the same as the Password field",
-      });
+    const errors = {};
+    setFormErrors({});
+
+    if (!email.split("@")[1]?.split(".")[1]) {
+      errors.email = "Please include a valid email address."
     }
+
+    if (firstName.length <= 2 || firstName.length > 20) {
+      errors.firstName = "First Name must be between 3 and 20 characters."
+    }
+
+    if (lastName.length <= 2 || lastName.length > 20) {
+      errors.lastName = "Last Name must be between 3 and 20 characters."
+    }
+
+    if (role === 'teacher' || role === 'parent') {
+      if (phoneNumber.length <= 9) {
+        errors.phoneNumber = "Please input a valid phone number."
+      } else if (isNaN(Number(phoneNumber))) {
+        errors.phoneNumber = "Please input a valid phone number."
+      }
+    }
+    
+    if (password !== confirmPassword) {
+      errors.confirmPassword = "Confirm Password field must be the same as the Password field"
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors)
+      return;
+    }
+
 
     const serverResponse = await dispatch(
       thunkSignup({
@@ -72,6 +99,7 @@ function SignupFormModal({role}) {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
+        {formErrors.email && <p>{formErrors.email}</p>}
         <label>
           First Name
           <input
@@ -82,6 +110,7 @@ function SignupFormModal({role}) {
           />
         </label>
         {errors.firstName && <p>{errors.firstName}</p>}
+        {formErrors.firstName && <p>{formErrors.firstName}</p>}
         <label>
           Last Name
           <input
@@ -92,7 +121,8 @@ function SignupFormModal({role}) {
           />
         </label>
         {errors.lastName && <p>{errors.lastName}</p>}
-        <label>
+        {formErrors.lastName && <p>{formErrors.lastName}</p>}
+        {role === 'teacher' && <label>
           Suffix
           <select value={suffix} onChange={(e) => setSuffix(e.target.value)}>
             <option value="Mr.">Mr.</option>
@@ -101,9 +131,10 @@ function SignupFormModal({role}) {
             <option value="Miss.">Miss.</option>
             <option value="Mx.">Mx.</option>
           </select>
-        </label>
+        </label>}
         {errors.suffix && <p>{errors.suffix}</p>}
-        <label>
+        {formErrors.suffix && <p>{formErrors.suffix}</p>}
+        {(role === 'teacher' || role === 'parent') && <label>
           Phone Number
           <input
             type="text"
@@ -111,8 +142,9 @@ function SignupFormModal({role}) {
             onChange={(e) => setPhoneNumber(e.target.value)}
             required
           />
-        </label>
+        </label>}
         {errors.phoneNumber && <p>{errors.phoneNumber}</p>}
+        {formErrors.phoneNumber && <p>{formErrors.phoneNumber}</p>}
         <label>
           Password
           <input
@@ -132,7 +164,7 @@ function SignupFormModal({role}) {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {formErrors.confirmPassword && <p>{formErrors.confirmPassword}</p>}
         <button type="submit">Sign Up</button>
       </form>
     </>
