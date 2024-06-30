@@ -6,6 +6,7 @@ import { fetchAllClassesThunk } from "../../redux/classes";
 import { fetchAllStudentsThunk } from "../../redux/students";
 import SignOutModal from "../SignOutModal/SignOutModal";
 import ClassTeacherView from "../ClassTeacherView/ClassTeacherView";
+import ClassStudentView from "../ClassStudentView/ClassStudentView";
 
 function Classes() {
     const navigate = useNavigate();
@@ -26,9 +27,7 @@ function Classes() {
         } else if (sessionUser?.role === 'student') {
             return (
                 <>
-                    <h1>Hey there {first_name} {last_name}.</h1>
-                    <h2>You are currently signed in as a student!</h2>
-                    <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
+                    <ClassStudentView sessionUser={sessionUser} navigate={navigate} />
                 </>
             )
         } else {
