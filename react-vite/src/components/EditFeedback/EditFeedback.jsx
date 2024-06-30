@@ -9,11 +9,29 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
     const [isEditing, setIsEditing] = useState(false);
     const [feedbackType, setFeedbackType] = useState(feedback.feedback_type);
     const [pointsLost, setPointsLost] = useState(feedback.points);
+    const [formErrors, setFormErrors] = useState({});
+
 
     console.log("EDIT FEEDBACK", feedback)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        const errors = {};
+        setFormErrors({});
+
+        if (feedbackType.length > 20 || feedbackType.length < 3) {
+            errors.feedbackType = "Reward Type must be between 3 and 20 characters."
+        }
+
+        if (pointsLost >= 0 || pointsLost < -10) {
+            errors.pointsLost = "Can only set between -1 and -10 points per feedback."
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors)
+            return;
+        }
 
         const updatedFeedback = {
             id: feedback.id,
@@ -68,6 +86,7 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
                             required
                         />
                     </label>
+                    {formErrors.feedbackType && <p>{formErrors.feedbackType}</p>}
                     <label>
                         <input
                             type="number"
@@ -79,6 +98,7 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
                             min="-10"
                         />
                     </label>
+                    {formErrors.pointsLost && <p>{formErrors.pointsLost}</p>}
                     <button type="submit">Save</button>
                 </form>
                     <button onClick={() => deleteFeedback()}>Delete</button>

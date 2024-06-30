@@ -9,11 +9,28 @@ function EditReward({reward, classId, handleRewardDelete}) {
     const [isEditing, setIsEditing] = useState(false);
     const [rewardType, setRewardType] = useState(reward.reward_type);
     const [pointsEarned, setPointsEarned] = useState(reward.points);
+    const [formErrors, setFormErrors] = useState({});
 
     console.log("EDIT REWARD", reward)
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        const errors = {};
+        setFormErrors({});
+
+        if (rewardType.length > 20 || rewardType.length < 3) {
+            errors.rewardType = "Reward Type must be between 3 and 20 characters."
+        }
+
+        if (pointsEarned < 1 || pointsEarned > 10) {
+            errors.pointsEarned = "Can only set between 1 and 10 points per reward."
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors)
+            return;
+        }
 
         const updatedReward = {
             id: reward.id,
@@ -68,6 +85,7 @@ function EditReward({reward, classId, handleRewardDelete}) {
                             required
                         />
                     </label>
+                    {formErrors.rewardType && <p>{formErrors.rewardType}</p>}
                     <label>
                         <input
                             type="number"
@@ -79,6 +97,7 @@ function EditReward({reward, classId, handleRewardDelete}) {
                             min="1"
                         />
                     </label>
+                    {formErrors.pointsEarned && <p>{formErrors.pointsEarned}</p>}
                     <button type="submit">Save</button>
                 </form>
                     <button onClick={() => deleteReward()}>Delete</button>

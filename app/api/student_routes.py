@@ -136,3 +136,27 @@ def remove_student(student_class_id):
 
     return jsonify(requested_class.to_dict())
 
+# Student joins a class
+@student_routes.route('/<int:student_id>', methods=['POST'])
+@login_required
+def student_join_class(student_id):
+    data = request.get_json()
+    class_code = data.get('class_code')
+
+    requested_class = Class.query.filter(Class.student_invite_code == class_code).first()
+
+    new_student = StudentClass(
+        student_id=student_id,
+        class_id=requested_class.id,
+        points=0
+    )
+
+    db.session.add(new_student)
+    db.session.commit()
+
+    requested_class.student_count += 1
+
+    db.session.commit()
+
+    return jsonify(requested_class.to_dict())
+

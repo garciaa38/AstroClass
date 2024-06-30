@@ -13,16 +13,34 @@ function StudentSignUp({classId, setAllStudentsState}) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
+    const [formErrors, setFormErrors] = useState({});
     const { closeModal } = useModal();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const errors = {};
+        setFormErrors({});
+
+        if (!email.split("@")[1]?.split(".")[1]) {
+            errors.email = "Please include a valid email address."
+        }
+
+        if (firstName.length <= 2 || firstName.length > 20) {
+            errors.firstName = "First Name must be between 3 and 20 characters."
+        }
+
+        if (lastName.length <= 2 || lastName.length > 20) {
+            errors.lastName = "Last Name must be between 3 and 20 characters."
+        }
     
         if (password !== confirmPassword) {
-            return setErrors({
-            confirmPassword:
-                "Confirm Password field must be the same as the Password field",
-            });
+            errors.confirmPassword = "Confirm Password field must be the same as the Password field"
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors)
+            return;
         }
     
         const serverResponse = await dispatch(
@@ -61,6 +79,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
             />
             </label>
             {errors.email && <p>{errors.email}</p>}
+            {formErrors.email && <p>{formErrors.email}</p>}
             <label>
                 First Name
             <input
@@ -71,6 +90,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
             />
             </label>
             {errors.firstName && <p>{errors.firstName}</p>}
+            {formErrors.firstName && <p>{formErrors.firstName}</p>}
             <label>
                 Last Name
             <input
@@ -81,6 +101,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
             />
             </label>
             {errors.lastName && <p>{errors.lastName}</p>}
+            {formErrors.lastName && <p>{formErrors.lastName}</p>}
             <label>
                 Password
                 <input
@@ -100,7 +121,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
                 required
             />
             </label>
-            {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+            {formErrors.confirmPassword && <p>{formErrors.confirmPassword}</p>}
             <button type="submit">Sign Up</button>
         </form>
         </>

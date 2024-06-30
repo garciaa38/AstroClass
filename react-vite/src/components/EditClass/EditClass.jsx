@@ -20,6 +20,7 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
     const [addFeedbackFormAppear, setAddFeedbackFormAppear] = useState(false);
     const [rewardsState, setRewardsState] = useState(rewards);
     const [feedbackState, setFeedbackState] = useState(feedback);
+    const [formErrors, setFormErrors] = useState({});
 
     const handleRewardUpdate = (newReward) => {
         setRewardsState((prevRewards) => [...prevRewards, newReward]);
@@ -38,7 +39,24 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        
+        const errors = {};
+        setFormErrors({})
+
+        if (className.length > 10 || className.length <= 2) {
+            errors.className = "Class Name must be between 3 and 10 characters."
+        }
+
+        if (currSubject.length > 20 || currSubject.length <= 2) {
+            errors.subject = "Subject must be between 3 and 20 characters."
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors)
+            return;
+        }
 
         const updatedClass = {
             class_name: className,
@@ -46,7 +64,6 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
         }
 
         await dispatch(editClassThunk(classId, updatedClass))
-
         closeModal()
     }
 
@@ -73,6 +90,7 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
                             required
                         />
                     </label>
+                    {formErrors.className && <p>{formErrors.className}</p>}
                     <label>
                         <input
                             type="text"
@@ -82,6 +100,7 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
                             required
                         />
                     </label>
+                    {formErrors.subject && <p>{formErrors.subject}</p>}
                     <button type="submit">Update your class</button>
                 </form>
                 <button onClick={() => deleteClass(classId)}>Delete this Class</button>

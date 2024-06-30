@@ -26,6 +26,11 @@ def teacher_check(user):
         return True
     return False
 
+def student_check(user):
+    if user.role == 'student':
+        return True
+    return False
+
 def check_student_in_class(student_id, student_list):
     for student in student_list:
         print("STUDENT CHECK", student)
@@ -88,10 +93,10 @@ def get_classes(teacher_id):
     return jsonify(class_data)
 
 # Get a class by it's class id
-@class_routes.route('/<int:class_id>/teacher/<int:teacher_id>', methods=['GET'])
+@class_routes.route('/<int:class_id>/user/<int:user_id>', methods=['GET'])
 @login_required
-def get_class(class_id, teacher_id):
-    teacher = User.query.get_or_404(teacher_id)
+def get_class(class_id, user_id):
+    user = User.query.get_or_404(user_id)
 
 
     requested_class = (
@@ -101,8 +106,12 @@ def get_class(class_id, teacher_id):
             .first()
     )
 
-    if (current_user.id != teacher_id) or (teacher_check(current_user) is False) or (current_user.id != requested_class.teacher_id):
-        return jsonify({"error": "Unauthorized access"}), 403
+    if user.role == 'teacher':
+        if (current_user.id != user_id) or (teacher_check(current_user) is False):
+            return jsonify({"error": "Unauthorized access"}), 403
+    elif user.role == 'student':
+        if (current_user.id != user_id) or (student_check(current_user) is False):
+            return jsonify({"error": "Unauthorized access"}), 403
     
     print("REQUESTED CLASS", requested_class)
     

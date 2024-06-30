@@ -105,6 +105,13 @@ export const thunkLogout = () => async (dispatch) => {
   dispatch(removeUser());
 };
 
+export const fetchCurrentUser = () => async (dispatch) => {
+  const res = await fetch('/api/users/current')
+    .then(res => res.json())
+    .catch(e => console.error(e))
+  return res;
+}
+
 const initialState = { user: null };
 
 function sessionReducer(state = initialState, action) {

@@ -41,14 +41,13 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
             {classes?.map((cls, index) => {
                 return (
                     <div key={cls?.id}>
-                        {/* <button onClick={() => setCurrClassIdx(index)}>{cls.class_name}</button> */}
                         <button onClick={() => switchClass(index, cls.id, sessionUser.id)}>{cls.class_name}</button>
                     </div>
                 )
             })}
             <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} />}/>
 
-            <ClassInfo cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} />
+            <ClassInfo cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} />
 
             <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={classes[currClassIdx]}/>}/>
 
