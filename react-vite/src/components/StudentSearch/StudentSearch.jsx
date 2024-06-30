@@ -2,8 +2,9 @@ import { useState, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { addStudentToClassThunk } from "../../redux/classes";
+import { fetchAllStudentsThunk } from "../../redux/students";
 
-function StudentSearch({allStudents, classId}) {
+function StudentSearch({allStudents, classId, setAllStudentsState}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal()
     const [name, setName] = useState("");
@@ -35,6 +36,9 @@ function StudentSearch({allStudents, classId}) {
     const addStudent = async student => {
         console.log("ADDING STUDENT", student)
         await dispatch(addStudentToClassThunk(classId, student.id))
+        const res = await dispatch(fetchAllStudentsThunk())
+        console.log("FETCH STUDENTS after redux", res)
+        await setAllStudentsState(res)
         closeModal();
     }
 

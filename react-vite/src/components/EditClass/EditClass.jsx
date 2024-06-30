@@ -42,7 +42,7 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
 
         const updatedClass = {
             class_name: className,
-            subject
+            subject: currSubject
         }
 
         await dispatch(editClassThunk(classId, updatedClass))

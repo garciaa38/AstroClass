@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkStudentSignup } from "../../redux/session";
 import { addStudentToClassThunk } from "../../redux/classes";
+import { fetchAllStudentsThunk } from "../../redux/students";
 
-function StudentSignUp({classId}) {
+function StudentSignUp({classId, setAllStudentsState}) {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -40,6 +41,8 @@ function StudentSignUp({classId}) {
             setErrors(serverResponse);
         } else {
             await dispatch(addStudentToClassThunk(classId, serverResponse.id))
+            const res = await dispatch(fetchAllStudentsThunk())
+            await setAllStudentsState(res)
             closeModal();
         }
     };
