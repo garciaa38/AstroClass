@@ -4,13 +4,16 @@ import AddStudentModal from "../AddStudentModal/AddStudentModal";
 import ClassInfo from "../ClassInfo/ClassInfo";
 import AddClassModal from "../AddClassModal/AddClassModal";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchClassByIdThunk } from "../../redux/classes";
 
 function ClassTeacherView({sessionUser, navigate, classes}) {
     const dispatch = useDispatch()
     const {last_name, suffix} = sessionUser;
     const [currClassIdx, setCurrClassIdx] = useState(0)
+    const allStudents = useSelector((state) => Object.values(state.students));
+    console.log("FETCH STUDENTS from store", allStudents)
+    const [allStudentsState, setAllStudentsState] = useState(allStudents)
 
     const switchClass = async (idx, classId, teacherId) => {
         await dispatch(fetchClassByIdThunk(teacherId, classId))
@@ -47,9 +50,9 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
             })}
             <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} />}/>
 
-            <ClassInfo cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} />
+            <ClassInfo cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} />
 
-            <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={classes[currClassIdx]}/>}/>
+            <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={classes[currClassIdx]} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState}/>}/>
 
             <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
         </>

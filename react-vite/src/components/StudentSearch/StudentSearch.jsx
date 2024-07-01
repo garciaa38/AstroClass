@@ -8,6 +8,7 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal()
     const [name, setName] = useState("");
+    console.log("WHERE MY STUDENTS AT", allStudents)
 
     const searchStudents = useMemo(() => {
         if (!name) return [];
