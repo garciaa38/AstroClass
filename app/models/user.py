@@ -82,6 +82,7 @@ class Class(db.Model):
     student_class_rel = db.relationship('StudentClass', backref='class', cascade="all, delete", lazy=True)
     class_reward_rel = db.relationship('Reward', backref='class', cascade="all, delete", lazy=True)
     class_feedback_rel = db.relationship('Feedback', backref='class', cascade="all, delete", lazy=True)
+    class_message_board_rel = db.relationship('MessageBoard', backref='class', cascade="all, delete", lazy=True)
 
     def to_dict(self):
         students = [{
@@ -92,8 +93,6 @@ class Class(db.Model):
             'points': student.points,
             'student_class_id': student.id
         } for student in self.student_class_rel]
-
-        print("STUDENT POINTS", students)
 
         rewards = [{
             'id': reward.id,
@@ -107,6 +106,8 @@ class Class(db.Model):
             'points': feedback.points
         } for feedback in self.class_feedback_rel ]
 
+        message_board = [message_board.to_dict() for message_board in self.class_message_board_rel]
+
         return {
             'id': self.id,
             'class_name': self.class_name,
@@ -117,7 +118,8 @@ class Class(db.Model):
             'teacher_id': self.teacher_id,
             'students': students,
             'rewards': rewards,
-            'feedback': feedback
+            'feedback': feedback,
+            'message_board': message_board
         }
 
 class StudentClass(db.Model):
@@ -202,11 +204,17 @@ class MessageBoard(db.Model):
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
 
+    message_board_post_rel = db.relationship('Post', backref='message_board', cascade="all, delete", lazy=True)
+
     def to_dict(self):
+
+        posts = [post.to_dict() for post in self.message_board_post_rel]
+
         return {
             'id': self.id,
             'permission': self.permission,
-            'class_id': self.class_id
+            'class_id': self.class_id,
+            'posts': posts
         }
 
 class Post(db.Model):
@@ -222,12 +230,24 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
 
+    post_post_image_rel = db.relationship("PostImage", backref="post", cascade="all, delete", lazy=True)
+    post_post_reply_rel = db.relationship("PostReply", backref="post", cascade="all, delete", lazy=True)
+    post_post_reaction_rel = db.relationship("PostReaction", backref="post", cascade="all, delete", lazy=True)
+
     def to_dict(self):
+
+        post_image = [post_image.to_dict() for post_image in self.post_post_image_rel]
+        post_replies = [post_reply.to_dict() for post_reply in self.post_post_reply_rel]
+        post_reactions = [post_reaction.to_dict() for post_reaction in self.post_post_reaction_rel]
+
         return {
             'id': self.id,
             'text_field': self.text_field,
             'user_id': self.user_id,
-            'message_board_id': self.message_board_id
+            'message_board_id': self.message_board_id,
+            'post_image': post_image,
+            'post_replies': post_replies,
+            'post_reactions': post_reactions
         }
 
 class PostImage(db.Model):
@@ -264,12 +284,18 @@ class PostReply(db.Model):
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
 
+    post_reply_post_reply_reaction_rel = db.relationship("PostReplyReaction", backref="post_reply", cascade="all, delete", lazy=True)
+
     def to_dict(self):
+
+        post_reply_reactions = [post_reply_reaction.to_dict() for post_reply_reaction in self.post_reply_post_reply_reaction_rel]
+
         return {
             'id': self.id,
             'text_field': self.text_field,
             'user_id': self.user_id,
-            'post_id': self.post_id
+            'post_id': self.post_id,
+            'post_reply_reactions': post_reply_reactions
         }
 
 class PostReaction(db.Model):
@@ -294,7 +320,7 @@ class PostReaction(db.Model):
         }
 
 class PostReplyReaction(db.Model):
-    __tablename__ = 'post_reply_reaction'
+    __tablename__ = 'post_reply_reactions'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
