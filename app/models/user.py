@@ -189,3 +189,127 @@ class Feedback(db.Model):
             'points': self.points,
             'class_id': self.class_id
         }
+
+class MessageBoard(db.Model):
+    __tablename__ = 'message_boards'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+    
+    id = db.Column(db.Integer, primary_key=True)
+    permission = db.Column(db.String, nullable=False)
+    class_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('classes.id')), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=True)
+    updated_at = db.Column(db.DateTime, nullable=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'permission': self.permission,
+            'class_id': self.class_id
+        }
+
+class Post(db.Model):
+    __tablename__ = 'posts'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    text_field = db.Column(db.String(500), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    message_board_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('message_boards.id')), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=True)
+    updated_at = db.Column(db.DateTime, nullable=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'text_field': self.text_field,
+            'user_id': self.user_id,
+            'message_board_id': self.message_board_id
+        }
+
+class PostImage(db.Model):
+    __tablename__ = 'post_images'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.String(1000), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=True)
+    updated_at = db.Column(db.DateTime, nullable=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'url': self.url,
+            'user_id': self.user_id,
+            'post_id': self.post_id
+        }
+
+class PostReply(db.Model):
+    __tablename__ = 'post_replies'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    text_field = db.Column(db.String(250), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=True)
+    updated_at = db.Column(db.DateTime, nullable=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'text_field': self.text_field,
+            'user_id': self.user_id,
+            'post_id': self.post_id
+        }
+
+class PostReaction(db.Model):
+    __tablename__ = 'post_reactions'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    emoji = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=True)
+    updated_at = db.Column(db.DateTime, nullable=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'emoji': self.emoji,
+            'user_id': self.user_id,
+            'post_id': self.post_id
+        }
+
+class PostReplyReaction(db.Model):
+    __tablename__ = 'post_reply_reaction'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    emoji = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    post_reply_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('post_replies.id')), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=True)
+    updated_at = db.Column(db.DateTime, nullable=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'emoji': self.emoji,
+            'user_id': self.user_id,
+            'post_reply_id': self.post_reply_id
+        }
