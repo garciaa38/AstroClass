@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editStudentInfoThunk, removeStudentFromClassThunk } from "../../redux/classes";
+import { fetchAllStudentsThunk } from "../../redux/students";
 import { useModal } from "../../context/Modal";
 
-function EditStudentForm({student, classId}) {
+function EditStudentForm({student, classId, setAllStudentsState}) {
     // console.log("EDIT STUDENT", student)
     const dispatch = useDispatch()
     const { closeModal } = useModal()
@@ -46,6 +47,8 @@ function EditStudentForm({student, classId}) {
 
     const removeStudent = async (student_class_id) => {
         await dispatch(removeStudentFromClassThunk(student_class_id))
+        const res = await dispatch(fetchAllStudentsThunk())
+        await setAllStudentsState(res)
         closeModal()
     }
 

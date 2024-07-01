@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { fetchAllRewardsThunk } from "../../redux/rewards";
 import { fetchAllFeedbackThunk } from "../../redux/feedback";
 
-function StudentInfoModal({student, classId, rewards, feedback}) {
+function StudentInfoModal({student, classId, rewards, feedback, allStudentsState, setAllStudentsState}) {
     const dispatch = useDispatch()
     const {first_name, last_name, email, points, id: studentId, student_class_id} = student;
     const [addRewardFormAppear, setAddRewardFormAppear] = useState(false);
@@ -64,7 +64,7 @@ function StudentInfoModal({student, classId, rewards, feedback}) {
     } else if (editStudentInfoAppear) {
         return (
             <>
-                <EditStudentForm student={student} classId={classId}/>
+                <EditStudentForm student={student} classId={classId} setAllStudentsState={setAllStudentsState}/>
             </>
         )
     }

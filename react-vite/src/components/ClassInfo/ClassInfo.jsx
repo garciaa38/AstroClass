@@ -2,7 +2,7 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import StudentInfoModal from "../StudentInfoModal/StudentInfoModal";
 import EditClass from "../EditClass/EditClass";
 
-function ClassInfo({cls, currClassIdx, setCurrClassIdx, role}) {
+function ClassInfo({cls, currClassIdx, setCurrClassIdx, role, allStudentsState, setAllStudentsState}) {
     const {class_name, students, id: classId, rewards, feedback} = cls;
 
     console.log("CLASS", cls)
@@ -49,7 +49,7 @@ function ClassInfo({cls, currClassIdx, setCurrClassIdx, role}) {
                         <div key={student.id}>
                             <OpenModalButton 
                                 buttonText={`${student.first_name} ${student.last_name} Points: ${student.points}`}
-                                modalComponent={<StudentInfoModal student={student} classId={classId} rewards={rewards} feedback={feedback}/>}
+                                modalComponent={<StudentInfoModal student={student} classId={classId} rewards={rewards} feedback={feedback} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState}/>}
                             />
                         </div>
                     )

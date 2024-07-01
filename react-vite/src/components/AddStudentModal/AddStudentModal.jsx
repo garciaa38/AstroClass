@@ -1,14 +1,10 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import StudentSearch from "../StudentSearch/StudentSearch";
 import StudentSignUp from "../StudentSignUp/StudentSignUp";
 
-function AddStudentModal({ cls }) {
+function AddStudentModal({ cls, allStudentsState, setAllStudentsState }) {
     const { id: classId } = cls;
     const [formAppear, setFormAppear] = useState(false)
-    const allStudents = useSelector((state) => Object.values(state.students));
-    console.log("FETCH STUDENTS from store", allStudents)
-    const [allStudentsState, setAllStudentsState] = useState(allStudents)
 
     if (!formAppear) {
         return (
