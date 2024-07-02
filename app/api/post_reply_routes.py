@@ -17,7 +17,7 @@ def get_post_replies():
     for post_reply in all_post_replies:
         post_replies_data.append(post_reply.to_dict())
 
-        return jsonify(post_replies_data)
+    return jsonify(post_replies_data)
 
 # Get post reply by id
 @post_reply_routes.route('/<int:post_reply_id>')
@@ -27,7 +27,7 @@ def get_post_reply_by_id(post_reply_id):
 
     return jsonify(post_reply.to_dict())
 
-# Create post
+# Create post reply
 @post_reply_routes.route('/', methods=['POST'])
 @login_required
 def create_post_reply():
