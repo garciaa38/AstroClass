@@ -1,4 +1,4 @@
-from app.models import db, User, environment, SCHEMA, Class, StudentClass, Reward, Feedback
+from app.models import db, User, environment, SCHEMA, Class, StudentClass, Reward, Feedback, MessageBoard, Post, PostImage, PostReply, PostReaction, PostReplyReaction
 from sqlalchemy.sql import text
 
 
@@ -394,7 +394,304 @@ def seed_feedback():
     db.session.add(disrupting_class_2)
     db.session.commit()
 
+def seed_message_board():
+    message_board_class_1 = MessageBoard(
+        permission="teacher_and_student",
+        class_id=1
+    )
 
+    message_board_class_2 = MessageBoard(
+        permission="teacher_only",
+        class_id=2
+    )
+
+    message_board_class_3 = MessageBoard(
+        permission="students_partial",
+        class_id=3
+    )
+
+    db.session.add(message_board_class_1)
+    db.session.add(message_board_class_2)
+    db.session.add(message_board_class_3)
+    db.session.commit()
+
+def seed_posts():
+    post_1_message_board_1 = Post(
+        text_field="Good morning class! Ready for another awesome day of school?",
+        user_id=1,
+        message_board_id=1
+    )
+
+    post_2_message_board_1 = Post(
+        text_field="What's your favorite fortnite skin?",
+        user_id=1,
+        message_board_id=1
+    )
+
+    post_1_message_board_2 = Post(
+        text_field="Make sure to complete today's homework class!",
+        user_id=2,
+        message_board_id=2
+    )
+
+    post_2_message_board_2 = Post(
+        text_field="Don't forget to bring in picture day money for tomorrow",
+        user_id=2,
+        message_board_id=2
+    )
+
+    post_1_message_board_3 = Post(
+        text_field="Hope everyone had a great weekend! We'll be having presentations today after lunch, so make sure you're prepared.",
+        user_id=1,
+        message_board_id=3
+    )
+
+    post_2_message_board_3 = Post(
+        text_field="Remember that we're off this Thursday!",
+        user_id=1,
+        message_board_id=3
+    )
+
+    db.session.add(post_1_message_board_1)
+    db.session.add(post_2_message_board_1)
+    db.session.add(post_1_message_board_2)
+    db.session.add(post_2_message_board_2)
+    db.session.add(post_1_message_board_3)
+    db.session.add(post_2_message_board_3)
+    db.session.commit()
+
+def seed_post_replies():
+    post_reply_1_post_1 = PostReply(
+        text_field="Hellooooo",
+        user_id=3,
+        post_id=1
+    )
+
+    post_reply_2_post_1 = PostReply(
+        text_field="Not really but w/e",
+        user_id=5,
+        post_id=1
+    )
+
+    post_reply_1_post_2 = PostReply(
+        text_field="John Cena, duh",
+        user_id=3,
+        post_id=2
+    )
+
+    post_reply_2_post_2 = PostReply(
+        text_field="I like the banana",
+        user_id=7,
+        post_id=2
+    )
+
+    post_reply_1_post_5 = PostReply(
+        text_field="I'M NERVOUS",
+        user_id=4,
+        post_id=5
+    )
+
+    post_reply_2_post_5 = PostReply(
+        text_field="oh no, I forgot...",
+        user_id=8,
+        post_id=5
+    )
+
+    post_reply_1_post_6 = PostReply(
+        text_field="YAY NO SCHOOL",
+        user_id=6,
+        post_id=6
+    )
+
+    post_reply_2_post_6 = PostReply(
+        text_field="Anyone else going to be playing roblox this weekend?",
+        user_id=10,
+        post_id=6
+    )
+
+    db.session.add(post_reply_1_post_1)
+    db.session.add(post_reply_2_post_1)
+    db.session.add(post_reply_1_post_2)
+    db.session.add(post_reply_2_post_2)
+    db.session.add(post_reply_1_post_5)
+    db.session.add(post_reply_2_post_5)
+    db.session.add(post_reply_1_post_6)
+    db.session.add(post_reply_2_post_6)
+    db.session.commit()
+
+def seed_post_reactions():
+    post_reaction_1_post_1 = PostReaction(
+        emoji="😀",
+        user_id=7,
+        post_id=1
+    )
+
+    post_reaction_2_post_1 = PostReaction(
+        emoji="😩",
+        user_id=9,
+        post_id=1
+    )
+
+    post_reaction_1_post_2 = PostReaction(
+        emoji="🤪",
+        user_id=5,
+        post_id=2
+    )
+
+    post_reaction_2_post_2 = PostReaction(
+        emoji="😱",
+        user_id=3,
+        post_id=2
+    )
+
+    post_reaction_1_post_5 = PostReaction(
+        emoji="😭",
+        user_id=6,
+        post_id=5
+    )
+
+    post_reaction_2_post_5 = PostReaction(
+        emoji="😧",
+        user_id=10,
+        post_id=5
+    )
+
+    post_reaction_1_post_6 = PostReaction(
+        emoji="🥳",
+        user_id=4,
+        post_id=6
+    )
+
+    post_reaction_2_post_6 = PostReaction(
+        emoji="🤩",
+        user_id=8,
+        post_id=6
+    )
+
+    db.session.add(post_reaction_1_post_1)
+    db.session.add(post_reaction_2_post_1)
+    db.session.add(post_reaction_1_post_2)
+    db.session.add(post_reaction_2_post_2)
+    db.session.add(post_reaction_1_post_5)
+    db.session.add(post_reaction_2_post_5)
+    db.session.add(post_reaction_1_post_6)
+    db.session.add(post_reaction_2_post_6)
+    db.session.commit()
+
+def seed_post_reply_reactions():
+    post_reply_reaction_1_post_reply_1 = PostReplyReaction(
+        emoji="🤓",
+        user_id=7,
+        post_reply_id=1
+    )
+
+    post_reply_reaction_2_post_reply_1 = PostReplyReaction(
+        emoji="😆",
+        user_id=9,
+        post_reply_id=1
+    )
+
+    post_reply_reaction_1_post_reply_2 = PostReplyReaction(
+        emoji="🤣",
+        user_id=3,
+        post_reply_id=2
+    )
+
+    post_reply_reaction_2_post_reply_2 = PostReplyReaction(
+        emoji="😬",
+        user_id=5,
+        post_reply_id=2
+    )
+
+    post_reply_reaction_1_post_reply_3 = PostReplyReaction(
+        emoji="😎",
+        user_id=3,
+        post_reply_id=3
+    )
+
+    post_reply_reaction_2_post_reply_3 = PostReplyReaction(
+        emoji="😎",
+        user_id=9,
+        post_reply_id=3
+    )
+
+    post_reply_reaction_1_post_reply_4 = PostReplyReaction(
+        emoji="😂",
+        user_id=9,
+        post_reply_id=4
+    )
+
+    post_reply_reaction_2_post_reply_4 = PostReplyReaction(
+        emoji="🤮",
+        user_id=5,
+        post_reply_id=4
+    )
+
+    post_reply_reaction_1_post_reply_5 = PostReplyReaction(
+        emoji="😨",
+        user_id=6,
+        post_reply_id=5
+    )
+
+    post_reply_reaction_2_post_reply_5 = PostReplyReaction(
+        emoji="😓",
+        user_id=10,
+        post_reply_id=5
+    )
+
+    post_reply_reaction_1_post_reply_6 = PostReplyReaction(
+        emoji="😱",
+        user_id=10,
+        post_reply_id=6
+    )
+
+    post_reply_reaction_2_post_reply_6 = PostReplyReaction(
+        emoji="😱",
+        user_id=4,
+        post_reply_id=6
+    )
+
+    post_reply_reaction_1_post_reply_7 = PostReplyReaction(
+        emoji="🙂",
+        user_id=8,
+        post_reply_id=7
+    )
+
+    post_reply_reaction_2_post_reply_7 = PostReplyReaction(
+        emoji="😁",
+        user_id=4,
+        post_reply_id=7
+    )
+
+    post_reply_reaction_1_post_reply_8 = PostReplyReaction(
+        emoji="🤩",
+        user_id=4,
+        post_reply_id=8
+    )
+
+    post_reply_reaction_2_post_reply_8 = PostReplyReaction(
+        emoji="🤩",
+        user_id=6,
+        post_reply_id=8
+    )
+
+    db.session.add(post_reply_reaction_1_post_reply_1)
+    db.session.add(post_reply_reaction_2_post_reply_1)
+    db.session.add(post_reply_reaction_1_post_reply_2)
+    db.session.add(post_reply_reaction_2_post_reply_2)
+    db.session.add(post_reply_reaction_1_post_reply_3)
+    db.session.add(post_reply_reaction_2_post_reply_3)
+    db.session.add(post_reply_reaction_1_post_reply_4)
+    db.session.add(post_reply_reaction_2_post_reply_4)
+    db.session.add(post_reply_reaction_1_post_reply_5)
+    db.session.add(post_reply_reaction_2_post_reply_5)
+    db.session.add(post_reply_reaction_1_post_reply_6)
+    db.session.add(post_reply_reaction_2_post_reply_6)
+    db.session.add(post_reply_reaction_1_post_reply_7)
+    db.session.add(post_reply_reaction_2_post_reply_7)
+    db.session.add(post_reply_reaction_1_post_reply_8)
+    db.session.add(post_reply_reaction_2_post_reply_8)
+    db.session.commit()
 
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
@@ -412,5 +709,10 @@ def undo_users():
         db.session.execute(text("DELETE FROM student_class"))
         db.session.execute(text("DELETE FROM rewards"))
         db.session.execute(text("DELETE FROM feedback"))
+        db.session.execute(text("DELETE FROM message_boards"))
+        db.session.execute(text("DELETE FROM posts"))
+        db.session.execute(text("DELETE FROM post_replies"))
+        db.session.execute(text("DELETE FROM post_reactions"))
+        db.session.execute(text("DELETE FROM post_reply_reactions"))
         
     db.session.commit()

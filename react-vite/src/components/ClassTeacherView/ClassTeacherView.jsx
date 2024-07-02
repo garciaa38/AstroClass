@@ -12,8 +12,8 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
     const {last_name, suffix} = sessionUser;
     const [currClassIdx, setCurrClassIdx] = useState(0)
     const allStudents = useSelector((state) => Object.values(state.students));
-    console.log("FETCH STUDENTS from store", allStudents)
     const [allStudentsState, setAllStudentsState] = useState(allStudents)
+    console.log("FETCH STUDENTS from store", allStudentsState)
 
     const switchClass = async (idx, classId, teacherId) => {
         await dispatch(fetchClassByIdThunk(teacherId, classId))
@@ -21,7 +21,6 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
         await setCurrClassIdx(idx)
     }
 
-    
 
     if (classes.length < 1) {
         return (
@@ -52,7 +51,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
 
             <ClassInfo cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} />
 
-            <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={classes[currClassIdx]} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState}/>}/>
+            <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={classes[currClassIdx]} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>}/>
 
             <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
         </>
