@@ -18,8 +18,11 @@ from .api.post_reaction_routes import post_reaction_routes
 from .api.post_reply_reaction_routes import post_reply_reaction_routes
 from .seeds import seed_commands
 from .config import Config
+from flask_socketio import SocketIO, emit, leave_room, join_room
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
+
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Setup login manager
 login = LoginManager(app)
@@ -107,3 +110,34 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
+
+# SocketIO event handlers
+@socketio.on('connect')
+def handle_connect():
+    print('Client connected')
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    print('Client disconnected')
+
+@socketio.on('join_room')
+def handle_join_room(data):
+    print("JOIN ROOM", data)
+    room = data.get('room')
+    join_room(room)
+    emit('join_room_announcement', {'message': f'User has joined room {room}'}, room=room)
+
+@socketio.on('leave_room')
+def handle_leave_room(data):
+    room = data.get('room')
+    leave_room(room)
+    emit('leave_room_announcement', {'message': f'User has left room {room}'}, room=room)
+
+@socketio.on('send_message')
+def handle_send_message(data):
+    room = data.get('room')
+    message = data.get('message')
+    emit('receive_message', {'message': message}, room=room)
+
+if __name__ == '__main__':
+    socketio.run(app, debug=True, port=8000)

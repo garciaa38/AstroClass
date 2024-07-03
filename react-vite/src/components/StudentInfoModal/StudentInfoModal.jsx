@@ -17,8 +17,6 @@ function StudentInfoModal({student, classId, rewards, feedback, allStudentsState
     const [rewardsState, setRewardsState] = useState(rewards);
     const [feedbackState, setFeedbackState] = useState(feedback);
 
-    console.log("ONE STUDENT", student)
-
     useEffect(() => {
         dispatch(fetchAllRewardsThunk(classId))
         dispatch(fetchAllFeedbackThunk(classId))
