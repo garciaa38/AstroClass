@@ -14,6 +14,7 @@ function Classes() {
     const sessionUser = useSelector((state) => state.session.user)
     const allClasses = Object.values(useSelector((state) => state.classes))
     const [currentUser, setCurrentUser] = useState(sessionUser)
+
     useEffect(() => {
         dispatch(fetchAllClassesThunk(sessionUser?.id))
         dispatch(fetchAllStudentsThunk())
