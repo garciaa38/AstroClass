@@ -6,6 +6,7 @@ import AddClassModal from "../AddClassModal/AddClassModal";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchClassByIdThunk } from "../../redux/classes";
+import Navigation from "../Navigation/Navigation";
 
 function ClassTeacherView({sessionUser, navigate, classes}) {
     const dispatch = useDispatch()
@@ -48,11 +49,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                 )
             })}
             <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} />}/>
-
-            <ClassInfo cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} />
-
-            <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={classes[currClassIdx]} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>}/>
-
+            <Navigation cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
             <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
         </>
     )
