@@ -17,7 +17,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
     console.log("FETCH STUDENTS from store", allStudentsState)
 
     const switchClass = async (idx, classId, teacherId) => {
-        await dispatch(fetchClassByIdThunk(teacherId, classId))
+        // await dispatch(fetchClassByIdThunk(teacherId, classId))
         await setCurrClassIdx(idx)
     }
 
