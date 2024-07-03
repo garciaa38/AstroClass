@@ -11,6 +11,11 @@ from .api.class_routes import class_routes
 from .api.reward_routes import reward_routes
 from .api.student_routes import student_routes
 from .api.feedback_routes import feedback_routes
+from .api.message_board_routes import message_board_routes
+from .api.post_routes import post_routes
+from .api.post_reply_routes import post_reply_routes
+from .api.post_reaction_routes import post_reaction_routes
+from .api.post_reply_reaction_routes import post_reply_reaction_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -36,6 +41,11 @@ app.register_blueprint(class_routes, url_prefix='/api/classes')
 app.register_blueprint(reward_routes, url_prefix='/api/rewards')
 app.register_blueprint(student_routes, url_prefix='/api/students')
 app.register_blueprint(feedback_routes, url_prefix='/api/feedback')
+app.register_blueprint(message_board_routes, url_prefix='/api/message-boards')
+app.register_blueprint(post_routes, url_prefix='/api/posts')
+app.register_blueprint(post_reply_routes, url_prefix='/api/post-replies')
+app.register_blueprint(post_reaction_routes, url_prefix='/api/post-reactions')
+app.register_blueprint(post_reply_reaction_routes, url_prefix='/api/post-reply-reactions')
 db.init_app(app)
 Migrate(app, db)
 
