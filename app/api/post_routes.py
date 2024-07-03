@@ -31,6 +31,7 @@ def get_post_by_id(post_id):
 @post_routes.route('/', methods=['POST'])
 @login_required
 def create_post():
+    print("HELLOOOO?")
     data = request.get_json()
     message_board_id = data.get('message_board_id')
     text_field = data.get('text_field')
