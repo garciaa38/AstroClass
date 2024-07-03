@@ -1,37 +1,15 @@
-function MessageBoard({msgBoard}) {
-    console.log("CURRENT CLASS MESSAGE BOARD", msgBoard)
-    const allPosts = msgBoard[0].posts
+import Posts from "../Posts/Posts"
+import { useState } from "react"
+import AddPostForm from "../AddPostForm/AddPostForm"
+
+function MessageBoard({currMsgBoard, sessionUser, setCurrMsgBoard}) {
+    console.log("ADDING POST parent", currMsgBoard)
+    const allPosts = currMsgBoard.posts
     console.log("CURRENT CLASS POSTS", allPosts)
     return (
         <div>
-            {allPosts.map(post => {
-                return (
-                    <div key={post.id}>
-                        <div>{post.text_field}</div>
-                        {post.post_reactions.map(post_reaction => {
-                            return (
-                            <div key={post_reaction.id}>
-                                <div>{post_reaction.emoji}</div>
-                            </div>
-                            )
-                        })}
-                        {post.post_replies.map(post_reply => {
-                            return (
-                                <div key={post_reply.id}>
-                                    <div>{post_reply.text_field}</div>
-                                    {post_reply.post_reply_reactions.map(post_reply_reaction => {
-                                        return (
-                                            <div key={post_reply_reaction.id}>
-                                                <div>{post_reply_reaction.emoji}</div>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            )
-                        })}
-                    </div>
-                )
-            })}
+            <AddPostForm currMsgBoard={currMsgBoard} setCurrMsgBoard={setCurrMsgBoard} sessionUser={sessionUser}/>
+            <Posts allPosts={allPosts}/>
         </div>
     )
 }

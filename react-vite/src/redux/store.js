@@ -10,13 +10,15 @@ import classesReducer from "./classes";
 import studentsReducer from "./students";
 import rewardsReducer from "./rewards";
 import feedbackReducer from "./feedback";
+import msgBoardReducer from "./messageBoard";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   classes: classesReducer,
   students: studentsReducer,
   rewards: rewardsReducer,
-  feedback: feedbackReducer
+  feedback: feedbackReducer, 
+  messageBoard: msgBoardReducer
 });
 
 let enhancer;

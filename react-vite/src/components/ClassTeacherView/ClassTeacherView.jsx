@@ -18,7 +18,6 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
 
     const switchClass = async (idx, classId, teacherId) => {
         await dispatch(fetchClassByIdThunk(teacherId, classId))
-
         await setCurrClassIdx(idx)
     }
 
@@ -49,7 +48,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                 )
             })}
             <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} />}/>
-            <Navigation cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
+            <Navigation sessionUser={sessionUser} cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
             <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
         </>
     )

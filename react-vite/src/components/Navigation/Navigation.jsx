@@ -3,11 +3,21 @@ import ClassInfo from "../ClassInfo/ClassInfo";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import AddStudentModal from "../AddStudentModal/AddStudentModal";
 import MessageBoard from "../MessageBoard/MessageBoard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchMessageBoardThunk } from "../../redux/messageBoard";
 
-function Navigation({cls, currClassIdx, setCurrClassIdx, role, allStudentsState, setAllStudentsState, allStudents}) {
+function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allStudentsState, setAllStudentsState, allStudents}) {
+  const dispatch = useDispatch()
   const [view, setView] = useState("class")
-  console.log("CURRENT CLASS", cls)
+  const messageBoard = Object.values(useSelector((state) => state.messageBoard))
+  const [currMsgBoard, setCurrMsgBoard] = useState(messageBoard[0])
+  console.log("CURRENT MSG BOARD", messageBoard[0])
+
+  useEffect(() => {
+    dispatch(fetchMessageBoardThunk(cls.id))
+  }, [dispatch, cls.id])
+  
   return (
     <>
       <button onClick={() => setView("class")}>Class</button>
@@ -18,7 +28,7 @@ function Navigation({cls, currClassIdx, setCurrClassIdx, role, allStudentsState,
       <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={cls} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>}/></div>}
       {view === "message-board" &&
       <div>
-      <MessageBoard msgBoard={cls.message_board}/>
+      <MessageBoard currMsgBoard={messageBoard[0]} sessionUser={sessionUser} setCurrMsgBoard={setCurrMsgBoard}/>
       </div>}
     </>
   );
