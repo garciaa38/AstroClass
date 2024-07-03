@@ -15,10 +15,11 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
             message_board_id: currMsgBoard.id
         }
 
+        currMsgBoard.posts.push(createdPost)
+
         const updatedMsgBoard = await dispatch(addNewPostThunk(createdPost))
         console.log("ADDING POST child", updatedMsgBoard)
         setNewPost("")
-        await setCurrMsgBoard(updatedMsgBoard)
     }
 
     return (
