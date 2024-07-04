@@ -1,7 +1,5 @@
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import SignOutModal from "../SignOutModal/SignOutModal";
-import AddStudentModal from "../AddStudentModal/AddStudentModal";
-import ClassInfo from "../ClassInfo/ClassInfo";
 import AddClassModal from "../AddClassModal/AddClassModal";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,39 +11,45 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
     const dispatch = useDispatch()
     const {last_name, suffix} = sessionUser;
     const [currClassIdx, setCurrClassIdx] = useState(0)
+    const [prevClassIdx, setPrevClassIdx] = useState(0)
     const allStudents = useSelector((state) => Object.values(state.students));
+    const currClass = classes[currClassIdx]
+    const prevClass = classes[prevClassIdx]
     const [allStudentsState, setAllStudentsState] = useState(allStudents)
-    console.log("FETCH STUDENTS from store", allStudentsState)
+    console.log("CURRENT CLASS", currClass?.students[0])
 
     useEffect(() => {
-        // Log socket connection
-        console.log("SOCKET Connecting to socket...");
+        // console.log("SOCKET Connecting to socket...");
         
-        socket.emit('join_room', { room: `class_${classes[currClassIdx]?.id}` });
-        console.log("SOCKET Joining room:", `class_${classes[currClassIdx]?.id}`);
+        socket.emit('join_room', { room: `${currClass?.id}` });
+        socket.emit('leave_room', { room: `${prevClass?.id}` });
+        // console.log("SOCKET Joining room:", `${currClass?.id}`);
+
+        // socket.emit('class', {currentClass: currClass})
+        }, [currClass?.id, prevClass?.id]);
     
-        // Event listeners for socket events
-        socket.on('join_room_announcement', (data) => {
-            console.log('SOCKET join room announcement', data.message);
-        });
+        useEffect(() => {
+            const fetchClass = (data) => {
+                setTimeout(() => {
+                    console.log('SOCKET points added', data)
+                    dispatch(fetchClassByIdThunk(sessionUser.id, data.room))
+                }, 1000)
+            }
     
-        socket.on('receive_message', (data) => {
-            console.log('SOCKET Message received:', data.message);
-        });
-    
-        // Cleanup on component unmount
-        return () => {
-            socket.emit('leave_room', { room: `class_${classes[currClassIdx]?.id}` });
-            console.log("SOCKET Leaving room:", `class_${classes[currClassIdx]?.id}`);
-            socket.off('join_room_announcement');
-            socket.off('receive_message');
-        };
-        }, [dispatch, classes, currClassIdx]);
+            console.log("SOCKET adding points?")
+            socket.on('addPoints', (data) => fetchClass(data));
+        
+            return () => {
+                socket.off('addPoints', fetchClass)
+            };
+        }, [dispatch, sessionUser.id])
 
 
-    const switchClass = async (idx, classId, teacherId) => {
-        // await dispatch(fetchClassByIdThunk(teacherId, classId))
-        await setCurrClassIdx(idx)
+
+    const switchClass = (idx) => {
+        const prevIdx = currClassIdx
+        setCurrClassIdx(idx)
+        setPrevClassIdx(prevIdx)
     }
 
 
@@ -75,7 +79,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                 )
             })}
             <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} />}/>
-            <Navigation sessionUser={sessionUser} cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
+            <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
             <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
         </>
     )

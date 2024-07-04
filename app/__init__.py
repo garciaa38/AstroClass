@@ -22,7 +22,6 @@ from flask_socketio import SocketIO, emit, leave_room, join_room
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
-socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Setup login manager
 login = LoginManager(app)
@@ -53,7 +52,8 @@ db.init_app(app)
 Migrate(app, db)
 
 # Application Security
-CORS(app)
+CORS(app,resources={r"/*":{"origins":"*"}})
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 # Since we are deploying with Docker and Flask,
@@ -125,13 +125,29 @@ def handle_join_room(data):
     print("JOIN ROOM", data)
     room = data.get('room')
     join_room(room)
-    emit('join_room_announcement', {'message': f'User has joined room {room}'}, room=room)
+    # emit('join_room_announcement', {'message': f'User has joined room {room}'}, room=room)
 
 @socketio.on('leave_room')
 def handle_leave_room(data):
+    print("LEAVE ROOM", data)
     room = data.get('room')
     leave_room(room)
-    emit('leave_room_announcement', {'message': f'User has left room {room}'}, room=room)
+    # emit('leave_room_announcement', {'message': f'User has left room {room}'}, room=room)
+
+@socketio.on('class')
+def handle_class(data):
+    print("ENTERED CLASS", data)
+    emit('class', data)
+
+@socketio.on('addPoints')
+def handle_addPoints(data):
+    try:
+        print("ADD POINTS", data)
+        room = data.get('room')
+        print(f"Emitting to room {room}")
+        emit('addPoints', data, broadcast=True)
+    except Exception as e:
+        print(f"Error in addPoints: {e}")
 
 @socketio.on('send_message')
 def handle_send_message(data):

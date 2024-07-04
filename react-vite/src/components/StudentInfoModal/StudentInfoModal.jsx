@@ -17,6 +17,8 @@ function StudentInfoModal({student, classId, rewards, feedback, allStudentsState
     const [rewardsState, setRewardsState] = useState(rewards);
     const [feedbackState, setFeedbackState] = useState(feedback);
 
+    console.log("ONE STUDENT", student)
+
     useEffect(() => {
         dispatch(fetchAllRewardsThunk(classId))
         dispatch(fetchAllFeedbackThunk(classId))
@@ -38,7 +40,7 @@ function StudentInfoModal({student, classId, rewards, feedback, allStudentsState
                 <h1>{`${first_name} ${last_name}`}</h1>
                 <h2>{`Points: ${points}`}</h2>
 
-                <AddReward first_name={first_name} rewards={rewardsState} student_class_id={student_class_id}/>
+                <AddReward first_name={first_name} rewards={rewardsState} student_class_id={student_class_id} points={points} classId={classId}/>
                 <button onClick={() => setAddRewardFormAppear(true)}>Add a Reward</button>
 
                 <AddFeedback first_name={first_name} feedback={feedbackState} student_class_id={student_class_id}/>

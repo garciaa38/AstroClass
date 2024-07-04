@@ -31,6 +31,7 @@ export const fetchClassByIdThunk = (user_id, classId) => async (dispatch) => {
         .catch(e => console.error(e))
     
         dispatch(loadClass(res))
+        return res;
 }
 
 export const studentJoinClassThunk = (student_id, inviteCode) => async (dispatch) => {
