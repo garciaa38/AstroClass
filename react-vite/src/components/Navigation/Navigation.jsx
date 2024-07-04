@@ -25,8 +25,8 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
       <button onClick={() => setView("message-board")}>Message Board</button>
       {view === "class" &&
       <div>
-      <ClassInfo sessionUser={sessionUser} cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} />
-      <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={cls} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>}/></div>}
+      <ClassInfo sessionUser={sessionUser} cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={role} allStudentsState={allStudents} setAllStudentsState={setAllStudentsState} />
+      <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={cls} setAllStudentsState={setAllStudentsState} allStudents={allStudents} allStudentsState={allStudentsState}/>}/></div>}
       {view === "message-board" &&
       <div>
       <MessageBoard currMsgBoard={messageBoard[0]} sessionUser={sessionUser} setCurrMsgBoard={setCurrMsgBoard}/>

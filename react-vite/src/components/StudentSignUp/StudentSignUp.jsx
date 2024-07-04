@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import { thunkStudentSignup } from "../../redux/session";
 import { addStudentToClassThunk } from "../../redux/classes";
 import { fetchAllStudentsThunk } from "../../redux/students";
+import { socket } from "../../socket";
 
 function StudentSignUp({classId, setAllStudentsState}) {
     const dispatch = useDispatch();
@@ -61,6 +62,8 @@ function StudentSignUp({classId, setAllStudentsState}) {
             await dispatch(addStudentToClassThunk(classId, serverResponse.id))
             const res = await dispatch(fetchAllStudentsThunk())
             await setAllStudentsState(res)
+            socket.emit('updateClass', { room: classId })
+            socket.emit('updateStudents', { room: classId })
             closeModal();
         }
     };

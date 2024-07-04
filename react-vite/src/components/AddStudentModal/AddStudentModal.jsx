@@ -2,11 +2,12 @@ import { useState } from "react";
 import StudentSearch from "../StudentSearch/StudentSearch";
 import StudentSignUp from "../StudentSignUp/StudentSignUp";
 
-function AddStudentModal({ cls, setAllStudentsState, allStudents }) {
+function AddStudentModal({ cls, setAllStudentsState, allStudents, allStudentsState }) {
     const { id: classId } = cls;
     const [formAppear, setFormAppear] = useState(false)
+    console.log("ALL STUDENTS", allStudents)
 
-    setAllStudentsState(allStudents)
+    // setAllStudentsState(allStudents)
 
     if (!formAppear) {
         return (

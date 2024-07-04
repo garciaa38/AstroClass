@@ -156,6 +156,11 @@ def handle_classes(data):
     print(f"Emitting to room {room}")
     emit('updateClasses', data, broadcast=True)
 
+@socketio.on('updateStudents')
+def handle_students(data):
+    room = data.get('room')
+    emit('updateStudents', data, broadcast=True)
+
 @socketio.on('send_message')
 def handle_send_message(data):
     room = data.get('room')
