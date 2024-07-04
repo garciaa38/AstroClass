@@ -134,20 +134,27 @@ def handle_leave_room(data):
     leave_room(room)
     # emit('leave_room_announcement', {'message': f'User has left room {room}'}, room=room)
 
-@socketio.on('class')
-def handle_class(data):
-    print("ENTERED CLASS", data)
-    emit('class', data)
+# @socketio.on('class')
+# def handle_class(data):
+#     print("ENTERED CLASS", data)
+#     emit('class', data)
 
 @socketio.on('updateClass')
-def handle_addPoints(data):
+def handle_class(data):
     try:
-        print("ADD POINTS", data)
+        print("UPDATE CLASS", data)
         room = data.get('room')
         print(f"Emitting to room {room}")
         emit('updateClass', data, broadcast=True)
     except Exception as e:
         print(f"Error in updateClass: {e}")
+
+@socketio.on('updateClasses')
+def handle_classes(data):
+    print("UPDATE CLASSES", data)
+    room = data.get('room')
+    print(f"Emitting to room {room}")
+    emit('updateClasses', data, broadcast=True)
 
 @socketio.on('send_message')
 def handle_send_message(data):

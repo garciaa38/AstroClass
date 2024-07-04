@@ -1,14 +1,16 @@
 import { removePointsFromStudentThunk } from "../../redux/classes";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { socket } from "../../socket";
 
-function AddFeedback({first_name, feedback, student_class_id }) {
+function AddFeedback({first_name, feedback, student_class_id, classId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-    const removePoints = async (student_class_id, rewardId) => {
-        await dispatch(removePointsFromStudentThunk(student_class_id, rewardId))
+    const removePoints = async (student_class_id, rewardId, classId) => {
         closeModal()
+        await dispatch(removePointsFromStudentThunk(student_class_id, rewardId))
+        socket.emit('updateClass', { room: classId})
     }
 
     return (
@@ -17,7 +19,7 @@ function AddFeedback({first_name, feedback, student_class_id }) {
                 {feedback.map(feedback => {
                     return (
                         <div key={feedback.id}>
-                            <button onClick={() => removePoints(student_class_id, feedback.id)}>{feedback.feedback_type} {feedback.points}</button>
+                            <button onClick={() => removePoints(student_class_id, feedback.id, classId)}>{feedback.feedback_type} {feedback.points}</button>
                         </div>
                     )
                 })}

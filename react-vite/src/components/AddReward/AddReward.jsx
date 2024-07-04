@@ -7,13 +7,13 @@ import { socket } from "../../socket";
 function AddReward({first_name, rewards, student_class_id, classId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
+    console.log("CLASS ID", classId)
 
 
-    const addPoints = async (student_class_id, rewardId, points, classId) => {
-        await dispatch(addPointsToStudentThunk(student_class_id, rewardId))
-        socket.emit('updateClass', { room: classId})
-        console.log("SOCKET fetched")
+    const addPoints = async (student_class_id, rewardId, classId) => {
         closeModal()
+        await dispatch(addPointsToStudentThunk(student_class_id, rewardId))
+        socket.emit('updateClass', { room: classId })
     }
 
     return (
@@ -23,7 +23,7 @@ function AddReward({first_name, rewards, student_class_id, classId }) {
                     console.log('REWARD', reward)
                     return (
                         <div key={reward.id}>
-                            <button onClick={() => addPoints(student_class_id, reward.id, reward.points, classId)}>{reward.reward_type} {reward.points}</button>
+                            <button onClick={() => addPoints(student_class_id, reward.id, classId)}>{reward.reward_type} {reward.points}</button>
                         </div>
                     )
                 })}

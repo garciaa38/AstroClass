@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addFeedbackToClassThunk } from "../../redux/classes";
+import { socket } from "../../socket";
 
 function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate}) {
     const dispatch = useDispatch()
@@ -33,7 +34,7 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
         }
 
         const serverResponse = await dispatch(addFeedbackToClassThunk(classId, newFeedback))
-
+        socket.emit('updateClass', { room: classId })
         handleFeedbackUpdate(serverResponse)
 
         setAddFeedbackFormAppear(false);

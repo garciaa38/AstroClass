@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addRewardToClassThunk } from "../../redux/classes";
+import { socket } from "../../socket";
 
 function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
     const dispatch = useDispatch()
@@ -33,7 +34,7 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
         }
 
         const serverResponse = await dispatch(addRewardToClassThunk(classId, newReward))
-
+        socket.emit('updateClass', { room: classId })
         handleRewardUpdate(serverResponse)
 
         setAddRewardFormAppear(false);

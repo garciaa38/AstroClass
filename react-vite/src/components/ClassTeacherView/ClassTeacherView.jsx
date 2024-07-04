@@ -3,7 +3,7 @@ import SignOutModal from "../SignOutModal/SignOutModal";
 import AddClassModal from "../AddClassModal/AddClassModal";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchClassByIdThunk } from "../../redux/classes";
+import { fetchAllClassesThunk, fetchClassByIdThunk } from "../../redux/classes";
 import Navigation from "../Navigation/Navigation";
 import { socket } from "../../socket";
 
@@ -19,30 +19,34 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
     console.log("CURRENT CLASS", currClass?.students[0])
 
     useEffect(() => {
-        // console.log("SOCKET Connecting to socket...");
         
         socket.emit('join_room', { room: `${currClass?.id}` });
         socket.emit('leave_room', { room: `${prevClass?.id}` });
-        // console.log("SOCKET Joining room:", `${currClass?.id}`);
 
-        // socket.emit('class', {currentClass: currClass})
         }, [currClass?.id, prevClass?.id]);
     
         useEffect(() => {
             const fetchClass = (data) => {
-                // setTimeout(() => {
-                    console.log('SOCKET points added', data)
-                    dispatch(fetchClassByIdThunk(sessionUser.id, data.room))
-                // }, 1000)
+                dispatch(fetchClassByIdThunk(sessionUser.id, data.room))
+            }
+
+            const fetchClasses = (data) => {
+                if (data['type'] === 'delete') {
+                    setPrevClassIdx(currClassIdx)
+                    setCurrClassIdx(0)
+                }
+                dispatch(fetchAllClassesThunk(sessionUser.id))
             }
     
             console.log("SOCKET adding points?")
             socket.on('updateClass', (data) => fetchClass(data));
+            socket.on('updateClasses', (data) => fetchClasses(data))
         
             return () => {
                 socket.off('updateClass', fetchClass)
+                socket.off('updateClasses', fetchClasses)
             };
-        }, [dispatch, sessionUser.id])
+        }, [dispatch, sessionUser.id, currClassIdx])
 
 
 
@@ -78,7 +82,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                     </div>
                 )
             })}
-            <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} />}/>
+            <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
             <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
             <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
         </>

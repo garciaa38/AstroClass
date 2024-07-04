@@ -2,6 +2,7 @@ import { useState } from "react";
 import { editRewardThunk } from "../../redux/classes";
 import { useDispatch } from "react-redux";
 import { deleteRewardThunk } from "../../redux/classes";
+import { socket } from "../../socket";
 
 function EditReward({reward, classId, handleRewardDelete}) {
     const dispatch = useDispatch()
@@ -41,7 +42,7 @@ function EditReward({reward, classId, handleRewardDelete}) {
 
         reward.reward_type = rewardType
         reward.points = Number(pointsEarned)
-
+        socket.emit('updateClass', { room: classId })
         await dispatch(editRewardThunk(updatedReward))
 
         await setIsEditing(false)
@@ -55,7 +56,7 @@ function EditReward({reward, classId, handleRewardDelete}) {
         }
 
         await dispatch(deleteRewardThunk(reward.id, clsId))
-
+        socket.emit('updateClass', { room: classId })
         await handleRewardDelete(reward)
 
     }

@@ -7,6 +7,7 @@ import EditReward from "../EditReward/EditReward";
 import EditFeedback from "../EditFeedback/EditFeedback";
 import RewardForm from "../RewardForm/RewardForm";
 import FeedbackForm from "../FeedbackForm/FeedbackForm";
+import { socket } from "../../socket";
 
 function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
     const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
         }
 
         await dispatch(editClassThunk(classId, updatedClass))
+        socket.emit('updateClass', { room: classId })
         closeModal()
     }
 
@@ -73,6 +75,7 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
         if (currClassIdx > 0) {
             await setCurrClassIdx(currClassIdx-1)
         }
+        socket.emit('updateClasses', {room: classId, classIdx: currClassIdx, type: 'delete'})
         closeModal()
     }
 
