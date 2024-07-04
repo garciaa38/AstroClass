@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllClassesThunk, fetchClassByIdThunk } from "../../redux/classes";
 import Navigation from "../Navigation/Navigation";
 import { socket } from "../../socket";
+import { fetchAllStudentsThunk } from "../../redux/students";
 
 function ClassTeacherView({sessionUser, navigate, classes}) {
     const dispatch = useDispatch()
@@ -16,7 +17,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
     const currClass = classes[currClassIdx]
     const prevClass = classes[prevClassIdx]
     const [allStudentsState, setAllStudentsState] = useState(allStudents)
-    console.log("CURRENT CLASS", currClass?.students[0])
+    console.log("ALL STUDENTS", allStudents)
 
     useEffect(() => {
         
@@ -37,14 +38,19 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                 }
                 dispatch(fetchAllClassesThunk(sessionUser.id))
             }
+
+            const fetchStudents = () => {
+                dispatch(fetchAllStudentsThunk())
+            }
     
-            console.log("SOCKET adding points?")
             socket.on('updateClass', (data) => fetchClass(data));
-            socket.on('updateClasses', (data) => fetchClasses(data))
+            socket.on('updateClasses', (data) => fetchClasses(data));
+            socket.on('updateStudents', (data) => fetchStudents(data))
         
             return () => {
                 socket.off('updateClass', fetchClass)
                 socket.off('updateClasses', fetchClasses)
+                socket.off('updateStudents', fetchStudents)
             };
         }, [dispatch, sessionUser.id, currClassIdx])
 
