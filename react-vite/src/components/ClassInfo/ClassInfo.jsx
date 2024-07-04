@@ -1,44 +1,40 @@
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import StudentInfoModal from "../StudentInfoModal/StudentInfoModal";
 import EditClass from "../EditClass/EditClass";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchClassByIdThunk } from "../../redux/classes";
 
 function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allStudentsState, setAllStudentsState}) {
     const dispatch = useDispatch()
     const {class_name, students, id: classId, rewards, feedback} = cls;
-    console.log("CURRENT CLASS", cls?.students[0])
-
-    const sortStudents = studentArr => {
-        if (studentArr?.length <= 1) {
-            return studentArr;
-        }
-        
-        let pivot = studentArr[0];
-        let leftArr = [];
-        let rightArr = [];
-        
-        for (let i = 1; i < studentArr?.length; i++) {
-            if (studentArr[i]?.first_name < pivot.first_name) {
-                leftArr.push(studentArr[i])
-            } else if (studentArr[i]?.first_name === pivot.first_name) {
-                if (studentArr[i]?.last_name < pivot.last_name) {
-                    leftArr.push(studentArr[i])
-                } else if (studentArr[i]?.last_name >= pivot.last_name) {
-                    rightArr.push(studentArr[i])
-                }
-            } else {
-                rightArr.push(studentArr[i])
-            }
-        }
-        
-        return [...sortStudents(leftArr), pivot, ...sortStudents(rightArr)]
-    }
-    const sortedStudents = sortStudents(students)
-
 
     if (role === 'teacher') {
+        const sortStudents = studentArr => {
+            if (studentArr?.length <= 1) {
+                return studentArr;
+            }
+            
+            let pivot = studentArr[0];
+            let leftArr = [];
+            let rightArr = [];
+            
+            for (let i = 1; i < studentArr?.length; i++) {
+                if (studentArr[i]?.first_name < pivot.first_name) {
+                    leftArr.push(studentArr[i])
+                } else if (studentArr[i]?.first_name === pivot.first_name) {
+                    if (studentArr[i]?.last_name < pivot.last_name) {
+                        leftArr.push(studentArr[i])
+                    } else if (studentArr[i]?.last_name >= pivot.last_name) {
+                        rightArr.push(studentArr[i])
+                    }
+                } else {
+                    rightArr.push(studentArr[i])
+                }
+            }
+            
+            return [...sortStudents(leftArr), pivot, ...sortStudents(rightArr)]
+        }
+        const sortedStudents = sortStudents(students)
         return (
             <>
                 <h1>This is {class_name}</h1>

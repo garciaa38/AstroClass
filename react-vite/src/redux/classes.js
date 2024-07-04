@@ -25,6 +25,7 @@ export const fetchAllClassesThunk = (teacherId) => async (dispatch) => {
     
 }
 
+
 export const fetchClassByIdThunk = (user_id, classId) => async (dispatch) => {
     const res = await fetch(`/api/classes/${classId}/user/${user_id}`)
         .then(res => res.json())

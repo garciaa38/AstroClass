@@ -10,20 +10,20 @@ function AddReward({first_name, rewards, student_class_id, classId }) {
     console.log("CLASS ID", classId)
 
 
-    const addPoints = async (student_class_id, rewardId, classId) => {
+    const addPoints = async (student_class_id, rewardId, classId, points) => {
         closeModal()
         await dispatch(addPointsToStudentThunk(student_class_id, rewardId))
-        socket.emit('updateClass', { room: classId })
+        socket.emit('updateClass', { room: classId, points: points })
     }
 
     return (
             <>
                 <h3>Reward {first_name}</h3>
                 {rewards.map(reward => {
-                    console.log('REWARD', reward)
+                    console.log('REWARD!', reward)
                     return (
                         <div key={reward.id}>
-                            <button onClick={() => addPoints(student_class_id, reward.id, classId)}>{reward.reward_type} {reward.points}</button>
+                            <button onClick={() => addPoints(student_class_id, reward.id, classId, reward.points)}>{reward.reward_type} {reward.points}</button>
                         </div>
                     )
                 })}

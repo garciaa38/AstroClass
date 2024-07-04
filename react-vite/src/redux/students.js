@@ -18,6 +18,7 @@ export const fetchAllStudentsThunk = () => async (dispatch) => {
     return res
 }
 
+
 // ================= REDUCER =================
 const studentsReducer = (state = {}, action) => {
     switch (action.type) {
@@ -34,4 +35,4 @@ const studentsReducer = (state = {}, action) => {
     }
 }
 
-export default studentsReducer
+export default studentsReducer;
