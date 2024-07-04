@@ -41,6 +41,7 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
             last_name: lastName
         }
         socket.emit('updateClass', { room: classId })
+        socket.emit('updateStudentClass', { room: classId })
         socket.emit('updateStudents', { room: classId })
         await dispatch(editStudentInfoThunk(updateStudent, classId ))
         closeModal()
@@ -52,6 +53,7 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
         const res = await dispatch(fetchAllStudentsThunk())
         // await setAllStudentsState(res)
         socket.emit('updateClass', { room: classId })
+        socket.emit('updateClasses', { room: classId, type: 'delete' })
         socket.emit('updateStudents', { room: classId })
         closeModal()
     }

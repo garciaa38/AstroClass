@@ -13,6 +13,7 @@ function AddReward({first_name, rewards, student_class_id, classId }) {
     const addPoints = async (student_class_id, rewardId, classId, points) => {
         closeModal()
         await dispatch(addPointsToStudentThunk(student_class_id, rewardId))
+        socket.emit('updateStudentClass', { room: classId, points: points})
         socket.emit('updateClass', { room: classId, points: points })
     }
 

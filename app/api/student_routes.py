@@ -153,6 +153,15 @@ def get_student_classes(student_id):
     
     return jsonify(all_class_data)
 
+# Get student class by id
+@student_routes.route('/<int:student_id>/class/<int:class_id>')
+@login_required
+def get_student_class_by_id(student_id, class_id):
+    print("GETTING CLASS BY ID 1")
+    requested_class = StudentClass.query.filter_by(student_id=student_id, class_id=class_id).first_or_404()    
+    print("GETTING CLASS BY ID 2", requested_class.to_dict())
+    return jsonify(requested_class.to_dict())
+
 # Student joins a class
 @student_routes.route('/<int:student_id>', methods=['POST'])
 @login_required
