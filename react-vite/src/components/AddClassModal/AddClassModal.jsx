@@ -4,8 +4,9 @@ import { addNewClassThunk } from "../../redux/classes";
 import { useModal } from "../../context/Modal";
 import { studentJoinClassThunk } from "../../redux/classes";
 import { fetchCurrentUser } from "../../redux/session";
+import { socket } from "../../socket";
 
-function AddClassModal({sessionUser, setCurrentUser}) {
+function AddClassModal({sessionUser, setCurrentUser, classId}) {
     const dispatch = useDispatch()
     const [className, setClassName] = useState("")
     const [subject, setSubject] = useState("")
@@ -46,6 +47,7 @@ function AddClassModal({sessionUser, setCurrentUser}) {
             subject
         }
 
+        socket.emit('updateClasses', {room: classId, type: 'add'})
         await dispatch(addNewClassThunk(sessionUser.id, newClass));
         closeModal()
     }

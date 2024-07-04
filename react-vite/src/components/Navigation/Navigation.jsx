@@ -16,8 +16,8 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
   console.log("CURRENT CLASS", cls?.students[0])
 
   useEffect(() => {
-    dispatch(fetchMessageBoardThunk(cls.id))
-  }, [dispatch, cls.id])
+    dispatch(fetchMessageBoardThunk(cls?.id))
+  }, [dispatch, cls?.id])
   
   return (
     <>

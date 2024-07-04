@@ -2,6 +2,7 @@ import { useState } from "react";
 import { editFeedbackThunk } from "../../redux/classes";
 import { useDispatch } from "react-redux";
 import { deleteFeedbackThunk } from "../../redux/classes";
+import { socket } from "../../socket";
 
 function EditFeedback({feedback, classId, handleFeedbackDelete}) {
     const dispatch = useDispatch()
@@ -42,7 +43,7 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
 
         feedback.reward_type = feedbackType
         feedback.points = Number(pointsLost)
-
+        socket.emit('updateClass', { room: classId })
         await dispatch(editFeedbackThunk(updatedFeedback))
 
         await setIsEditing(false)
@@ -56,7 +57,7 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
         }
 
         await dispatch(deleteFeedbackThunk(feedback.id, clsId))
-
+        socket.emit('updateClass', { room: classId })
         await handleFeedbackDelete(feedback)
 
     }

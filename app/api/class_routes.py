@@ -105,6 +105,8 @@ def get_class(class_id, user_id):
             .first()
     )
 
+    print("REQUESTED CLASS", requested_class)
+
     if user.role == 'teacher':
         if (current_user.id != user_id) or (teacher_check(current_user) is False):
             return jsonify({"error": "Unauthorized access"}), 403
