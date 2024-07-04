@@ -76,6 +76,7 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
             await setCurrClassIdx(currClassIdx-1)
         }
         socket.emit('updateClasses', {room: classId, classIdx: currClassIdx, type: 'delete'})
+        socket.emit('updateStudents', {room: classId})
         closeModal()
     }
 

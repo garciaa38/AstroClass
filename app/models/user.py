@@ -79,7 +79,7 @@ class Class(db.Model):
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
 
-    student_class_rel = db.relationship('StudentClass', backref='class', cascade="all, delete", lazy=True)
+    student_class_rel = db.relationship('StudentClass', backref='cls', cascade="all, delete", lazy=True)
     class_reward_rel = db.relationship('Reward', backref='class', cascade="all, delete", lazy=True)
     class_feedback_rel = db.relationship('Feedback', backref='class', cascade="all, delete", lazy=True)
     class_message_board_rel = db.relationship('MessageBoard', backref='class', cascade="all, delete", lazy=True)
@@ -138,10 +138,12 @@ class StudentClass(db.Model):
     
 
     def to_dict(self):
+        class_data = self.cls
         return {
             'id': self.id,
             'student_id': self.student_id,
             'class_id': self.class_id,
+            'class_name': class_data.class_name if class_data else None,
             'points': self.points,
             'student': self.user.to_dict(),
         }
