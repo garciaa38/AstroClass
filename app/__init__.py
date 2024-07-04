@@ -139,15 +139,15 @@ def handle_class(data):
     print("ENTERED CLASS", data)
     emit('class', data)
 
-@socketio.on('addPoints')
+@socketio.on('updateClass')
 def handle_addPoints(data):
     try:
         print("ADD POINTS", data)
         room = data.get('room')
         print(f"Emitting to room {room}")
-        emit('addPoints', data, broadcast=True)
+        emit('updateClass', data, broadcast=True)
     except Exception as e:
-        print(f"Error in addPoints: {e}")
+        print(f"Error in updateClass: {e}")
 
 @socketio.on('send_message')
 def handle_send_message(data):

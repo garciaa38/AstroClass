@@ -30,17 +30,17 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
     
         useEffect(() => {
             const fetchClass = (data) => {
-                setTimeout(() => {
+                // setTimeout(() => {
                     console.log('SOCKET points added', data)
                     dispatch(fetchClassByIdThunk(sessionUser.id, data.room))
-                }, 1000)
+                // }, 1000)
             }
     
             console.log("SOCKET adding points?")
-            socket.on('addPoints', (data) => fetchClass(data));
+            socket.on('updateClass', (data) => fetchClass(data));
         
             return () => {
-                socket.off('addPoints', fetchClass)
+                socket.off('updateClass', fetchClass)
             };
         }, [dispatch, sessionUser.id])
 
