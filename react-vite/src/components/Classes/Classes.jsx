@@ -1,10 +1,8 @@
-import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
 import { fetchAllClassesThunk } from "../../redux/classes";
 import { fetchAllStudentsThunk } from "../../redux/students";
-import SignOutModal from "../SignOutModal/SignOutModal";
 import ClassTeacherView from "../ClassTeacherView/ClassTeacherView";
 import ClassStudentView from "../ClassStudentView/ClassStudentView";
 
@@ -35,7 +33,7 @@ function Classes() {
         } else {
             return (
                 <>
-                    <h1>Hey there {first_name} {last_name}.</h1>
+                    <h1>Hey there parent.</h1>
                     <h2>You are currently signed in as a parent!</h2>
                 </>
             )
