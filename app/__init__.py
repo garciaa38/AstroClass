@@ -149,6 +149,16 @@ def handle_class(data):
     except Exception as e:
         print(f"Error in updateClass: {e}")
 
+@socketio.on('updateStudentClass')
+def handle_class(data):
+    try:
+        print("UPDATE CLASS", data)
+        room = data.get('room')
+        print(f"Emitting to room {room}")
+        emit('updateStudentClass', data, broadcast=True)
+    except Exception as e:
+        print(f"Error in updateClass: {e}")
+
 @socketio.on('updateClasses')
 def handle_classes(data):
     print("UPDATE CLASSES", data)

@@ -145,7 +145,7 @@ class StudentClass(db.Model):
             'class_id': self.class_id,
             'class_name': class_data.class_name if class_data else None,
             'points': self.points,
-            'student': self.user.to_dict(),
+            # 'student': self.user.to_dict(),
         }
 
 class Reward(db.Model):

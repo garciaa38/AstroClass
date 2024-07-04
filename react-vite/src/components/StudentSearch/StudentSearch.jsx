@@ -43,6 +43,7 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
         // console.log("FETCH STUDENTS after redux", res)
         // await setAllStudentsState(res)
         socket.emit('updateClass', { room: classId })
+        socket.emit('updateStudentClass', { room: classId })
         socket.emit('updateStudents', { room: classId })
         closeModal();
     }
