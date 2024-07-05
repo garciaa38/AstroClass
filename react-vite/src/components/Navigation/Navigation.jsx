@@ -14,6 +14,14 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
   const [currMsgBoard, setCurrMsgBoard] = useState(messageBoard[0])
   console.log("MESSAGE BOARD", messageBoard)
   console.log("MESSAGE BOARD class", cls)
+  const currentMsgBoard = messageBoard.find(msgB => {
+    if (role === 'teacher') {
+      return msgB.class_id === cls.id
+    } else {
+      return msgB.class_id === cls.class_id
+    }
+  })
+  console.log("MESSAGE BOARD current", currentMsgBoard)
 
   useEffect(() => {
     if (role === 'student') {
@@ -33,7 +41,7 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
       {role === 'teacher' && <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={cls} setAllStudentsState={setAllStudentsState} allStudents={allStudents} allStudentsState={allStudentsState}/>}/>}</div>}
       {view === "message-board" &&
       <div>
-      <MessageBoard currMsgBoard={messageBoard[0]} sessionUser={sessionUser} setCurrMsgBoard={setCurrMsgBoard}/>
+      <MessageBoard currMsgBoard={currentMsgBoard} sessionUser={sessionUser} setCurrMsgBoard={setCurrMsgBoard}/>
       </div>}
     </>
   );
