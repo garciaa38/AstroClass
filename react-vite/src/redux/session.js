@@ -109,6 +109,7 @@ export const fetchCurrentUser = () => async (dispatch) => {
   const res = await fetch('/api/users/current')
     .then(res => res.json())
     .catch(e => console.error(e))
+  dispatch(setUser(res))
   return res;
 }
 

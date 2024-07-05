@@ -98,13 +98,14 @@ def get_classes(teacher_id):
 def get_class(class_id, user_id):
     user = User.query.get_or_404(user_id)
 
-
     requested_class = (
         db.session.query(Class)
             .options(joinedload(Class.student_class_rel).joinedload(StudentClass.user))
             .filter(Class.id == class_id)
             .first()
     )
+
+    print("REQUESTED CLASS", requested_class)
 
     if user.role == 'teacher':
         if (current_user.id != user_id) or (teacher_check(current_user) is False):
@@ -113,7 +114,6 @@ def get_class(class_id, user_id):
         if (current_user.id != user_id) or (student_check(current_user) is False):
             return jsonify({"error": "Unauthorized access"}), 403
     
-    print("REQUESTED CLASS", requested_class)
     
     return jsonify(requested_class.to_dict())
 

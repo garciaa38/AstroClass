@@ -12,11 +12,10 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
   const [view, setView] = useState("class")
   const messageBoard = Object.values(useSelector((state) => state.messageBoard))
   const [currMsgBoard, setCurrMsgBoard] = useState(messageBoard[0])
-  console.log("CURRENT MSG BOARD", messageBoard[0])
 
   useEffect(() => {
-    dispatch(fetchMessageBoardThunk(cls.id))
-  }, [dispatch, cls.id])
+    dispatch(fetchMessageBoardThunk(cls?.id))
+  }, [dispatch, cls?.id])
   
   return (
     <>
@@ -24,8 +23,8 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
       <button onClick={() => setView("message-board")}>Message Board</button>
       {view === "class" &&
       <div>
-      <ClassInfo cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} />
-      <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={cls} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>}/></div>}
+      <ClassInfo sessionUser={sessionUser} cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={role} allStudentsState={allStudents} setAllStudentsState={setAllStudentsState} />
+      {role === 'teacher' && <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={cls} setAllStudentsState={setAllStudentsState} allStudents={allStudents} allStudentsState={allStudentsState}/>}/>}</div>}
       {view === "message-board" &&
       <div>
       <MessageBoard currMsgBoard={messageBoard[0]} sessionUser={sessionUser} setCurrMsgBoard={setCurrMsgBoard}/>

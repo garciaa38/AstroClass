@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { editStudentInfoThunk, removeStudentFromClassThunk } from "../../redux/classes";
 import { fetchAllStudentsThunk } from "../../redux/students";
 import { useModal } from "../../context/Modal";
+import { socket } from "../../socket";
 
 function EditStudentForm({student, classId, setAllStudentsState}) {
     // console.log("EDIT STUDENT", student)
@@ -39,7 +40,9 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
             first_name: firstName,
             last_name: lastName
         }
-
+        socket.emit('updateClass', { room: classId })
+        socket.emit('updateStudentClass', { room: classId })
+        socket.emit('updateStudents', { room: classId })
         await dispatch(editStudentInfoThunk(updateStudent, classId ))
         closeModal()
 
@@ -48,7 +51,10 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
     const removeStudent = async (student_class_id) => {
         await dispatch(removeStudentFromClassThunk(student_class_id))
         const res = await dispatch(fetchAllStudentsThunk())
-        await setAllStudentsState(res)
+        // await setAllStudentsState(res)
+        socket.emit('updateClass', { room: classId })
+        socket.emit('updateClasses', { room: classId, type: 'delete' })
+        socket.emit('updateStudents', { room: classId })
         closeModal()
     }
 

@@ -3,12 +3,14 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { addStudentToClassThunk } from "../../redux/classes";
 import { fetchAllStudentsThunk } from "../../redux/students";
+import { socket } from "../../socket";
+
 
 function StudentSearch({allStudents, classId, setAllStudentsState}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal()
     const [name, setName] = useState("");
-    console.log("WHERE MY STUDENTS AT", allStudents)
+    console.log("ALL STUDENTS", allStudents)
 
     const searchStudents = useMemo(() => {
         if (!name) return [];
@@ -38,8 +40,11 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
         console.log("ADDING STUDENT", student)
         await dispatch(addStudentToClassThunk(classId, student.id))
         const res = await dispatch(fetchAllStudentsThunk())
-        console.log("FETCH STUDENTS after redux", res)
-        await setAllStudentsState(res)
+        // console.log("FETCH STUDENTS after redux", res)
+        // await setAllStudentsState(res)
+        socket.emit('updateClass', { room: classId })
+        socket.emit('updateStudentClass', { room: classId })
+        socket.emit('updateStudents', { room: classId })
         closeModal();
     }
 

@@ -39,7 +39,7 @@ def get_students():
     return jsonify(student_data)
 
 # Get all students in a class
-@student_routes.route('/<int:class_id>')
+@student_routes.route('/class/<int:class_id>')
 @login_required
 def get_students_in_class(class_id):
     students_in_class = (
@@ -136,6 +136,32 @@ def remove_student(student_class_id):
 
     return jsonify(requested_class.to_dict())
 
+# Get student classes
+@student_routes.route('/<int:student_id>')
+@login_required
+def get_student_classes(student_id):
+    print("GETTING CLASS 1")
+    all_classes = (
+        db.session.query(StudentClass).filter(StudentClass.student_id == student_id).all()
+    )
+    print("GETTING CLASS 2")
+    all_class_data = []
+
+    for student_class in all_classes:
+        print("GETTING CLASS 3", student_class.to_dict())
+        all_class_data.append(student_class.to_dict())
+    
+    return jsonify(all_class_data)
+
+# Get student class by id
+@student_routes.route('/<int:student_id>/class/<int:class_id>')
+@login_required
+def get_student_class_by_id(student_id, class_id):
+    print("GETTING CLASS BY ID 1")
+    requested_class = StudentClass.query.filter_by(student_id=student_id, class_id=class_id).first_or_404()    
+    print("GETTING CLASS BY ID 2", requested_class.to_dict())
+    return jsonify(requested_class.to_dict())
+
 # Student joins a class
 @student_routes.route('/<int:student_id>', methods=['POST'])
 @login_required
@@ -159,4 +185,3 @@ def student_join_class(student_id):
     db.session.commit()
 
     return jsonify(requested_class.to_dict())
-

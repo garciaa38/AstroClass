@@ -25,12 +25,14 @@ export const fetchAllClassesThunk = (teacherId) => async (dispatch) => {
     
 }
 
+
 export const fetchClassByIdThunk = (user_id, classId) => async (dispatch) => {
     const res = await fetch(`/api/classes/${classId}/user/${user_id}`)
         .then(res => res.json())
         .catch(e => console.error(e))
     
         dispatch(loadClass(res))
+        return res;
 }
 
 export const studentJoinClassThunk = (student_id, inviteCode) => async (dispatch) => {

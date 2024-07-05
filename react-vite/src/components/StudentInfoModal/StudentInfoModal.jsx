@@ -40,10 +40,10 @@ function StudentInfoModal({student, classId, rewards, feedback, allStudentsState
                 <h1>{`${first_name} ${last_name}`}</h1>
                 <h2>{`Points: ${points}`}</h2>
 
-                <AddReward first_name={first_name} rewards={rewardsState} student_class_id={student_class_id}/>
+                <AddReward first_name={first_name} rewards={rewardsState} student_class_id={student_class_id} points={points} classId={classId}/>
                 <button onClick={() => setAddRewardFormAppear(true)}>Add a Reward</button>
 
-                <AddFeedback first_name={first_name} feedback={feedbackState} student_class_id={student_class_id}/>
+                <AddFeedback first_name={first_name} feedback={feedbackState} student_class_id={student_class_id} classId={classId}/>
                 <button onClick={() => setAddFeedbackFormAppear(true)}>Add Feedback</button>
 
                 <button onClick={() => setEditStudentInfoAppear(true)}>{`Edit ${first_name}'s information.`}</button>
