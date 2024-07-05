@@ -13,7 +13,19 @@ export const fetchMessageBoardThunk = (msgBoardId) => async (dispatch) => {
         .catch(e => console.error(e))
 
         dispatch(loadMsgBoard(res))
-        return [res]
+        // return [res]
+}
+
+export const addMessageBoardThunk = (newMsgBoard) => async (dispatch) => {
+    const res = await fetch(`/api/message-boards/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newMsgBoard)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    console.log("ADDING MSG BOARD", res)
+    dispatch(loadMsgBoard(res))
 }
 
 export const addNewPostThunk = (newPost) => async (dispatch) => {
@@ -25,16 +37,23 @@ export const addNewPostThunk = (newPost) => async (dispatch) => {
         .then(res => res.json())
         .catch(e => console.error(e))
     console.log("ADDING POST", res)
-    const updMsgBoard = await dispatch(fetchMessageBoardThunk(res.message_board_id))
-    console.log("ADDING POST", updMsgBoard)
-    return updMsgBoard
+    await dispatch(fetchMessageBoardThunk(res.message_board_id))
+}
 
+export const addNewPostReplyThunk = (newPostReply, message_board_id) => async (dispatch) => {
+    const res = await fetch(`/api/post-replies/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newPostReply)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    await dispatch(fetchMessageBoardThunk(message_board_id))
 }
 // ================= REDUCER =================
 const msgBoardReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_MSGBOARD: {
-            console.log("CURRENT MSG BOARD redux", {[action.msgBoard.id]: action.msgBoard})
             return {[action.msgBoard.id]: action.msgBoard}
         }
         

@@ -57,6 +57,7 @@ export const addNewClassThunk = (teacher_id, newClass) => async (dispatch) => {
         .catch(e => console.error(e))
     
         dispatch(loadClass(res))
+        return res
 }
 
 export const editClassThunk = (class_id, cls) => async (dispatch) => {

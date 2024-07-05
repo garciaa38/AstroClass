@@ -4,6 +4,7 @@ import { addNewClassThunk } from "../../redux/classes";
 import { useModal } from "../../context/Modal";
 import { studentJoinClassThunk } from "../../redux/classes";
 import { fetchCurrentUser } from "../../redux/session";
+import { addMessageBoardThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
 
 function AddClassModal({sessionUser, setCurrentUser, classId}) {
@@ -47,8 +48,15 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
             subject
         }
 
+        
+        const res = await dispatch(addNewClassThunk(sessionUser.id, newClass));
+        console.log("ADDING CLASS", res.id)
+        const newMessageBoard = {
+            classId: res.id,
+            permission: "teacher_only"
+        }
+        await dispatch(addMessageBoardThunk(newMessageBoard))
         socket.emit('updateClasses', {room: classId, type: 'add'})
-        await dispatch(addNewClassThunk(sessionUser.id, newClass));
         closeModal()
     }
 

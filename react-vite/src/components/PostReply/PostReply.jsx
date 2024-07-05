@@ -3,7 +3,7 @@ import PostReplyReaction from "../PostReplyReaction/PostReplyReaction";
 function PostReply({post_replies}) {
     return (
         <div>
-            {post_replies.map(post_reply => {
+            {post_replies?.map(post_reply => {
                 return (
                     <div key={post_reply.id}>
                         <div>{post_reply.text_field}</div>
