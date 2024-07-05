@@ -53,8 +53,52 @@ export const addNewPostThunk = (newPost) => async (dispatch) => {
     await dispatch(fetchMessageBoardThunk(res.message_board_id))
 }
 
+export const editPostThunk = (oldPost) => async (dispatch) => {
+    const res = await fetch(`/api/posts/${oldPost.id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(oldPost)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    await dispatch(fetchMessageBoardThunk(res.message_board_id))
+}
+
+export const deletePostThunk = (deletedPost) => async (dispatch) => {
+    await fetch(`/api/posts/${deletedPost.id}`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify()
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    await dispatch(fetchMessageBoardThunk(deletedPost.msgBoardId))
+}
+
+export const editPostReplyThunk = (oldPostReply) => async (dispatch) => {
+    await fetch(`/api/post-replies/${oldPostReply.id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(oldPostReply)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    await dispatch(fetchMessageBoardThunk(oldPostReply.msgBoardId))
+}
+
+export const deletePostReplyThunk = (deletedPostReply) => async (dispatch) => {
+    await fetch(`/api/post-replies/${deletedPostReply.id}`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify()
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    await dispatch(fetchMessageBoardThunk(deletedPostReply.msgBoardId))
+}
+
 export const addNewPostReplyThunk = (newPostReply, message_board_id) => async (dispatch) => {
-    const res = await fetch(`/api/post-replies/`, {
+    await fetch(`/api/post-replies/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newPostReply)
