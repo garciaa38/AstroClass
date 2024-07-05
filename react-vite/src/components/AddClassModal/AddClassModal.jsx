@@ -63,6 +63,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         const currentUser = await dispatch(fetchCurrentUser())
         console.log("CURRENT STUDENT after joining class", currentUser)
         await setCurrentUser(currentUser)
+        socket.emit('updateClasses', {room: classId, type: 'add'})
         closeModal()
 
     }
