@@ -4,6 +4,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { fetchAllClassesThunk } from "../../redux/classes";
 import { fetchAllStudentsThunk } from "../../redux/students";
 import { fetchAllStudentClassesThunk } from "../../redux/studentClasses";
+import { fetchAllMsgBoardsThunk } from "../../redux/messageBoard";
 import ClassTeacherView from "../ClassTeacherView/ClassTeacherView";
 import ClassStudentView from "../ClassStudentView/ClassStudentView";
 
@@ -19,6 +20,7 @@ function Classes() {
         dispatch(fetchAllClassesThunk(sessionUser?.id))
         dispatch(fetchAllStudentClassesThunk(sessionUser?.id))
         dispatch(fetchAllStudentsThunk())
+        dispatch(fetchAllMsgBoardsThunk())
     }, [dispatch, sessionUser?.id])
 
     if (sessionUser) {
