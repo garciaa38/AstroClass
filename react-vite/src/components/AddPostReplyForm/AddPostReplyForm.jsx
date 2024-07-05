@@ -1,22 +1,22 @@
 import { useState } from "react";
-import { addNewPostThunk } from "../../redux/messageBoard";
 import { useDispatch } from "react-redux";
+import { addNewPostReplyThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
 
-function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
+function AddPostReplyForm({currPost, currMsgBoard, sessionUser}) {
     const dispatch = useDispatch()
-    const [newPost, setNewPost] = useState("")
+    const [newPostReply, setNewPostReply] = useState("")
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const createdPost = {
-            text_field: newPost,
+        const createdPostReply = {
+            text_field: newPostReply,
             user_id: sessionUser.id,
-            message_board_id: currMsgBoard.id
+            post_id: currPost.id
         }
-        currMsgBoard.posts.push(createdPost)
-        dispatch(addNewPostThunk(createdPost))
-        setNewPost("")
+        currPost.post_replies.push(createdPostReply)
+        dispatch(addNewPostReplyThunk(createdPostReply, currMsgBoard.id))
+        setNewPostReply("")
         
         socket.emit('updateClass', {room: currMsgBoard.class_id})
         socket.emit('updateMsgBoard', {room: currMsgBoard.class_id})
@@ -25,12 +25,12 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <label>
+            <label>
                     <input
                         type="text"
-                        placeholder="Make an announcement to your class!"
-                        value={newPost}
-                        onChange={(e) => setNewPost(e.target.value)}
+                        placeholder="reply..."
+                        value={newPostReply}
+                        onChange={(e) => setNewPostReply(e.target.value)}
                         required
                     />
                 </label>
@@ -40,4 +40,4 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
     )
 }
 
-export default AddPostForm;
+export default AddPostReplyForm;

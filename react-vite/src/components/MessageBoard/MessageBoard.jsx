@@ -5,7 +5,7 @@ import { socket } from "../../socket"
 
 function MessageBoard({currMsgBoard, sessionUser, setCurrMsgBoard}) {
     console.log("ADDING POST parent", currMsgBoard)
-    const allPosts = currMsgBoard.posts
+    const allPosts = currMsgBoard?.posts
     console.log("CURRENT CLASS POSTS", allPosts)
 
     useEffect(() => {
@@ -15,7 +15,7 @@ function MessageBoard({currMsgBoard, sessionUser, setCurrMsgBoard}) {
     return (
         <div>
             <AddPostForm currMsgBoard={currMsgBoard} setCurrMsgBoard={setCurrMsgBoard} sessionUser={sessionUser}/>
-            <Posts allPosts={allPosts}/>
+            <Posts allPosts={allPosts} currMsgBoard={currMsgBoard} sessionUser={sessionUser}/>
         </div>
     )
 }

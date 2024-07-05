@@ -159,6 +159,11 @@ def handle_class(data):
     except Exception as e:
         print(f"Error in updateClass: {e}")
 
+@socketio.on('updateMsgBoard')
+def handle_message_board(data):
+    print("UPDATE MSG BOARD")
+    emit('updateMsgBoard', data, broadcast=True)
+
 @socketio.on('updateClasses')
 def handle_classes(data):
     print("UPDATE CLASSES", data)

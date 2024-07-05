@@ -12,10 +12,16 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
   const [view, setView] = useState("class")
   const messageBoard = Object.values(useSelector((state) => state.messageBoard))
   const [currMsgBoard, setCurrMsgBoard] = useState(messageBoard[0])
+  console.log("MESSAGE BOARD", messageBoard)
+  console.log("MESSAGE BOARD class", cls)
 
   useEffect(() => {
-    dispatch(fetchMessageBoardThunk(cls?.id))
-  }, [dispatch, cls?.id])
+    if (role === 'student') {
+      dispatch(fetchMessageBoardThunk(cls?.class_id))
+    } else {
+      dispatch(fetchMessageBoardThunk(cls?.id))
+    }
+  }, [dispatch, cls?.id, cls?.class_id, role])
   
   return (
     <>

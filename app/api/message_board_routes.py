@@ -26,3 +26,22 @@ def get_message_board_by_id(message_board_id):
     message_board = MessageBoard.query.get_or_404(message_board_id)
 
     return jsonify(message_board.to_dict())
+
+# Create new message board
+@message_board_routes.route('/', methods=['POST'])
+@login_required
+def add_new_message_board():
+    data = request.get_json()
+    class_id = data.get('classId')
+    permission = data.get('permission')
+
+    new_message_board = MessageBoard(
+        permission = permission,
+        class_id = class_id
+    )
+
+    db.session.add(new_message_board)
+    db.session.commit()
+
+    return jsonify(new_message_board.to_dict())
+

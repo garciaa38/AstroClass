@@ -7,6 +7,7 @@ import { fetchStudentClassById } from "../../redux/studentClasses";
 import AddClassModal from "../AddClassModal/AddClassModal";
 import Navigation from "../Navigation/Navigation";
 import { socket } from "../../socket";
+import { fetchMessageBoardThunk } from "../../redux/messageBoard";
 
 function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
     const dispatch = useDispatch()
@@ -48,6 +49,10 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
         dispatch(fetchAllStudentClassesThunk(sessionUser.id));
     }, 1000), [dispatch, sessionUser.id, currClassIdx]);
 
+    const throttledFetchMsgBoard = useCallback(throttle((data) => {
+        dispatch(fetchMessageBoardThunk(data['room']))
+    }))
+
     useEffect(() => {
         
         socket.emit('join_room', { room: `${currClass?.class_id}` });
@@ -83,13 +88,20 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
             const handleUpdateClasses = (data) => {
                 throttledFetchClasses(data);
             };
+
+            const handleUpdateMsgBoard = (data) => {
+                console.log('Update msg board')
+                throttledFetchMsgBoard(data)
+            }
     
             socket.on('updateStudentClass', handleUpdateClass);
             socket.on('updateClasses', handleUpdateClasses);
+            socket.on('updateMsgBoard', handleUpdateMsgBoard)
         
             return () => {
                 socket.off('updateStudentClass', handleUpdateClass);
                 socket.off('updateClasses', handleUpdateClasses);
+                socket.off('updateMsgBoard', handleUpdateMsgBoard)
 
                 // socket.off('updateStudentClass', fetchClass)
                 // socket.off('updateClasses', fetchClasses)
