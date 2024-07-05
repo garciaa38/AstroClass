@@ -107,7 +107,7 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
                 // socket.off('updateClasses', fetchClasses)
                 // socket.off('updateStudents', fetchStudents)
             };
-        }, [dispatch, sessionUser.id, currClassIdx, currClass, debouncedFetchClass, throttledFetchClasses])
+        }, [dispatch, sessionUser.id, currClassIdx, currClass, debouncedFetchClass, throttledFetchClasses, throttledFetchMsgBoard])
 
     const switchClass = async (idx) => {
         const prevIdx = currClassIdx

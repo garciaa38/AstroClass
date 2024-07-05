@@ -7,6 +7,7 @@ import { fetchAllClassesThunk, fetchClassByIdThunk } from "../../redux/classes";
 import Navigation from "../Navigation/Navigation";
 import { socket } from "../../socket";
 import { fetchAllStudentsThunk } from "../../redux/students";
+import { fetchMessageBoardThunk } from "../../redux/messageBoard";
 
 function ClassTeacherView({sessionUser, navigate, classes}) {
     const dispatch = useDispatch()
@@ -42,15 +43,21 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
             const fetchStudents = () => {
                 dispatch(fetchAllStudentsThunk())
             }
+
+            const fetchMsgBoard = (data) => {
+                dispatch(fetchMessageBoardThunk(data['room']))
+            }
     
             socket.on('updateClass', (data) => fetchClass(data));
             socket.on('updateClasses', (data) => fetchClasses(data));
-            socket.on('updateStudents', (data) => fetchStudents(data))
+            socket.on('updateStudents', (data) => fetchStudents(data));
+            socket.on('updateMsgBoard', (data) => fetchMsgBoard(data))
         
             return () => {
                 socket.off('updateClass', fetchClass)
                 socket.off('updateClasses', fetchClasses)
                 socket.off('updateStudents', fetchStudents)
+                socket.off('updateMsgBoard', fetchMsgBoard)
             };
         }, [dispatch, sessionUser.id, currClassIdx])
 
