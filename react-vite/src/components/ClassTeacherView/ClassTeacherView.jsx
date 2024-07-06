@@ -63,7 +63,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                 socket.off('updateStudents', fetchStudents)
                 socket.off('updateMsgBoard', fetchMsgBoard)
             };
-        }, [dispatch, sessionUser.id, currClassIdx])
+        }, [dispatch, sessionUser.id, currClassIdx, currClass?.id])
 
 
 
