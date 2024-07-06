@@ -158,8 +158,8 @@ const msgBoardReducer = (state = {}, action) => {
 
         case LOAD_MSGBOARDS: {
             const msgBoardsState = {};
-            action.msgBoards.forEach((msgBoard) => {
-                msgBoardsState[msgBoard.id] = msgBoard;
+            action.msgBoards?.forEach((msgBoard) => {
+                msgBoardsState[msgBoard?.id] = msgBoard;
             })
             return msgBoardsState
         }
