@@ -162,6 +162,7 @@ def handle_class(data):
 @socketio.on('updateMsgBoard')
 def handle_message_board(data):
     print("UPDATE MSG BOARD")
+    room = data.get('room')
     emit('updateMsgBoard', data, broadcast=True)
 
 @socketio.on('updateClasses')

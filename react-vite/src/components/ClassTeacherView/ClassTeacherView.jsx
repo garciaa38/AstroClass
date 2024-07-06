@@ -29,7 +29,9 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
     
         useEffect(() => {
             const fetchClass = (data) => {
-                dispatch(fetchClassByIdThunk(sessionUser.id, data.room))
+                if (data['room'] === currClass?.id) {
+                    dispatch(fetchClassByIdThunk(sessionUser.id, data.room))
+                }
             }
 
             const fetchClasses = (data) => {
@@ -45,7 +47,9 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
             }
 
             const fetchMsgBoard = (data) => {
-                dispatch(fetchMessageBoardThunk(data['room']))
+                if (data['room'] === currClass?.id) {
+                    dispatch(fetchMessageBoardThunk(data['room']))
+                }
             }
     
             socket.on('updateClass', (data) => fetchClass(data));

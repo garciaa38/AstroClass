@@ -232,7 +232,7 @@ const classesReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_CLASSES: {
             const classesState = {};
-            action.classes.forEach((cls) => {
+            action.classes?.forEach((cls) => {
                 classesState[cls.id] = cls;
             })
             return classesState
