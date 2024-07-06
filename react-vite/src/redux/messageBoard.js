@@ -107,6 +107,29 @@ export const addNewPostReplyThunk = (newPostReply, message_board_id) => async (d
         .catch(e => console.error(e))
     await dispatch(fetchMessageBoardThunk(message_board_id))
 }
+
+export const addNewReactionThunk = (reaction, message_board_id) => async (dispatch) => {
+    await fetch(`/api/post-reactions/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(reaction)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    await dispatch(fetchMessageBoardThunk(message_board_id))
+}
+
+export const deleteReactionThunk = (reactionId, message_board_id) => async (dispatch) => {
+    console.log("POST REACTIONS redux", reactionId)
+    await fetch(`/api/post-reactions/${reactionId}`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify()
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    await dispatch(fetchMessageBoardThunk(message_board_id))
+}
 // ================= REDUCER =================
 const msgBoardReducer = (state = {}, action) => {
     switch (action.type) {
