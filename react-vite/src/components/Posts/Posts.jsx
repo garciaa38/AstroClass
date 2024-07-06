@@ -12,7 +12,7 @@ function Posts({allPosts, currMsgBoard, sessionUser}) {
                         <PostField post={post} classId={currMsgBoard.class_id}/>
                         <PostReaction postId={post.id} post_reactions={post.post_reactions} sessionUserId={sessionUser.id} currMsgBoardId={currMsgBoard.id} classId={currMsgBoard.class_id}/>
                         <AddPostReplyForm currPost={post} currMsgBoard={currMsgBoard} sessionUser={sessionUser}/>
-                        <PostReply post_replies={post.post_replies} classId={currMsgBoard.class_id} currMsgBoardId={currMsgBoard.id}/>
+                        <PostReply post_replies={post.post_replies} classId={currMsgBoard.class_id} currMsgBoardId={currMsgBoard.id} sessionUserId={sessionUser.id}/>
                     </div>
                 )
             })}
