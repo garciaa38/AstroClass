@@ -1,4 +1,6 @@
 import { useDispatch } from "react-redux";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import ReactionModal from "../ReactionModal/ReactionModal";
 import { deleteReactionThunk } from "../../redux/messageBoard";
 import { addNewReactionThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
@@ -47,6 +49,10 @@ function PostReaction({postId, post_reactions, sessionUserId, currMsgBoardId, cl
 
     return (
         <div>
+            <OpenModalButton
+                buttonText="Add a reaction..."
+                modalComponent={<ReactionModal sessionUserId={sessionUserId} postId={postId} currMsgBoardId={currMsgBoardId} classId={classId}/>}
+            />
             {reactionsFilter(post_reactions)?.map((post_reaction, index) => {
                 return (
                 <div key={index}>
