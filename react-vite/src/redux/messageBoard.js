@@ -119,9 +119,31 @@ export const addNewReactionThunk = (reaction, message_board_id) => async (dispat
     await dispatch(fetchMessageBoardThunk(message_board_id))
 }
 
+export const addNewReplyReactionThunk = (reaction, message_board_id) => async (dispatch) => {
+    await fetch(`/api/post-reply-reactions/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(reaction)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    await dispatch(fetchMessageBoardThunk(message_board_id))
+}
+
 export const deleteReactionThunk = (reactionId, message_board_id) => async (dispatch) => {
     console.log("POST REACTIONS redux", reactionId)
     await fetch(`/api/post-reactions/${reactionId}`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify()
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+    await dispatch(fetchMessageBoardThunk(message_board_id))
+}
+
+export const deleteReplyReactionThunk = (reactionId, message_board_id) => async (dispatch) => {
+    await fetch(`/api/post-reply-reactions/${reactionId}`, {
         method: 'DELETE',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify()

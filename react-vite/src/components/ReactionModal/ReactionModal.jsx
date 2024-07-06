@@ -1,9 +1,10 @@
 import { addNewReactionThunk } from "../../redux/messageBoard";
+import { addNewReplyReactionThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 
-function ReactionModal({sessionUserId, postId, currMsgBoardId, classId}) {
+function ReactionModal({sessionUserId, postId, currMsgBoardId, classId, type}) {
     const dispatch = useDispatch()
     const { closeModal } = useModal()
     const emojis = [
@@ -17,15 +18,27 @@ function ReactionModal({sessionUserId, postId, currMsgBoardId, classId}) {
     ];
 
     const addEmoji = async emoji => {
-        const newReaction = {
-            emoji,
-            user_id: sessionUserId,
-            post_id: postId
+        
+        if (type === "post") {
+            const newReaction = {
+                emoji,
+                user_id: sessionUserId,
+                post_id: postId
+            }
+            await dispatch(addNewReactionThunk(newReaction, currMsgBoardId))
+            socket.emit('updateMsgBoard', {room: classId})
+            closeModal()
+        } else if (type === "postReply") {
+            const newReaction = {
+                emoji,
+                user_id: sessionUserId,
+                post_reply_id: postId
+            }
+            await dispatch(addNewReplyReactionThunk(newReaction, currMsgBoardId))
+            socket.emit('updateMsgBoard', {room: classId})
+            closeModal()
         }
 
-        await dispatch(addNewReactionThunk(newReaction, currMsgBoardId))
-        socket.emit('updateMsgBoard', {room: classId})
-        closeModal()
     }
     
     return (

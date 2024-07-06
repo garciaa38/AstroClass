@@ -51,7 +51,7 @@ function PostReaction({postId, post_reactions, sessionUserId, currMsgBoardId, cl
         <div>
             <OpenModalButton
                 buttonText="Add a reaction..."
-                modalComponent={<ReactionModal sessionUserId={sessionUserId} postId={postId} currMsgBoardId={currMsgBoardId} classId={classId}/>}
+                modalComponent={<ReactionModal sessionUserId={sessionUserId} postId={postId} currMsgBoardId={currMsgBoardId} classId={classId} type="post"/>}
             />
             {reactionsFilter(post_reactions)?.map((post_reaction, index) => {
                 return (
