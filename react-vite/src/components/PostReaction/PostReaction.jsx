@@ -10,7 +10,7 @@ function PostReaction({postId, post_reactions, sessionUserId, currMsgBoardId, cl
     console.log("POST REACTIONS BEFORE", post_reactions)
 
     const reactionsFilter = (reactionsArr) => {
-        const emojiFilter = reactionsArr.reduce((acc, obj) => {
+        const emojiFilter = reactionsArr?.reduce((acc, obj) => {
             if (!acc[obj.emoji]) {
                 acc[obj.emoji] = { count: 0, user_ids: [], reaction_ids: [] };
             }
@@ -20,7 +20,11 @@ function PostReaction({postId, post_reactions, sessionUserId, currMsgBoardId, cl
             return acc;
         }, {})
 
-        return Object.entries(emojiFilter)
+        if (emojiFilter) {
+            return Object.entries(emojiFilter)
+        } else {
+            return [];
+        }
     }
 
     console.log("POST REACTIONS AFTER", reactionsFilter(post_reactions))
