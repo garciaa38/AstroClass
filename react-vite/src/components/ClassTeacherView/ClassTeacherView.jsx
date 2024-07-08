@@ -8,17 +8,20 @@ import Navigation from "../Navigation/Navigation";
 import { socket } from "../../socket";
 import { fetchAllStudentsThunk } from "../../redux/students";
 import { fetchMessageBoardThunk } from "../../redux/messageBoard";
+import { GiHamburgerMenu } from "react-icons/gi";
+import styles from "./ClassTeacherView.module.css";
 
 function ClassTeacherView({sessionUser, navigate, classes}) {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const {last_name, suffix} = sessionUser;
-    const [currClassIdx, setCurrClassIdx] = useState(0)
-    const [prevClassIdx, setPrevClassIdx] = useState(0)
+    const [currClassIdx, setCurrClassIdx] = useState(0);
+    const [prevClassIdx, setPrevClassIdx] = useState(0);
     const allStudents = useSelector((state) => Object.values(state.students));
-    const currClass = classes[currClassIdx]
-    const prevClass = classes[prevClassIdx]
-    const [allStudentsState, setAllStudentsState] = useState(allStudents)
-    console.log("ALL STUDENTS", allStudents)
+    const currClass = classes[currClassIdx];
+    const prevClass = classes[prevClassIdx];
+    const [allStudentsState, setAllStudentsState] = useState(allStudents);
+    const [sideBarOpen, setSideBarOpen] = useState(false);
+    console.log("ALL STUDENTS", allStudents);
 
     useEffect(() => {
         
@@ -73,6 +76,9 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
         setPrevClassIdx(prevIdx)
     }
 
+    const toggleSideBar = () => {
+        setSideBarOpen(!sideBarOpen);
+    }
 
     if (classes.length < 1) {
         return (
@@ -88,21 +94,27 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
     }
 
     return (
-        <>
-            <h1>Hey there {suffix} {last_name}.</h1>
-            <h2>You are currently signed in as a teacher!</h2>
-            <h3>Please select a class below:</h3>
-            {classes?.map((cls, index) => {
-                return (
+        <div className={`${styles.classLayout} ${sideBarOpen ? styles.shifted : ''}`}>
+            <div className={`${styles.sideBarButton} ${sideBarOpen ? styles.shifted : ''}`}>
+                <GiHamburgerMenu onClick={toggleSideBar}/>
+            </div>
+            <div className={sideBarOpen ? styles.sideBarOpen : styles.sideBarClosed}>
+                <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
+                {classes?.map((cls, index) => (
                     <div key={cls?.id}>
-                        <button onClick={() => switchClass(index, cls.id, sessionUser.id)}>{cls.class_name}</button>
+                        {cls.class_name.length > 0 && <button onClick={() => switchClass(index)}>{cls.class_name}</button>}
                     </div>
-                )
-            })}
-            <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
-            <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
-            <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
-        </>
+                ))}
+            </div>
+            <div className={styles.navbar}>
+                <div className={styles.navbarGreeting}>
+                    <h1>Hey there {suffix} {last_name}.</h1>
+                    <h2>You are currently signed in as a teacher!</h2>
+                    <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
+                    <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
+                </div>
+            </div>
+        </div>
     )
 }
 

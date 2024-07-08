@@ -39,8 +39,8 @@ function Classes() {
         } else {
             return (
                 <>
-                    <h1>Hey there parent.</h1>
-                    <h2>You are currently signed in as a parent!</h2>
+                    <h1>Hey there!</h1>
+                    <h2>Parent features are coming soon!</h2>
                 </>
             )
         }
