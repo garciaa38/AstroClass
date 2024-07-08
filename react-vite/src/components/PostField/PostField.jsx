@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { editPostThunk } from "../../redux/messageBoard";
 import { deletePostThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
+import styles from "./PostField.module.css"
 
 function PostField({post, classId}) {
     const dispatch = useDispatch()
@@ -41,18 +42,19 @@ function PostField({post, classId}) {
 
     if (!isEditing) {
         return (
-            <div>
-                <div>{post.text_field}</div>
+            <div className={styles.postField}>
+                <div className={styles.post}>{post.text_field}</div>
                 <button onClick={() => setIsEditing(true)}>Edit</button>
                 <button onClick={deletePost}>Delete</button>
             </div>
         )
     } else {
         return (
-            <div>
+            <div className={styles.postField}>
                 <form onSubmit={handleSubmit}>
                     <label>
-                        <input
+                        <textarea
+                            type='text'
                             value={textField}
                             onChange={(e) => setTextField(e.target.value)}
                             required

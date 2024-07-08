@@ -99,12 +99,19 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                 <GiHamburgerMenu onClick={toggleSideBar}/>
             </div>
             <div className={sideBarOpen ? styles.sideBarOpen : styles.sideBarClosed}>
-                <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
-                {classes?.map((cls, index) => (
-                    <div key={cls?.id}>
-                        {cls.class_name.length > 0 && <button onClick={() => switchClass(index)}>{cls.class_name}</button>}
+                <div className={styles.sideBarList}>
+                    <div className={styles.classSettings}>
+                        <div>Class Settings</div>
                     </div>
-                ))}
+                    <div className={styles.classList}>
+                        <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
+                        {classes?.map((cls, index) => (
+                            <div key={cls?.id}>
+                                {cls.class_name.length > 0 && <button onClick={() => switchClass(index)}>{cls.class_name}</button>}
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
             <div className={styles.navbar}>
                 <div className={styles.navbarGreeting}>

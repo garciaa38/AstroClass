@@ -40,20 +40,15 @@
 }
 
 .sideBarButton.shifted {
-    /* position: absolute;
-    top: 10px;
-    z-index: 1100;
-    cursor: pointer; */
     left: 12%;
     color: white;
-    /* transition: transform 0.3s ease-in-out;
-    transform: translateX(150%); */
 }
 
 .navbar {
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding-left: 3%;
 }
 
 .navBarTop {
@@ -63,4 +58,21 @@
 .navbarGreeting {
     display: flex;
     flex-direction: column;
+}
+
+.sideBarList {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10%;
+    padding-left: 5%;
+}
+
+.classSettings {
+    display: flex;
+}
+
+.classList {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15%;
 }
