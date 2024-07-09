@@ -6,6 +6,7 @@ import { studentJoinClassThunk } from "../../redux/classes";
 import { fetchCurrentUser } from "../../redux/session";
 import { addMessageBoardThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
+import styles from './AddClassModal.module.css';
 
 function AddClassModal({sessionUser, setCurrentUser, classId}) {
     const dispatch = useDispatch()
@@ -78,10 +79,11 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
 
     if (sessionUser.role === 'teacher') {
         return (
-            <>
+            <div className={styles.addClassFormLayout}>
                 <h1>Add A New Class!</h1>
                 <form onSubmit={handleSubmit}>
-                    <label>
+                    <label className={styles.formInput}>
+                        Class Name
                         <input
                             type="text"
                             placeholder="Class Name"
@@ -91,7 +93,8 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
                         />
                     </label>
                     {formErrors.className && <p>{formErrors.className}</p>}
-                    <label>
+                    <label className={styles.formInput}>
+                        Subject
                         <input
                             type="text"
                             placeholder="Subject"
@@ -103,7 +106,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
                     {formErrors.subject && <p>{formErrors.subject}</p>}
                     <button type="submit">Create Class</button>
                 </form>
-            </>
+            </div>
         )
     } else if (sessionUser.role === 'student') {
         return (

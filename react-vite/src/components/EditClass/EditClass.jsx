@@ -8,6 +8,7 @@ import EditFeedback from "../EditFeedback/EditFeedback";
 import RewardForm from "../RewardForm/RewardForm";
 import FeedbackForm from "../FeedbackForm/FeedbackForm";
 import { socket } from "../../socket";
+import styles from "./EditClass.module.css"
 
 function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
     const dispatch = useDispatch();
@@ -82,48 +83,73 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
 
     if (!addRewardFormAppear && !addFeedbackFormAppear) {
         return (
-            <>
-                <h1>Edit your class!</h1>
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        <input
-                            type="text"
-                            placeholder="Enter Class Name"
-                            value={className}
-                            onChange={(e) => setClassName(e.target.value)}
-                            required
-                        />
-                    </label>
-                    {formErrors.className && <p>{formErrors.className}</p>}
-                    <label>
-                        <input
-                            type="text"
-                            placeholder="Enter Class Subject"
-                            value={currSubject}
-                            onChange={(e) => setCurrSubject(e.target.value)}
-                            required
-                        />
-                    </label>
-                    {formErrors.subject && <p>{formErrors.subject}</p>}
-                    <button type="submit">Update your class</button>
-                </form>
-                <button onClick={() => deleteClass(classId)}>Delete this Class</button>
-                <h1>Edit Rewards</h1>
-                {rewardsState?.map((reward) => {
-                    return (
-                        <EditReward key={reward.id} reward={reward} classId={classId} handleRewardDelete={handleRewardDelete}/>
-                    )
-                })}
-                <button onClick={() => setAddRewardFormAppear(true)}>Add a reward</button>
-    
-                <h1>Edit Feedback</h1>
-                {feedbackState?.map((feedback) => {
-                    return (
-                        <EditFeedback key={feedback.id} feedback={feedback} classId={classId} handleFeedbackDelete={handleFeedbackDelete}/>
-                    )
-                })}
-                <button onClick={() => setAddFeedbackFormAppear(true)}>Add feedback</button>
-            </>
+            <div className={styles.editClassFormLayout}>
+                <div className={styles.editTopSection}>
+                    <h1>Edit your class!</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className={styles.editFormInput}>
+                            <div className={styles.editClassName}>
+                                <label className={styles.formInput}>
+                                    Class Name
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Class Name"
+                                        value={className}
+                                        onChange={(e) => setClassName(e.target.value)}
+                                        required
+                                    />
+                                </label>
+                                {formErrors.className && <p>{formErrors.className}</p>}
+                            </div>
+                            <div className={styles.editClassSubject}>
+                                <label className={styles.formInput}>
+                                    Subject
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Class Subject"
+                                        value={currSubject}
+                                        onChange={(e) => setCurrSubject(e.target.value)}
+                                        required
+                                    />
+                                </label>
+                                {formErrors.subject && <p>{formErrors.subject}</p>}
+                            </div>
+                        </div>
+                        <div className={styles.editFormButtons}>
+                            <button type="submit">Update your class</button>
+                            <button onClick={() => deleteClass(classId)}>Delete this Class</button>
+                        </div>
+                    </form>
+                </div>
+                <div className={styles.editBottomSection}>
+                    <div className={styles.editRewardsSection}>
+                        <div className={styles.rewardsListTitle}>
+                            <h1>Edit Rewards</h1>
+                        </div>
+                        <div className={styles.addRewardButton}>
+                            <button onClick={() => setAddRewardFormAppear(true)}>Add a reward</button>
+                        </div>
+                        {rewardsState?.map((reward) => {
+                            return (
+                                <EditReward key={reward.id} reward={reward} classId={classId} handleRewardDelete={handleRewardDelete}/>
+                            )
+                        })}
+                    </div>
+                    <div className={styles.editFeedbackSection}>
+                        <div className={styles.rewardsListTitle}>
+                            <h1>Edit Feedback</h1>
+                        </div>
+                        <div className={styles.addRewardButton}>
+                            <button onClick={() => setAddFeedbackFormAppear(true)}>Add feedback</button>
+                        </div>
+                        {feedbackState?.map((feedback) => {
+                            return (
+                                <EditFeedback key={feedback.id} feedback={feedback} classId={classId} handleFeedbackDelete={handleFeedbackDelete}/>
+                            )
+                        })}
+                    </div>
+                </div>
+            </div>
         )
     } else if (addRewardFormAppear) {
         return (

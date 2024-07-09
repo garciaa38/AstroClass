@@ -2,6 +2,7 @@ import { addPointsToStudentThunk } from "../../redux/classes";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { socket } from "../../socket";
+import styles from './AddReward.module.css';
 
 
 function AddReward({first_name, rewards, student_class_id, classId }) {
@@ -18,7 +19,7 @@ function AddReward({first_name, rewards, student_class_id, classId }) {
     }
 
     return (
-            <>
+            <div>
                 <h3>Reward {first_name}</h3>
                 {rewards.map(reward => {
                     console.log('REWARD!', reward)
@@ -29,7 +30,7 @@ function AddReward({first_name, rewards, student_class_id, classId }) {
                     )
                 })}
                 
-            </>
+            </div>
     )
 }
 

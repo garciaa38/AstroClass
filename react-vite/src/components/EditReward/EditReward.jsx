@@ -3,6 +3,7 @@ import { editRewardThunk } from "../../redux/classes";
 import { useDispatch } from "react-redux";
 import { deleteRewardThunk } from "../../redux/classes";
 import { socket } from "../../socket";
+import styles from './EditReward.module.css';
 
 function EditReward({reward, classId, handleRewardDelete}) {
     const dispatch = useDispatch()
@@ -75,34 +76,42 @@ function EditReward({reward, classId, handleRewardDelete}) {
         )
     } else {
         return (
-            <div>
+            <div className={styles.editReward}>
                 <form onSubmit={handleSubmit}>
-                    <label>
-                        <input
-                            type="text"
-                            placeholder="Enter Reward Type"
-                            value={rewardType}
-                            onChange={(e) => setRewardType(e.target.value)}
-                            required
-                        />
-                    </label>
-                    {formErrors.rewardType && <p>{formErrors.rewardType}</p>}
-                    <label>
-                        <input
-                            type="number"
-                            placeholder="Points Earned"
-                            value={pointsEarned}
-                            onChange={(e) => setPointsEarned(e.target.value)}
-                            required
-                            max="10"
-                            min="1"
-                        />
-                    </label>
-                    {formErrors.pointsEarned && <p>{formErrors.pointsEarned}</p>}
-                    <button type="submit">Save</button>
+                    <div className={styles.rewardFormInput}>
+                        <div>
+                            <label className={styles.rewardNameInput}>
+                                <input
+                                    type="text"
+                                    placeholder="Enter Reward Type"
+                                    value={rewardType}
+                                    onChange={(e) => setRewardType(e.target.value)}
+                                    required
+                                />
+                            </label>
+                            {formErrors.rewardType && <p>{formErrors.rewardType}</p>}
+                        </div>
+                        <div>
+                            <label className={styles.rewardPointsInput}>
+                                <input
+                                    type="number"
+                                    placeholder="Points Earned"
+                                    value={pointsEarned}
+                                    onChange={(e) => setPointsEarned(e.target.value)}
+                                    required
+                                    max="10"
+                                    min="1"
+                                />
+                            </label>
+                            {formErrors.pointsEarned && <p>{formErrors.pointsEarned}</p>}
+                        </div>
+                    </div>
+                    <div className={styles.rewardFormButtons}>
+                        <button type="submit">Save</button>
+                        <button onClick={() => deleteReward()}>Delete</button>
+                        <button onClick={() => stopEditing()}>Cancel</button>
+                    </div>
                 </form>
-                    <button onClick={() => deleteReward()}>Delete</button>
-                    <button onClick={() => stopEditing()}>Cancel</button>
             </div>
         )
     }

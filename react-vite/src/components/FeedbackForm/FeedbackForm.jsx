@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addFeedbackToClassThunk } from "../../redux/classes";
 import { socket } from "../../socket";
+import styles from './FeedbackForm.module.css'
 
 function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate}) {
     const dispatch = useDispatch()
@@ -41,34 +42,40 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
     }
 
     return (
-        <>
-        <h1>Add feedback here.</h1>
-        <form onSubmit={handleSubmit}>
-            <label>
-                <input
-                    type="text"
-                    value={feedbackType}
-                    placeholder="Type of Feedback"
-                    onChange={(e) => setFeedbackType(e.target.value)}
-                    required
-                />
-            </label>
-            {formErrors.feedbackType && <p>{formErrors.feedbackType}</p>}
-            <label>
-                <input
-                    type="number"
-                    placeholder="points lost"
-                    value={pointsLost}
-                    onChange={(e) => setPointsLost(e.target.value)}
-                    min="-10"
-                    max="-1"
-                    required
-                />
-            </label>
-            {formErrors.pointsLost && <p>{formErrors.pointsLost}</p>}
-            <button type="submit">Add Class Feedback</button>
-        </form>
-    </>
+        <div className={styles.addRewardField}>
+            <div className={styles.addRewardForm}>
+                <h1>Add feedback here.</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className={styles.addRewardInput}>
+                        <label>
+                            <input
+                                type="text"
+                                value={feedbackType}
+                                placeholder="Type of Feedback"
+                                onChange={(e) => setFeedbackType(e.target.value)}
+                                required
+                            />
+                        </label>
+                        {formErrors.feedbackType && <p>{formErrors.feedbackType}</p>}
+                        <label>
+                            <input
+                                type="number"
+                                placeholder="points lost"
+                                value={pointsLost}
+                                onChange={(e) => setPointsLost(e.target.value)}
+                                min="-10"
+                                max="-1"
+                                required
+                            />
+                        </label>
+                        {formErrors.pointsLost && <p>{formErrors.pointsLost}</p>}
+                    </div>
+                    <div className={styles.addRewardButtons}>
+                        <button type="submit">Add Class Feedback</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     )
 }
 

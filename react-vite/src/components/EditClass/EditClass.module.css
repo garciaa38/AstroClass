@@ -1,0 +1,61 @@
+.editClassFormLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    width: 50rem;
+}
+
+.editClassFormLayout form {
+    display: flex;
+    flex-direction: column;
+}
+
+.editFormInput {
+    display: flex;
+    gap: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.editFormButtons {
+    display: flex;
+    gap: 3rem;
+}
+
+.formInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.editTopSection {
+    padding: 2rem;
+    border-bottom: 1px solid black;
+}
+
+.editBottomSection {
+    display: flex;
+    padding: 2rem;
+    justify-content: center
+}
+
+.editRewardsSection {
+    display: flex;
+    flex-direction: column;
+    margin-right: 5rem;
+}
+
+.addRewardButton {
+    padding-bottom: 1rem;
+}
+
+.editFeedbackSection {
+    margin-left: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.rewardsListTitle {
+    padding-bottom: 1rem;
+}
