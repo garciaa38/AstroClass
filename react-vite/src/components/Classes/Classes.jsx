@@ -32,9 +32,7 @@ function Classes() {
             )
         } else if (sessionUser?.role === 'student') {
             return (
-                <>
-                    <ClassStudentView sessionUser={currentUser} setCurrentUser={setCurrentUser} navigate={navigate} classes={allStudentClasses}/>
-                </>
+                <ClassStudentView sessionUser={currentUser} setCurrentUser={setCurrentUser} navigate={navigate} classes={allStudentClasses}/>
             )
         } else {
             return (

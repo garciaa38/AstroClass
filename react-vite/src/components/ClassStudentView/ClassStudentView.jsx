@@ -8,6 +8,8 @@ import AddClassModal from "../AddClassModal/AddClassModal";
 import Navigation from "../Navigation/Navigation";
 import { socket } from "../../socket";
 import { fetchMessageBoardThunk } from "../../redux/messageBoard";
+import { GiHamburgerMenu } from "react-icons/gi";
+import styles from "./ClassStudentView.module.css";
 
 function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
     const dispatch = useDispatch()
@@ -16,6 +18,7 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
     const [prevClassIdx, setPrevClassIdx] = useState(0);
     const currClass = classes[currClassIdx];
     const prevClass = classes[prevClassIdx];
+    const [sideBarOpen, setSideBarOpen] = useState(false);
     console.log("CURRENT CLASS 1", currClass)
 
     function debounce(func, wait) {
@@ -115,6 +118,10 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
         setPrevClassIdx(prevIdx)
     }
 
+    const toggleSideBar = () => {
+        setSideBarOpen(!sideBarOpen);
+    }
+
     if (classes.length < 1) {
         return (
             <>
@@ -129,23 +136,31 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
     }
 
     return (
-        <>
-            <h1>Hey there {first_name} {last_name}.</h1>
-            <h2>You are currently signed in as a student!</h2>
-            <h3>Please select a class below:</h3>
-            {classes?.map((cls, index) => {
-                return (
-                    <div key={cls?.id}>
-                        <button onClick={() => switchClass(index, cls.class_id, sessionUser.id)}>{cls.class_name}</button>
+        <div className={`${styles.classLayout} ${sideBarOpen ? styles.shifted : ''}`}>
+            <div className={`${styles.sideBarButton} ${sideBarOpen ? styles.shifted : ''}`}>
+                <GiHamburgerMenu onClick={toggleSideBar}/>
+            </div>
+            <div className={sideBarOpen ? styles.sideBarOpen : styles.sideBarClosed}>
+                <div className={styles.sideBarList}>
+                    <div className={styles.classList}>
+                        <OpenModalButton buttonText="Join a class" modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser} />}/>
+                        {classes?.map((cls, index) => (
+                            <div key={cls?.id}>
+                                <button onClick={() => switchClass(index, cls.class_id, sessionUser.id)}>{cls.class_name}</button>
+                            </div>
+                        ))}
                     </div>
-                )
-            })}
-            <OpenModalButton buttonText="Join a class" modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser} />}/>
-            <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} />
-            {/* <ClassInfo cls={classes[currClassIdx]} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} /> */}
-
-            <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
-        </>
+                </div>
+            </div>
+            <div className={styles.navbar}>
+                <div className={styles.navbarGreeting}>
+                    <h1>Hey there {first_name} {last_name}.</h1>
+                    <h2>You are currently signed in as a student!</h2>
+                    <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} />
+                    <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
+                </div>
+            </div>
+        </div>
     )
 }
 

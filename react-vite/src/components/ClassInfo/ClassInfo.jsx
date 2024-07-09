@@ -62,10 +62,12 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
         )
     } else if (role === 'student') {
         return (
-            <>
-                <h1>This is {class_name}</h1>
-                <h2>Your current class score is {cls.points}.</h2>
-            </>
+            <div className={styles.classInfoLayout}>
+                <div className={styles.studentInfo}>
+                    <h1>This is {class_name}</h1>
+                    <h2>Your current class score is {cls.points}.</h2>
+                </div>
+            </div>
         )
     }
 

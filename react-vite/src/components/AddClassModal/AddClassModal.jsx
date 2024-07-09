@@ -110,7 +110,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         )
     } else if (sessionUser.role === 'student') {
         return (
-            <>
+            <div className={styles.joinClassFormLayout}>
                 <h1>Enter class code below</h1>
                 <form onSubmit={joinClass}>
                     <label>
@@ -125,7 +125,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
                     {formErrors.studentInviteCode && <p>{formErrors.studentInviteCode}</p>}
                     <button type="submit">Join Class</button>
                 </form>
-            </>
+            </div>
         )
     }
 }
