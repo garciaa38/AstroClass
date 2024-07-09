@@ -1,0 +1,14 @@
+.postField {
+    display: flex;
+}
+
+.postField form textarea {
+    width: 45rem;
+    height: auto;
+    border: 1px solid black;
+}
+
+.post {
+    border: 1px solid black;
+    width: 45rem;
+}

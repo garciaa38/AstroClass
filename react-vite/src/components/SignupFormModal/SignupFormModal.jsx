@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
-import "./SignupForm.css";
+import styles from "./SignupFormModal.module.css";
 
 function SignupFormModal({role}) {
   const dispatch = useDispatch();
@@ -85,13 +85,14 @@ function SignupFormModal({role}) {
   };
 
   return (
-    <>
+    <div className={styles.signUpFormLayout}>
       <h1>{signUpMessage()}</h1>
       {errors.server && <p>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
-        <label>
+        <label className={styles.formInput}>
           Email
           <input
+            placeholder="Email"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -100,9 +101,10 @@ function SignupFormModal({role}) {
         </label>
         {errors.email && <p>{errors.email}</p>}
         {formErrors.email && <p>{formErrors.email}</p>}
-        <label>
+        <label className={styles.formInput}>
           First Name
           <input
+            placeholder="First Name"
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -111,9 +113,10 @@ function SignupFormModal({role}) {
         </label>
         {errors.firstName && <p>{errors.firstName}</p>}
         {formErrors.firstName && <p>{formErrors.firstName}</p>}
-        <label>
+        <label className={styles.formInput}>
           Last Name
           <input
+            placeholder="Last Name"
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -122,8 +125,8 @@ function SignupFormModal({role}) {
         </label>
         {errors.lastName && <p>{errors.lastName}</p>}
         {formErrors.lastName && <p>{formErrors.lastName}</p>}
-        {role === 'teacher' && <label>
-          Suffix
+        {role === 'teacher' && <label className={styles.formInput}>
+          Honorific
           <select value={suffix} onChange={(e) => setSuffix(e.target.value)}>
             <option value="Mr.">Mr.</option>
             <option value="Mrs.">Mrs.</option>
@@ -134,9 +137,10 @@ function SignupFormModal({role}) {
         </label>}
         {errors.suffix && <p>{errors.suffix}</p>}
         {formErrors.suffix && <p>{formErrors.suffix}</p>}
-        {(role === 'teacher' || role === 'parent') && <label>
+        {(role === 'teacher' || role === 'parent') && <label className={styles.formInput}>
           Phone Number
           <input
+            placeholder="Phone Number"
             type="text"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
@@ -145,9 +149,10 @@ function SignupFormModal({role}) {
         </label>}
         {errors.phoneNumber && <p>{errors.phoneNumber}</p>}
         {formErrors.phoneNumber && <p>{formErrors.phoneNumber}</p>}
-        <label>
+        <label className={styles.formInput}>
           Password
           <input
+            placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -155,9 +160,10 @@ function SignupFormModal({role}) {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <label>
+        <label className={styles.formInput}>
           Confirm Password
           <input
+            placeholder="Confirme Password"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -167,7 +173,7 @@ function SignupFormModal({role}) {
         {formErrors.confirmPassword && <p>{formErrors.confirmPassword}</p>}
         <button type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

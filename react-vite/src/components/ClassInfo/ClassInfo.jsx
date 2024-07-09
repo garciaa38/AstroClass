@@ -3,6 +3,7 @@ import StudentInfoModal from "../StudentInfoModal/StudentInfoModal";
 import EditClass from "../EditClass/EditClass";
 import { useDispatch } from "react-redux";
 import { fetchClassByIdThunk } from "../../redux/classes";
+import styles from './ClassInfo.module.css';
 
 function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allStudentsState, setAllStudentsState}) {
     const dispatch = useDispatch()
@@ -36,24 +37,28 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
         }
         const sortedStudents = sortStudents(students)
         return (
-            <>
-                <h1>This is {class_name}</h1>
-                <OpenModalButton 
-                    buttonText="Class Settings"
-                    modalComponent={<EditClass cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={rewards} feedback={feedback}/>}
-                />
-                <h2>Here are your students:</h2>
-                {sortedStudents.map((student) => {
-                    return(
-                        <div key={student?.id}>
-                            <OpenModalButton 
-                                buttonText={`${student?.first_name} ${student?.last_name} Points: ${student?.points}`}
-                                modalComponent={<StudentInfoModal student={student} classId={classId} rewards={rewards} feedback={feedback} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState}/>}
-                            />
-                        </div>
-                    )
-                })}
-            </>
+            <div className={styles.classInfoLayout}>
+                <div className={styles.classInfoOpener}>
+                    <h1>This is {class_name}</h1>
+                    <OpenModalButton 
+                        buttonText="Class Settings"
+                        modalComponent={<EditClass cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={rewards} feedback={feedback}/>}
+                    />
+                    <h2>Here are your students:</h2>
+                </div>
+                <div className={styles.studentList}>
+                    {sortedStudents.map((student) => {
+                        return(
+                            <div key={student?.id}>
+                                <OpenModalButton 
+                                    buttonText={`${student?.first_name} ${student?.last_name} Points: ${student?.points}`}
+                                    modalComponent={<StudentInfoModal student={student} classId={classId} rewards={rewards} feedback={feedback} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState}/>}
+                                />
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
         )
     } else if (role === 'student') {
         return (

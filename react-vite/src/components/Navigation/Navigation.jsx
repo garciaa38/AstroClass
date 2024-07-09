@@ -1,4 +1,4 @@
-import "./Navigation.css";
+import styles from "./Navigation.module.css";
 import ClassInfo from "../ClassInfo/ClassInfo";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import AddStudentModal from "../AddStudentModal/AddStudentModal";
@@ -32,9 +32,11 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
   }, [dispatch, cls?.id, cls?.class_id, role])
   
   return (
-    <>
-      <button onClick={() => setView("class")}>Class</button>
-      <button onClick={() => setView("message-board")}>Message Board</button>
+    <div className={styles.navLayout}>
+      <div className={styles.navButtons}>
+        <button onClick={() => setView("class")}>Class</button>
+        <button onClick={() => setView("message-board")}>Message Board</button>
+      </div>
       {view === "class" &&
       <div>
       <ClassInfo sessionUser={sessionUser} cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={role} allStudentsState={allStudents} setAllStudentsState={setAllStudentsState} />
@@ -43,7 +45,7 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
       <div>
       <MessageBoard currMsgBoard={currentMsgBoard} sessionUser={sessionUser} setCurrMsgBoard={setCurrMsgBoard}/>
       </div>}
-    </>
+    </div>
   );
 }
 

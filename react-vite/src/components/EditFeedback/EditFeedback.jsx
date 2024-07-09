@@ -3,6 +3,7 @@ import { editFeedbackThunk } from "../../redux/classes";
 import { useDispatch } from "react-redux";
 import { deleteFeedbackThunk } from "../../redux/classes";
 import { socket } from "../../socket";
+import styles from './EditFeedback.module.css';
 
 function EditFeedback({feedback, classId, handleFeedbackDelete}) {
     const dispatch = useDispatch()
@@ -76,34 +77,42 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
         )
     } else {
         return (
-            <div>
+            <div className={styles.editReward}>
                 <form onSubmit={handleSubmit}>
-                    <label>
-                        <input
-                            type="text"
-                            placeholder="Enter Feedback Type"
-                            value={feedbackType}
-                            onChange={(e) => setFeedbackType(e.target.value)}
-                            required
-                        />
-                    </label>
-                    {formErrors.feedbackType && <p>{formErrors.feedbackType}</p>}
-                    <label>
-                        <input
-                            type="number"
-                            placeholder="Points Lost"
-                            value={pointsLost}
-                            onChange={(e) => setPointsLost(e.target.value)}
-                            required
-                            max="-1"
-                            min="-10"
-                        />
-                    </label>
-                    {formErrors.pointsLost && <p>{formErrors.pointsLost}</p>}
-                    <button type="submit">Save</button>
+                    <div className={styles.rewardFormInput}>
+                        <div>
+                            <label className={styles.rewardNameInput}>
+                                <input
+                                    type="text"
+                                    placeholder="Enter Feedback Type"
+                                    value={feedbackType}
+                                    onChange={(e) => setFeedbackType(e.target.value)}
+                                    required
+                                />
+                            </label>
+                            {formErrors.feedbackType && <p>{formErrors.feedbackType}</p>}
+                        </div>
+                        <div>
+                            <label className={styles.rewardPointsInput}>
+                                <input
+                                    type="number"
+                                    placeholder="Points Lost"
+                                    value={pointsLost}
+                                    onChange={(e) => setPointsLost(e.target.value)}
+                                    required
+                                    max="-1"
+                                    min="-10"
+                                />
+                            </label>
+                            {formErrors.pointsLost && <p>{formErrors.pointsLost}</p>}
+                        </div>
+                    </div>
+                    <div className={styles.rewardFormButtons}>
+                        <button type="submit">Save</button>
+                        <button onClick={() => deleteFeedback()}>Delete</button>
+                        <button onClick={() => stopEditing()}>Cancel</button>
+                    </div>
                 </form>
-                    <button onClick={() => deleteFeedback()}>Delete</button>
-                    <button onClick={() => stopEditing()}>Cancel</button>
             </div>
         )
     }

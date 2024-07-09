@@ -1,23 +1,26 @@
-.addClassFormLayout {
+.logInFormLayout {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    height: 50%;
+    height: 100%;
     width: 70%;
-    padding-top: 25%;
 }
 
-.addClassFormLayout form {
+.logInFormLayout form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 100%;
+    width: 70%;
     gap: 1rem;
-    padding-top: 10%;
 }
 
 .formInput {
     display: flex;
     flex-direction: column;
+}
+
+.demoButtons {
+    display: flex;
+    gap: 1.5rem;
 }

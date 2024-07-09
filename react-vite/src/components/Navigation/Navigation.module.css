@@ -1,0 +1,14 @@
+.navLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.navButtons {
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+}
+
+.navButtons button {
+  border: 1px solid black;
+}

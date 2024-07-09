@@ -1,0 +1,11 @@
+.addPostForm {
+    padding: 3%;
+    border: 1px solid black;
+    margin: 3%;
+}
+
+.addPostForm form {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}

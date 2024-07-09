@@ -7,6 +7,7 @@ import EditStudentForm from "../EditStudentForm/EditStudentForm";
 import { useDispatch } from "react-redux";
 import { fetchAllRewardsThunk } from "../../redux/rewards";
 import { fetchAllFeedbackThunk } from "../../redux/feedback";
+import styles from './StudentInfoModal.module.css'
 
 function StudentInfoModal({student, classId, rewards, feedback, allStudentsState, setAllStudentsState}) {
     const dispatch = useDispatch()
@@ -36,18 +37,24 @@ function StudentInfoModal({student, classId, rewards, feedback, allStudentsState
 
     if (!addRewardFormAppear && !addFeedbackFormAppear && !editStudentInfoAppear) {
         return (
-            <>
-                <h1>{`${first_name} ${last_name}`}</h1>
-                <h2>{`Points: ${points}`}</h2>
-
-                <AddReward first_name={first_name} rewards={rewardsState} student_class_id={student_class_id} points={points} classId={classId}/>
-                <button onClick={() => setAddRewardFormAppear(true)}>Add a Reward</button>
-
-                <AddFeedback first_name={first_name} feedback={feedbackState} student_class_id={student_class_id} classId={classId}/>
-                <button onClick={() => setAddFeedbackFormAppear(true)}>Add Feedback</button>
+            <div className={styles.studentInfoLayout}>
+                <div className={styles.studentInfoTop}>
+                    <h1>{`${first_name} ${last_name}`}</h1>
+                    <h2>{`Points: ${points}`}</h2>
+                </div>
+                <div className={styles.studentInfoMiddle}>
+                    <div className={styles.rewardsSection}>
+                        <AddReward first_name={first_name} rewards={rewardsState} student_class_id={student_class_id} points={points} classId={classId}/>
+                        <button className={styles.addRewardButton} onClick={() => setAddRewardFormAppear(true)}>Add a Reward</button>
+                    </div>
+                    <div className={styles.rewardsSection}>
+                        <AddFeedback first_name={first_name} feedback={feedbackState} student_class_id={student_class_id} classId={classId}/>
+                        <button className={styles.addRewardButton} onClick={() => setAddFeedbackFormAppear(true)}>Add Feedback</button>
+                    </div>
+                </div>
 
                 <button onClick={() => setEditStudentInfoAppear(true)}>{`Edit ${first_name}'s information.`}</button>
-            </>
+            </div>
         )
     } else if (addRewardFormAppear) {
         return (

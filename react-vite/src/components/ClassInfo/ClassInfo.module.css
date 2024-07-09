@@ -1,0 +1,21 @@
+.classInfoLayout {
+    display: flex;
+    flex-direction: column;
+    padding-top: 5%;
+    align-items: center;
+}
+
+.classInfoOpener {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.studentList {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto;
+    grid-column-gap: 10%;
+    grid-row-gap: 10%; 
+    width: 80%;
+}

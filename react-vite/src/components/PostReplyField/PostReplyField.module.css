@@ -1,0 +1,15 @@
+.postReplyFieldLayout {
+    display: flex;
+}
+
+.postReplyFieldLayout form  textarea{
+    width: 40rem;
+    height: auto;
+    border: 1px solid black;
+}
+
+.postReplyField {
+    border: 1px solid black;
+    width: 40rem;
+}
+

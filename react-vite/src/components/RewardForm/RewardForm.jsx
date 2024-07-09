@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addRewardToClassThunk } from "../../redux/classes";
 import { socket } from "../../socket";
+import styles from './RewardForm.module.css'
 
 function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
     const dispatch = useDispatch()
@@ -41,34 +42,40 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
     }
 
     return (
-        <>
-        <h1>Add a reward here.</h1>
-        <form onSubmit={handleSubmit}>
-            <label>
-                <input
-                    type="text"
-                    value={rewardType}
-                    placeholder="Type of Reward"
-                    onChange={(e) => setRewardType(e.target.value)}
-                    required
-                />
-            </label>
-            {formErrors.rewardType && <p>{formErrors.rewardType}</p>}
-            <label>
-                <input
-                    type="number"
-                    placeholder="Points Earned"
-                    value={pointsEarned}
-                    onChange={(e) => setPointsEarned(e.target.value)}
-                    min="1"
-                    max="10"
-                    required
-                />
-            </label>
-            {formErrors.pointsEarned && <p>{formErrors.pointsEarned}</p>}
-            <button type="submit">Add Class Reward</button>
-        </form>
-    </>
+        <div className={styles.addRewardField}>
+            <div className={styles.addRewardForm}>
+                <h1>Add a reward here.</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className={styles.addRewardInput}>
+                        <label>
+                            <input
+                                type="text"
+                                value={rewardType}
+                                placeholder="Type of Reward"
+                                onChange={(e) => setRewardType(e.target.value)}
+                                required
+                            />
+                        </label>
+                        {formErrors.rewardType && <p>{formErrors.rewardType}</p>}
+                        <label>
+                            <input
+                                type="number"
+                                placeholder="Points Earned"
+                                value={pointsEarned}
+                                onChange={(e) => setPointsEarned(e.target.value)}
+                                min="1"
+                                max="10"
+                                required
+                            />
+                        </label>
+                        {formErrors.pointsEarned && <p>{formErrors.pointsEarned}</p>}
+                    </div>
+                    <div className={styles.addRewardButtons}>
+                        <button type="submit">Add Class Reward</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     )
 }
 

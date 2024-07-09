@@ -1,0 +1,9 @@
+.reactionLayout {
+    display: flex;
+    padding-top: 0.2rem;
+    justify-content: space-between;
+}
+
+.reactionList {
+    display: flex;
+}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addNewPostReplyThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
+import styles from './AddPostReplyForm.module.css'
 
 function AddPostReplyForm({currPost, currMsgBoard, sessionUser}) {
     const dispatch = useDispatch()
@@ -23,7 +24,7 @@ function AddPostReplyForm({currPost, currMsgBoard, sessionUser}) {
     }
 
     return (
-        <div>
+        <div className={styles.postReplyFormLayout}>
             <form onSubmit={handleSubmit}>
             <label>
                     <input

@@ -1,0 +1,25 @@
+.studentInfoLayout {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.studentInfoTop {
+    display: flex;
+    flex-direction: column;
+}
+
+.studentInfoMiddle {
+    display: flex;
+    padding-top: 2rem;
+}
+
+.rewardsSection {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.rewardsSection .addRewardButton {
+    padding-top: 2rem;
+}

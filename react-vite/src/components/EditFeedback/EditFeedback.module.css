@@ -1,0 +1,22 @@
+.editReward {
+    display: flex;
+}
+
+.editReward form {
+    display: flex;
+    flex-direction: column;
+    width: 5rem;
+}
+
+.rewardFormInput {
+    display: flex;
+}
+
+.rewardFormInput input {
+    width: 5rem;
+}
+
+.rewardFormButtons {
+    display: flex;
+    gap: 0.3rem;
+}

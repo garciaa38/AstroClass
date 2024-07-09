@@ -4,6 +4,7 @@ import ReactionModal from "../ReactionModal/ReactionModal";
 import { deleteReplyReactionThunk } from "../../redux/messageBoard";
 import { addNewReplyReactionThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
+import styles from './PostReplyReaction.module.css';
 
 function PostReplyReaction({postReplyId, post_reply_reactions, sessionUserId, currMsgBoardId, classId}) {
     const dispatch = useDispatch()
@@ -52,18 +53,22 @@ function PostReplyReaction({postReplyId, post_reply_reactions, sessionUserId, cu
     }
 
     return (
-        <div>
-            <OpenModalButton
-                buttonText="Add a reaction..."
-                modalComponent={<ReactionModal sessionUserId={sessionUserId} postId={postReplyId} currMsgBoardId={currMsgBoardId} classId={classId} type="postReply"/>}
-            />
-            {reactionsFilter(post_reply_reactions)?.map((post_reply_reaction, index) => {
-                return (
-                <div key={index}>
-                    <button onClick={() => handleReaction(post_reply_reaction)}>{post_reply_reaction[0]}{post_reply_reaction[1].count}</button>
-                </div>
-                )
-            })}
+        <div className={styles.reactionLayout}>
+            <div className={styles.reactionList}>
+                {reactionsFilter(post_reply_reactions)?.map((post_reply_reaction, index) => {
+                    return (
+                        <div key={index}>
+                        <button onClick={() => handleReaction(post_reply_reaction)}>{post_reply_reaction[0]}{post_reply_reaction[1].count}</button>
+                    </div>
+                    )
+                })}
+            </div>
+            <div className={styles.addReactionButton}>
+                <OpenModalButton
+                    buttonText="Add a reaction..."
+                    modalComponent={<ReactionModal sessionUserId={sessionUserId} postId={postReplyId} currMsgBoardId={currMsgBoardId} classId={classId} type="postReply"/>}
+                />
+            </div>
         </div>
     )
 }

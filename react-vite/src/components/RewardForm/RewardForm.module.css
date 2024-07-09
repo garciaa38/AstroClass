@@ -1,0 +1,27 @@
+.addRewardField {
+    height: 12rem;
+}
+
+.addRewardForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 90%;
+    padding: 2rem;
+}
+
+.addRewardForm form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 70%;
+    
+}
+
+.addRewardInput {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+

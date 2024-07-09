@@ -1,9 +1,10 @@
 import PostReplyReaction from "../PostReplyReaction/PostReplyReaction";
 import PostReplyField from "../PostReplyField/PostReplyField";
+import styles from './PostReply.module.css'
 
 function PostReply({post_replies, classId, currMsgBoardId, sessionUserId}) {
     return (
-        <div>
+        <div className={styles.postReplyList}>
             {post_replies?.map(post_reply => {
                 return (
                     <div key={post_reply.id}>

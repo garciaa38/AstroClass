@@ -1,23 +1,22 @@
-.addClassFormLayout {
+.signUpFormLayout {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    height: 50%;
+    height: 100%;
     width: 70%;
-    padding-top: 25%;
 }
 
-.addClassFormLayout form {
+.signUpFormLayout form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     width: 100%;
     gap: 1rem;
-    padding-top: 10%;
 }
 
 .formInput {
     display: flex;
     flex-direction: column;
 }
+
