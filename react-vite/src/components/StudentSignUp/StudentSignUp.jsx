@@ -5,6 +5,7 @@ import { thunkStudentSignup } from "../../redux/session";
 import { addStudentToClassThunk } from "../../redux/classes";
 import { fetchAllStudentsThunk } from "../../redux/students";
 import { socket } from "../../socket";
+import styles from "./StudentSignUp.module.css";
 
 function StudentSignUp({classId, setAllStudentsState}) {
     const dispatch = useDispatch();
@@ -69,10 +70,10 @@ function StudentSignUp({classId, setAllStudentsState}) {
     };
 
     return (
-        <>
+        <div className={styles.signUpFormLayout}>
         {errors.server && <p>{errors.server}</p>}
         <form onSubmit={handleSubmit}>
-            <label>
+            <label className={styles.formInput}>
                 Email
             <input
                 type="text"
@@ -83,7 +84,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
             </label>
             {errors.email && <p>{errors.email}</p>}
             {formErrors.email && <p>{formErrors.email}</p>}
-            <label>
+            <label className={styles.formInput}>
                 First Name
             <input
                 type="text"
@@ -94,7 +95,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
             </label>
             {errors.firstName && <p>{errors.firstName}</p>}
             {formErrors.firstName && <p>{formErrors.firstName}</p>}
-            <label>
+            <label className={styles.formInput}>
                 Last Name
             <input
                 type="text"
@@ -105,7 +106,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
             </label>
             {errors.lastName && <p>{errors.lastName}</p>}
             {formErrors.lastName && <p>{formErrors.lastName}</p>}
-            <label>
+            <label className={styles.formInput}>
                 Password
                 <input
                 type="password"
@@ -115,7 +116,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
             />
             </label>
             {errors.password && <p>{errors.password}</p>}
-            <label>
+            <label className={styles.formInput}>
                 Confirm Password
             <input
                 type="password"
@@ -127,7 +128,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
             {formErrors.confirmPassword && <p>{formErrors.confirmPassword}</p>}
             <button type="submit">Sign Up</button>
         </form>
-        </>
+        </div>
     );
 
 }

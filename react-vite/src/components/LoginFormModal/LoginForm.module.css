@@ -4,7 +4,8 @@
     align-items: center;
     justify-content: space-around;
     height: 100%;
-    width: 70%;
+    width: 25rem;
+    padding: 2rem;
 }
 
 .logInFormLayout form {
@@ -23,4 +24,5 @@
 .demoButtons {
     display: flex;
     gap: 1.5rem;
+    padding-top: 2rem;
 }
