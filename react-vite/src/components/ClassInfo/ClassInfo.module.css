@@ -36,10 +36,127 @@
     width: 10rem;
     border-radius: 100%;
     justify-content: center;
-    background: #C03221;
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
 }
+
+.studentList .student.mercury {
+    /* border: 5px solid #FFBF46; */
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 100%;
+    justify-content: center;
+    background: radial-gradient(circle, #b5b5b5, #8a8a8a);
+    color: #E9F1F7;
+    animation: moveShadow 10s linear infinite;
+}
+
+.studentList .student.venus {
+    /* border: 5px solid #FFBF46; */
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 100%;
+    justify-content: center;
+    background: radial-gradient(circle, #e5c27d, #c0a464);
+    color: #E9F1F7;
+    animation: moveShadow 10s linear infinite;
+}
+
+.studentList .student.earth {
+    /* border: 5px solid #FFBF46; */
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 100%;
+    justify-content: center;
+    background: radial-gradient(circle at 20% 20%, #4f83b4, #3078a8, #0d3b66);
+    color: #E9F1F7;
+    animation: moveShadow 10s linear infinite;
+}
+
+.studentList .student.mars {
+    /* border: 5px solid #FFBF46; */
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 100%;
+    justify-content: center;
+    background: radial-gradient(circle, #d14b40, #a5352a);
+    color: #E9F1F7;
+    animation: moveShadow 10s linear infinite;
+}
+
+.studentList .student.jupiter {
+    /* border: 5px solid #FFBF46; */
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 100%;
+    justify-content: center;
+    background: linear-gradient(45deg, #d9a066, #e5cf9a, #d9a066);
+    color: #E9F1F7;
+    animation: moveShadow 10s linear infinite;
+}
+
+.studentList .student.saturn {
+    /* border: 5px solid #FFBF46; */
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 100%;
+    justify-content: center;
+    background: radial-gradient(circle, #e5cf9a, #c1aa76);
+    color: #E9F1F7;
+    animation: moveShadow 10s linear infinite;
+}
+
+.studentList .student.uranus {
+    /* border: 5px solid #FFBF46; */
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 100%;
+    justify-content: center;
+    background: radial-gradient(circle, #8fc0d0, #6a9dad);
+    color: #E9F1F7;
+    animation: moveShadow 10s linear infinite;
+}
+
+.studentList .student.neptune {
+    /* border: 5px solid #FFBF46; */
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 100%;
+    justify-content: center;
+    background: radial-gradient(circle, #4977a3, #365a84);
+    color: #E9F1F7;
+    animation: moveShadow 10s linear infinite;
+}
+
+.studentList .student.pluto {
+    /* border: 5px solid #FFBF46; */
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 100%;
+    justify-content: center;
+    background: radial-gradient(circle, #cbb8a4, #a39280);
+    color: #E9F1F7;
+    animation: moveShadow 10s linear infinite;
+}
+
 
 @keyframes moveShadow {
     0% {

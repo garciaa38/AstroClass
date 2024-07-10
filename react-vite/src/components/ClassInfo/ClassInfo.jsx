@@ -10,6 +10,12 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
     const dispatch = useDispatch()
     const {class_name, students, id: classId, rewards, feedback} = cls;
 
+    const randomNum = () => {
+        const planets = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto']
+
+        return planets[Math.floor(Math.random() * 9)]
+    }
+
     if (role === 'teacher') {
         const sortStudents = studentArr => {
             if (studentArr?.length <= 1) {
@@ -48,11 +54,12 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
                 </div>
                 <div className={styles.studentList}>
                     {sortedStudents.map((student) => {
+                        const planetClass = randomNum();
                         return(
                             <div key={student?.id}>
                                 <OpenModalButton 
                                     buttonText={
-                                        <div className={styles.student}>
+                                        <div className={`${styles.student}  ${styles[planetClass]}`}>
                                             <div>{student?.first_name} {student?.last_name}</div>
                                             <div>Points: {student?.points}</div>
                                         </div>
