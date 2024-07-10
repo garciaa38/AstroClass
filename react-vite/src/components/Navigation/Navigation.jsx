@@ -40,7 +40,7 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
       {view === "class" &&
       <div>
       <ClassInfo sessionUser={sessionUser} cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={role} allStudentsState={allStudents} setAllStudentsState={setAllStudentsState} />
-      {role === 'teacher' && <OpenModalButton buttonText="Add a Student!" modalComponent={<AddStudentModal cls={cls} setAllStudentsState={setAllStudentsState} allStudents={allStudents} allStudentsState={allStudentsState}/>}/>}</div>}
+      </div>}
       {view === "message-board" &&
       <div>
       <MessageBoard currMsgBoard={currentMsgBoard} sessionUser={sessionUser} setCurrMsgBoard={setCurrMsgBoard}/>

@@ -13,6 +13,9 @@ p, h1, h2, h3, h4, h5, h6 {
 body, html {
     padding: 0;
     margin: 0;
+    /* background: #E9F1F7; */
+    background: rgb(14, 13, 13);
+    color: #182C64;
     }
 
 /* Prevent font size inflation */

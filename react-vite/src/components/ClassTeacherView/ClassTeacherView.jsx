@@ -9,6 +9,7 @@ import { socket } from "../../socket";
 import { fetchAllStudentsThunk } from "../../redux/students";
 import { fetchMessageBoardThunk } from "../../redux/messageBoard";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import styles from "./ClassTeacherView.module.css";
 
 function ClassTeacherView({sessionUser, navigate, classes}) {
@@ -100,25 +101,31 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
             </div>
             <div className={sideBarOpen ? styles.sideBarOpen : styles.sideBarClosed}>
                 <div className={styles.sideBarList}>
-                    <div className={styles.classSettings}>
-                        <div>Class Settings</div>
+                    <div className={styles.aboveSignOut}>
+                        <div className={styles.classSettings}>
+                            <div>Class Settings</div><div className={styles.downArrow}><MdOutlineKeyboardArrowDown /></div>
+                        </div>
+                        <div className={styles.classList}>
+                            <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
+                            {classes?.map((cls, index) => (
+                                <div key={cls?.id}>
+                                    {cls.class_name.length > 0 && <button onClick={() => switchClass(index)}>{cls.class_name}</button>}
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                    <div className={styles.classList}>
-                        <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
-                        {classes?.map((cls, index) => (
-                            <div key={cls?.id}>
-                                {cls.class_name.length > 0 && <button onClick={() => switchClass(index)}>{cls.class_name}</button>}
-                            </div>
-                        ))}
+                    <div className={styles.signOutButton}>
+                        <OpenModalButton buttonText="Sign Out" modalComponent={<SignOutModal navigate={navigate} />}/>
                     </div>
                 </div>
             </div>
             <div className={styles.navbar}>
                 <div className={styles.navbarGreeting}>
-                    <h1>Hey there {suffix} {last_name}.</h1>
-                    <h2>You are currently signed in as a teacher!</h2>
-                    <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
-                    <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
+                    <div className={styles.navbarTop}>
+                        <h1>Hey there {suffix} {last_name}.</h1>
+                        <h2>You are currently signed in as a teacher!</h2>
+                        <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
+                    </div>
                 </div>
             </div>
         </div>

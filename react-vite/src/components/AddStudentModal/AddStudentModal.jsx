@@ -3,7 +3,7 @@ import StudentSearch from "../StudentSearch/StudentSearch";
 import StudentSignUp from "../StudentSignUp/StudentSignUp";
 import styles from "./AddStudentModal.module.css";
 
-function AddStudentModal({ cls, setAllStudentsState, allStudents, allStudentsState }) {
+function AddStudentModal({ cls, setAllStudentsState, allStudents }) {
     const { id: classId } = cls;
     const [formAppear, setFormAppear] = useState(false)
     console.log("ALL STUDENTS", allStudents)

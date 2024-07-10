@@ -1,5 +1,6 @@
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import StudentInfoModal from "../StudentInfoModal/StudentInfoModal";
+import AddStudentModal from "../AddStudentModal/AddStudentModal";
 import EditClass from "../EditClass/EditClass";
 import { useDispatch } from "react-redux";
 import { fetchClassByIdThunk } from "../../redux/classes";
@@ -39,24 +40,29 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
         return (
             <div className={styles.classInfoLayout}>
                 <div className={styles.classInfoOpener}>
-                    <h1>This is {class_name}</h1>
+                    <h1>{class_name}</h1>
                     <OpenModalButton 
                         buttonText="Class Settings"
                         modalComponent={<EditClass cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={rewards} feedback={feedback}/>}
                     />
-                    <h2>Here are your students:</h2>
                 </div>
                 <div className={styles.studentList}>
                     {sortedStudents.map((student) => {
                         return(
                             <div key={student?.id}>
                                 <OpenModalButton 
-                                    buttonText={`${student?.first_name} ${student?.last_name} Points: ${student?.points}`}
+                                    buttonText={
+                                        <div className={styles.student}>
+                                            <div>{student?.first_name} {student?.last_name}</div>
+                                            <div>Points: {student?.points}</div>
+                                        </div>
+                                    }
                                     modalComponent={<StudentInfoModal student={student} classId={classId} rewards={rewards} feedback={feedback} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState}/>}
                                 />
                             </div>
                         )
                     })}
+                    <OpenModalButton buttonText={<div className={styles.student}>Add a Student</div>} modalComponent={<AddStudentModal cls={cls} setAllStudentsState={setAllStudentsState} allStudents={allStudentsState}/>}/>
                 </div>
             </div>
         )
