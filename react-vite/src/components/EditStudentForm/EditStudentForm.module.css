@@ -1,0 +1,28 @@
+.editStudentFormLayout {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    align-items: center;
+}
+
+.editStudentFormLayout form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.editStudentFormTitle {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+}
+
+.formInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.editStudentFormButtons {
+    display: flex;
+    gap: 2rem;
+}

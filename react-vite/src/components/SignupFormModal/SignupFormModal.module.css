@@ -4,7 +4,8 @@
     align-items: center;
     justify-content: space-around;
     height: 100%;
-    width: 70%;
+    width: 30rem;
+    padding: 2rem;
 }
 
 .signUpFormLayout form {

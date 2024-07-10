@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import { addStudentToClassThunk } from "../../redux/classes";
 import { fetchAllStudentsThunk } from "../../redux/students";
 import { socket } from "../../socket";
+import styles from "./StudentSearch.module.css";
 
 
 function StudentSearch({allStudents, classId, setAllStudentsState}) {
@@ -49,7 +50,7 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
     }
 
     return (
-        <>
+        <div className={styles.studentSearchLayout}>
             <form onSubmit={handleFormSubmit}>
                 <label>
                     <input
@@ -60,17 +61,19 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
                     />
                 </label>
                 {name && (
-                    <div>
-                        <h2>Search Results:</h2>
-                        <ul>
-                            {searchStudents.map(student => (
-                                <button key={student.id} onClick={() => addStudent(student)}>{student.first_name} {student.last_name}</button>
-                            ))}
-                        </ul>
+                    <div className={styles.studentSearchResults}>
+                        <div className={styles.studentSearchArea}>
+                            <h2>Search Results:</h2>
+                            <ul>
+                                {searchStudents.map(student => (
+                                    <button key={student.id} onClick={() => addStudent(student)}>{student.first_name} {student.last_name}</button>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 )}
             </form>
-        </>
+        </div>
     )
 }
 

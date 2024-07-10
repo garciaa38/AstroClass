@@ -13,7 +13,7 @@ function LoginFormPage() {
   if (sessionUser) return <Navigate to="/classes" replace={true} />;
 
   return (
-    <div className={styles.loginBody}>
+    <div className={`${styles.loginBody} ${sessionUser ? styles.backgroundPlaying : styles.backgroundPaused}`}>
       <div className={styles.loginGreeting}>
         <div className={styles.title}>
           <h1>Welcome to AstroClass</h1>

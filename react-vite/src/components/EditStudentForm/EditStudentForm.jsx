@@ -4,6 +4,7 @@ import { editStudentInfoThunk, removeStudentFromClassThunk } from "../../redux/c
 import { fetchAllStudentsThunk } from "../../redux/students";
 import { useModal } from "../../context/Modal";
 import { socket } from "../../socket";
+import styles from "./EditStudentForm.module.css";
 
 function EditStudentForm({student, classId, setAllStudentsState}) {
     // console.log("EDIT STUDENT", student)
@@ -59,10 +60,13 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
     }
 
     return (
-        <>
-            <h2>Edit Student Information</h2>
+        <div className={styles.editStudentFormLayout}>
+            <div className={styles.editStudentFormTitle}>
+                <h2>Edit Student Information</h2>
+            </div>
             <form onSubmit={handleSubmit}>
-                <label>
+                <label className={styles.formInput}>
+                    Enter First Name
                     <input
                         type="text"
                         value={firstName}
@@ -71,7 +75,8 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
                     />
                 </label>
                 {formErrors.firstName && <p>{formErrors.firstName}</p>}
-                <label>
+                <label className={styles.formInput}>
+                    Enter Last Name
                     <input
                         type="text"
                         value={lastName}
@@ -80,10 +85,12 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
                     />
                 </label>
                 {formErrors.lastName && <p>{formErrors.lastName}</p>}
-                <button type="submit">Update Student Info</button>
+                <div className={styles.editStudentFormButtons}>
+                    <button type="submit">Update Student Info</button>
+                    <button onClick={() => removeStudent(student_class_id)}>Remove student from class</button>
+                </div>
             </form>
-            <button onClick={() => removeStudent(student_class_id)}>Remove student from class</button>
-        </>
+        </div>
     )
 }
 

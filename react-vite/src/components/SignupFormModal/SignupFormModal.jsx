@@ -163,7 +163,7 @@ function SignupFormModal({role}) {
         <label className={styles.formInput}>
           Confirm Password
           <input
-            placeholder="Confirme Password"
+            placeholder="Confirm Password"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}

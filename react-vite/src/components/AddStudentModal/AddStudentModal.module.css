@@ -1,0 +1,26 @@
+.addStudentLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-around; */
+    height: 30rem;
+    width: 50rem;
+    padding: 2rem;
+}
+
+.addStudentTitle {
+    padding-top: 2rem;
+}
+
+.addStudentSearch {
+    padding-top: 3rem;
+    margin-bottom: 5rem;
+}
+
+.addStudentSignUpLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
