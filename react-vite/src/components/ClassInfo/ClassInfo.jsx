@@ -47,10 +47,6 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
             <div className={styles.classInfoLayout}>
                 <div className={styles.classInfoOpener}>
                     <h1>{class_name}</h1>
-                    <OpenModalButton 
-                        buttonText="Class Settings"
-                        modalComponent={<EditClass cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={rewards} feedback={feedback}/>}
-                    />
                 </div>
                 <div className={styles.studentList}>
                     {sortedStudents.map((student) => {
@@ -60,6 +56,19 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
                                 <OpenModalButton 
                                     buttonText={
                                         <div className={`${styles.student}  ${styles[planetClass]}`}>
+                                            <div className={styles.starsContainer}>
+                                                {Array.from({ length: student.points }).map((_, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className={`${styles.star} ${
+                                                            (index + 1) % 10 === 0 ? styles.bigStar : ''
+                                                        }`}
+                                                        style={{
+                                                            animationDelay: `${index * 0.3}s`,
+                                                        }}
+                                                    ></div>
+                                                ))}
+                                            </div>
                                             <div>{student?.first_name} {student?.last_name}</div>
                                             <div>Points: {student?.points}</div>
                                         </div>

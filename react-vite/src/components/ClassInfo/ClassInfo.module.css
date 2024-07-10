@@ -14,18 +14,55 @@
 }
 
 .classInfoOpener h1 {
-    color: #FFBF46
+    color: #FFBF46;
+    padding-bottom: 3rem;
 }
 
 .studentList {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: auto;
-    grid-column-gap: 2rem;
-    grid-row-gap: 2rem; 
+    grid-column-gap: 5rem;
+    grid-row-gap: 5rem; 
     width: 80%;
     padding-top: 2rem;
     padding-bottom: 5rem;
+}
+
+.starsContainer {
+    position: relative;
+    width: 10rem;
+    height: 1rem;
+    border-radius: 50%;
+    overflow: visible;
+    padding-top: 2rem;
+}
+
+.star, .bigStar {
+    position: absolute;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: rgb(248, 248, 149);
+    border-radius: 50%;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: revolve 10s linear infinite;
+}
+
+.bigStar {
+    width: 1rem;
+    height: 1rem;
+    background: rgb(247, 180, 55);
+}
+
+@keyframes revolve {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(7rem); /* Adjust distance if needed */
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(7rem); /* Adjust distance if needed */
+    }
 }
 
 .studentList .student {
@@ -51,6 +88,7 @@
     background: radial-gradient(circle, #b5b5b5, #8a8a8a);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
+    
 }
 
 .studentList .student.venus {
