@@ -1,9 +1,58 @@
 .reactionLayout {
     display: flex;
+    flex-direction: column;
     padding-top: 0.2rem;
     justify-content: space-between;
+    background: #E9F1F7;
+    padding-left: 1.5rem;
+    width: 65rem;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
 }
 
 .reactionList {
     display: flex;
+    gap: 0.5rem;
+    padding-bottom: 0.3rem;
+    padding-left: 2rem;
+}
+
+.emojiBox {
+    background: #E9F1F7;
+    padding: 0.1rem;
+    border: 0.5px solid black;
+    border-radius: 20%;
+    font-size: 0.9rem;
+    color: black;
+    width: 2.5rem;
+}
+
+.emojiBoxContent {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.addReactionButton{
+    display: flex;
+    margin: 1rem;
+    border: 2px solid #182C64;
+    box-shadow: 2px 2px 5px black;
+    width: 10%;
+    height: 3%;
+    border-radius: 40%;
+    background: #FFBF46;
+    color: #07112A;
+    font-size: 0.9rem;
+}
+
+.reactButton {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    justify-content: center;
 }

@@ -5,6 +5,7 @@ import { deleteReactionThunk } from "../../redux/messageBoard";
 import { addNewReactionThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
 import styles from './PostReaction.module.css';
+import { MdAddReaction } from "react-icons/md";
 
 function PostReaction({postId, post_reactions, sessionUserId, currMsgBoardId, classId}) {
     const dispatch = useDispatch()
@@ -57,15 +58,15 @@ function PostReaction({postId, post_reactions, sessionUserId, currMsgBoardId, cl
             <div className={styles.reactionList}>
                 {reactionsFilter(post_reactions)?.map((post_reaction, index) => {
                     return (
-                    <div className={styles.emojiBox} key={index}>
-                        <button onClick={() => handleReaction(post_reaction)}>{post_reaction[0]}{post_reaction[1].count}</button>
-                    </div>
+                        <div className={styles.emojiBox} key={index}>
+                            <button onClick={() => handleReaction(post_reaction)}><div className={styles.emojiBoxContent}><div>{post_reaction[0]}</div><div>{post_reaction[1].count}</div></div></button>
+                        </div>
                     )
                 })}
             </div>
             <div className={styles.addReactionButton}>
                 <OpenModalButton
-                    buttonText="Add a reaction..."
+                    buttonText={<div className={styles.reactButton}><div>React</div><MdAddReaction /></div>}
                     modalComponent={<ReactionModal sessionUserId={sessionUserId} postId={postId} currMsgBoardId={currMsgBoardId} classId={classId} type="post"/>}
                 />
             </div>

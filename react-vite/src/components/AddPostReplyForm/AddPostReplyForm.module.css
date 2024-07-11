@@ -1,5 +1,6 @@
 .postReplyFormLayout {
     display:flex;
     padding-left: 2rem;
+    border-top: 2px solid #182C64;
 }
 

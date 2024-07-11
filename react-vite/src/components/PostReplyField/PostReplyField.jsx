@@ -4,6 +4,8 @@ import { editPostReplyThunk } from "../../redux/messageBoard";
 import { deletePostReplyThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
 import styles from './PostReplyField.module.css';
+import { MdOutlineModeEdit } from "react-icons/md";
+import { RiDeleteBin6Fill } from "react-icons/ri";
 
 function PostReplyField({postReply, classId, currMsgBoardId}) {
     const dispatch = useDispatch()
@@ -43,13 +45,25 @@ function PostReplyField({postReply, classId, currMsgBoardId}) {
 
     if (!isEditing) {
         return (
-            <div className={styles.postReplyFieldLayout}>
-                <div className={styles.postReplyField}>
-                    <div>{postReply.text_field}</div>
-                </div>
-                <div className={styles.postReplyFieldButtons}>
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
-                    <button onClick={deletePostReply}>Delete</button>
+            <div className={styles.postReplyField}>
+                <div className={styles.postReply}>
+                    <div className={styles.postReplyBox}>
+                        <div className={styles.postReplyInfo}>
+                            <div className={styles.username}>
+                                Mr. Garcia
+                            </div>
+                            <div className={styles.postReplyDate}>
+                                7/10/2024 10:36pm
+                            </div>
+                        </div>
+                        <div className={styles.postReplyText}>
+                            {postReply.text_field}
+                        </div>
+                    </div>
+                    <div className={styles.postReplyButtons}>
+                        <button onClick={() => setIsEditing(true)}><MdOutlineModeEdit /></button>
+                        <button onClick={deletePostReply}><RiDeleteBin6Fill /></button>
+                    </div>
                 </div>
             </div>
         )

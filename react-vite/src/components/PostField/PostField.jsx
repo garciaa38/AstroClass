@@ -4,6 +4,8 @@ import { editPostThunk } from "../../redux/messageBoard";
 import { deletePostThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
 import styles from "./PostField.module.css"
+import { MdOutlineModeEdit } from "react-icons/md";
+import { RiDeleteBin6Fill } from "react-icons/ri";
 
 function PostField({post, classId}) {
     const dispatch = useDispatch()
@@ -43,9 +45,25 @@ function PostField({post, classId}) {
     if (!isEditing) {
         return (
             <div className={styles.postField}>
-                <div className={styles.post}>{post.text_field}</div>
-                <button onClick={() => setIsEditing(true)}>Edit</button>
-                <button onClick={deletePost}>Delete</button>
+                <div className={styles.post}>
+                    <div className={styles.postbox}>
+                        <div className={styles.postInfo}>
+                            <div className={styles.username}>
+                                Mr. Garcia
+                            </div>
+                            <div className={styles.postDate}>
+                                7/10/2024 10:36pm
+                            </div>
+                        </div>
+                        <div className={styles.postText}>
+                            {post.text_field}
+                        </div>
+                    </div>
+                    <div className={styles.postButtons}>
+                        <button onClick={() => setIsEditing(true)}><MdOutlineModeEdit /></button>
+                        <button onClick={deletePost}><RiDeleteBin6Fill /></button>
+                    </div>
+                </div>
             </div>
         )
     } else {
