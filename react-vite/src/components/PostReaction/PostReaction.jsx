@@ -6,8 +6,9 @@ import { addNewReactionThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
 import styles from './PostReaction.module.css';
 import { MdAddReaction } from "react-icons/md";
+import { FaCommentDots } from "react-icons/fa";
 
-function PostReaction({postId, post_reactions, sessionUserId, currMsgBoardId, classId}) {
+function PostReaction({showReplies, setShowReplies, postId, post_reactions, sessionUserId, currMsgBoardId, classId}) {
     const dispatch = useDispatch()
     console.log("POST REACTIONS BEFORE", post_reactions)
 
@@ -53,6 +54,14 @@ function PostReaction({postId, post_reactions, sessionUserId, currMsgBoardId, cl
 
     }
 
+    const switchReplies = () => {
+        if (showReplies === true) {
+            setShowReplies(false)
+        } else {
+            setShowReplies(true)
+        }
+    }
+
     return (
         <div className={styles.reactionLayout}>
             <div className={styles.reactionList}>
@@ -64,11 +73,16 @@ function PostReaction({postId, post_reactions, sessionUserId, currMsgBoardId, cl
                     )
                 })}
             </div>
-            <div className={styles.addReactionButton}>
-                <OpenModalButton
-                    buttonText={<div className={styles.reactButton}><div>React</div><MdAddReaction /></div>}
-                    modalComponent={<ReactionModal sessionUserId={sessionUserId} postId={postId} currMsgBoardId={currMsgBoardId} classId={classId} type="post"/>}
-                />
+            <div className={styles.belowPostButtons}>
+                <div className={styles.addReactionButton}>
+                    <OpenModalButton
+                        buttonText={<div className={styles.reactButton}><div>React</div><MdAddReaction /></div>}
+                        modalComponent={<ReactionModal sessionUserId={sessionUserId} postId={postId} currMsgBoardId={currMsgBoardId} classId={classId} type="post"/>}
+                    />
+                </div>
+                <div className={styles.addCommentButton}>
+                    <button className={styles.commentButton} onClick={switchReplies}>Reply <FaCommentDots /></button>
+                </div>
             </div>
         </div>
     )

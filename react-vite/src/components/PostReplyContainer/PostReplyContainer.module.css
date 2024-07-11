@@ -1,0 +1,12 @@
+.showComments {
+    max-height: 1000px; /* Set this to a large enough value to accommodate your content */
+    opacity: 1;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.hideComments {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
