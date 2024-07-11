@@ -1,10 +1,16 @@
 .postList {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
-    padding: 2%;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 0 2000px 0 #5574ca;
+    background: #5574ca;
 }
 
 .postArea {
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
+    background: #E9F1F7;
+    border-top: 10px solid #5574ca;
+    border-left: 10px solid #5574ca;
+    border-right: 10px solid #5574ca;
 }

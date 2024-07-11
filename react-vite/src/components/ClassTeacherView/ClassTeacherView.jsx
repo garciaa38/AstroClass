@@ -1,6 +1,7 @@
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import SignOutModal from "../SignOutModal/SignOutModal";
 import AddClassModal from "../AddClassModal/AddClassModal";
+import EditClass from "../EditClass/EditClass";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllClassesThunk, fetchClassByIdThunk } from "../../redux/classes";
@@ -103,7 +104,15 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                 <div className={styles.sideBarList}>
                     <div className={styles.aboveSignOut}>
                         <div className={styles.classSettings}>
-                            <div>Class Settings</div><div className={styles.downArrow}><MdOutlineKeyboardArrowDown /></div>
+                            <div>
+                                <OpenModalButton 
+                                    buttonText="Class Settings"
+                                    modalComponent={<EditClass cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={currClass.rewards} feedback={currClass.feedback}/>}
+                                />
+                            </div>
+                            <div className={styles.downArrow}>
+                                <MdOutlineKeyboardArrowDown />
+                            </div>
                         </div>
                         <div className={styles.classList}>
                             <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>

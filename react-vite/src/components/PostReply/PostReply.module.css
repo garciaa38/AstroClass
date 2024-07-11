@@ -1,4 +1,13 @@
 .postReplyList {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+    background: #E9F1F7;
+}
+
+.postReply {
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
 }
