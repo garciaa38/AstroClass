@@ -5,6 +5,9 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { MdOutlineKeyboardArrowUp } from "react-icons/md";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import styles from "./Navigation.module.css";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -40,20 +43,27 @@ function ProfileButton() {
   };
 
   return (
-    <>
+    <div className={styles.settingsDropDownLayout}>
       <button onClick={toggleMenu}>
-        <FaUserCircle />
+        <div className={showMenu ? styles.settingsDropDownButton : styles.settingsDropDownButtonClosed}>
+          <h3>
+            Class Settings&nbsp;&nbsp;
+            {showMenu && <MdOutlineKeyboardArrowUp />}
+            {!showMenu && <MdOutlineKeyboardArrowDown />}
+          </h3>
+        </div>
       </button>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <ul className={showMenu ? styles.settingsDropDown : styles.settingsDropDownClosed} ref={ulRef}>
           {user ? (
-            <>
-              <li>{user.username}</li>
+            <div className={styles.settingsDropdownList}>
               <li>{user.email}</li>
-              <li>
+              <li>{user.email}</li>
+              <li>{user.email}</li>
+              <li onClick={logout}>
                 <button onClick={logout}>Log Out</button>
               </li>
-            </>
+            </div>
           ) : (
             <>
               <OpenModalMenuItem
@@ -70,7 +80,7 @@ function ProfileButton() {
           )}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 

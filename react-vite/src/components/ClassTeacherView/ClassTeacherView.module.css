@@ -95,10 +95,14 @@
 
 .classSettings {
     display: flex;
-    gap: 1rem;
-    border: 1px solid white;
-    padding: 0.5rem;
-    border-radius: 10%;
+    gap: 0.5rem;
+    margin-right: 2rem;
+    border-radius: 15px;
+}
+
+.classSettingsButton {
+    background: #07112A;
+    border-radius: 15px;
 }
 
 .downArrow {
