@@ -10,10 +10,35 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 function PostField({post, classId}) {
     const dispatch = useDispatch()
     const [isEditing, setIsEditing] = useState(false);
-    const [textField, setTextField] = useState(post.text_field)
+    const [textField, setTextField] = useState(post.text_field);
+    const [formErrors, setFormErrors] = useState({});
+
+    const stringTrim = (string) => {
+        if (string.trim().length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const errors = {};
+        setFormErrors({});
+
+        if (stringTrim(textField)) {
+            if (textField.length <= 0) {
+                errors.editedPost = "Cannot send an empty post."
+            }
+        } else {
+            errors.editedPost = "Cannot send an empty post."
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors)
+            return;
+        }
 
         const editedPost = {
             id: post.id,
@@ -28,6 +53,7 @@ function PostField({post, classId}) {
     const cancelEdit = () => {
         setIsEditing(false)
         setTextField(post.text_field)
+        setFormErrors({});
     }
 
     const deletePost = async (e) => {
@@ -79,6 +105,7 @@ function PostField({post, classId}) {
                             placeholder="Enter post..."
                         />
                     </label>
+                    {formErrors.editedPost && <p>{formErrors.editedPost}</p>}
                     <button type='submit'>Save</button>
                     <button onClick={cancelEdit}>Cancel</button>
                 </form>

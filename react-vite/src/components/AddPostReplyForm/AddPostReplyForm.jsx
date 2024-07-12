@@ -6,10 +6,36 @@ import styles from './AddPostReplyForm.module.css'
 
 function AddPostReplyForm({currPost, currMsgBoard, sessionUser}) {
     const dispatch = useDispatch()
-    const [newPostReply, setNewPostReply] = useState("")
+    const [newPostReply, setNewPostReply] = useState("");
+    const [formErrors, setFormErrors] = useState({});
+
+    const stringTrim = (string) => {
+        if (string.trim().length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const errors = {};
+        setFormErrors({});
+
+        if (stringTrim(newPostReply)) {
+            if (newPostReply.length <= 0) {
+                errors.newPostReply = "Cannot send an empty reply."
+            }
+        } else {
+            errors.newPostReply = "Cannot send an empty reply."
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors)
+            return;
+        }
+
         const createdPostReply = {
             text_field: newPostReply,
             user_id: sessionUser.id,
@@ -35,6 +61,7 @@ function AddPostReplyForm({currPost, currMsgBoard, sessionUser}) {
                         required
                     />
                 </label>
+                {formErrors.newPostReply && <p>{formErrors.newPostReply}</p>}
                 <button type="submit">Send</button>
             </form>
         </div>

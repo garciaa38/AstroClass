@@ -24,6 +24,14 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
     const [feedbackState, setFeedbackState] = useState(feedback);
     const [formErrors, setFormErrors] = useState({});
 
+    const stringTrim = (string) => {
+        if (string.trim().length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     const handleRewardUpdate = (newReward) => {
         setRewardsState((prevRewards) => [...prevRewards, newReward]);
     }
@@ -47,11 +55,19 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
         const errors = {};
         setFormErrors({})
 
-        if (className.length > 10 || className.length <= 2) {
+        if (stringTrim(className)) {
+            if (className.length > 10 || className.length <= 2) {
+                errors.className = "Class Name must be between 3 and 10 characters."
+            }
+        } else {
             errors.className = "Class Name must be between 3 and 10 characters."
         }
 
-        if (currSubject.length > 20 || currSubject.length <= 2) {
+        if (stringTrim(currSubject)) {
+            if (currSubject.length > 20 || currSubject.length <= 2) {
+                errors.subject = "Subject must be between 3 and 20 characters."
+            }
+        } else {
             errors.subject = "Subject must be between 3 and 20 characters."
         }
 

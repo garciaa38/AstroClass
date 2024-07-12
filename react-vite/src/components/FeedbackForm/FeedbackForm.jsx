@@ -10,14 +10,26 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
     const [pointsLost, setPointsLost] = useState(-1);
     const [formErrors, setFormErrors] = useState({});
 
+    const stringTrim = (string) => {
+        if (string.trim().length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const errors = {};
         setFormErrors({});
 
-        if (feedbackType.length > 20 || feedbackType.length < 3) {
-            errors.feedbackType = "Reward Type must be between 3 and 20 characters."
+        if (stringTrim(feedbackType)) {
+            if (feedbackType.length > 20 || feedbackType.length < 3) {
+                errors.feedbackType = "Feedback Type must be between 3 and 20 characters."
+            }
+        } else {
+            errors.feedbackType = "Feedback Type must be between 3 and 20 characters."
         }
 
         if (pointsLost >= 0 || pointsLost < -10) {

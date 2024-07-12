@@ -16,19 +16,36 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
     const [formErrors, setFormErrors] = useState({});
     const { closeModal } = useModal()
 
+    const stringTrim = (string) => {
+        if (string.trim().length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         const errors = {};
-
+        setFormErrors({})
+        
         if (sessionUser.role === 'teacher') {
-            if (className.length > 10 || className.length <= 2) {
+            if (stringTrim(className)) {
+                if (className.length > 10 || className.length <= 2) {
+                    errors.className = "Class Name must be between 3 and 10 characters."
+                }
+            } else {
                 errors.className = "Class Name must be between 3 and 10 characters."
             }
         }
         
         if (sessionUser.role === 'teacher') {
-            if (subject.length > 20 || subject.length <= 2) {
+            if (stringTrim(subject)) {
+                if (subject.length > 20 || subject.length <= 2) {
+                    errors.subject = "Subject must be between 3 and 20 characters."
+                }
+            } else {
                 errors.subject = "Subject must be between 3 and 20 characters."
             }
         }   

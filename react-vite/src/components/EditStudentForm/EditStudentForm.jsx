@@ -17,18 +17,35 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
     const [lastName, setLastName] = useState(last_name);
     const [formErrors, setFormErrors] = useState({});
 
+    const whiteSpaceCheck = (string) => {
+        for (let i = 0; i < string.length; i++) {
+            if (string.charAt(i) === " ") {
+            return false;
+            }
+        }
+        return true
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const errors = {};
         setFormErrors({});
 
-        if (firstName.length <= 2 || firstName.length > 20) {
-            errors.firstName = "First Name must be between 3 and 20 characters."
+        if (whiteSpaceCheck(firstName)) {
+            if (firstName.length <= 2 || firstName.length > 20) {
+                errors.firstName = "First Name must be between 3 and 20 characters."
+            }
+        } else {
+            errors.firstName = "Please don't include spaces."
         }
 
-        if (lastName.length <= 2 || lastName.length > 20) {
-            errors.lastName = "Last Name must be between 3 and 20 characters."
+        if (whiteSpaceCheck(lastName)) {
+            if (lastName.length <= 2 || lastName.length > 20) {
+                errors.lastName = "Last Name must be between 3 and 20 characters."
+            }
+        } else {
+            errors.lastName = "Please don't include spaces."
         }
 
         if (Object.keys(errors).length > 0) {

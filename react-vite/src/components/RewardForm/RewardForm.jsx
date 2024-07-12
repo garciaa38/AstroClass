@@ -10,13 +10,25 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
     const [pointsEarned, setPointsEarned] = useState(1);
     const [formErrors, setFormErrors] = useState({});
 
+    const stringTrim = (string) => {
+        if (string.trim().length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const errors = {};
         setFormErrors({});
 
-        if (rewardType.length > 20 || rewardType.length < 3) {
+        if (stringTrim(rewardType)) {
+            if (rewardType.length > 20 || rewardType.length < 3) {
+                errors.rewardType = "Reward Type must be between 3 and 20 characters."
+            }
+        } else {
             errors.rewardType = "Reward Type must be between 3 and 20 characters."
         }
 

@@ -15,13 +15,25 @@ function EditReward({reward, classId, handleRewardDelete}) {
 
     console.log("EDIT REWARD", reward)
 
+    const stringTrim = (string) => {
+        if (string.trim().length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const errors = {};
         setFormErrors({});
 
-        if (rewardType.length > 20 || rewardType.length < 3) {
+        if (stringTrim(rewardType)) {
+            if (rewardType.length > 20 || rewardType.length < 3) {
+                errors.rewardType = "Reward Type must be between 3 and 20 characters."
+            }
+        } else {
             errors.rewardType = "Reward Type must be between 3 and 20 characters."
         }
 
