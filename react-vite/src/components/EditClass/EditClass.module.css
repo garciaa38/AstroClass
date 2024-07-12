@@ -4,7 +4,6 @@
     align-items: center;
     justify-content: space-around;
     height: 100%;
-    width: 50rem;
 }
 
 .editClassFormLayout form {
@@ -22,6 +21,22 @@
 .editFormButtons {
     display: flex;
     gap: 3rem;
+    justify-content: center;
+}
+
+.editFormButtons button:first-child {
+    background: #FFBF46;
+    width: 10rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+}
+
+.editFormButtons button:last-child {
+    background: #C03221;
+    color: white;
+    width: 10rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
 }
 
 .formInput {
@@ -32,30 +47,4 @@
 .editTopSection {
     padding: 2rem;
     border-bottom: 1px solid black;
-}
-
-.editBottomSection {
-    display: flex;
-    padding: 2rem;
-    justify-content: center
-}
-
-.editRewardsSection {
-    display: flex;
-    flex-direction: column;
-    margin-right: 5rem;
-}
-
-.addRewardButton {
-    padding-bottom: 1rem;
-}
-
-.editFeedbackSection {
-    margin-left: 5rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.rewardsListTitle {
-    padding-bottom: 1rem;
 }

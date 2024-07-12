@@ -13,8 +13,6 @@ function EditReward({reward, classId, handleRewardDelete}) {
     const [pointsEarned, setPointsEarned] = useState(reward.points);
     const [formErrors, setFormErrors] = useState({});
 
-    console.log("EDIT REWARD", reward)
-
     const stringTrim = (string) => {
         if (string.trim().length === 0) {
             return false;
@@ -82,7 +80,7 @@ function EditReward({reward, classId, handleRewardDelete}) {
 
     if (!isEditing) {
         return (
-            <div>
+            <div className={styles.editRewardButton}>
                 <button onClick={() => setIsEditing(true)}>{rewardType} {pointsEarned}</button>
             </div>
         )

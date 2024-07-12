@@ -63,7 +63,7 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
     return (
         <div className={styles.addPostLayout}>
             <div className={styles.addPostButtonLayout} onClick={expandPostFeature}>
-                Make an announcement to the class!
+                Click here to make an announcement to the class!
             </div>
             <div 
                 className={addingPost ? styles.addPostFormLayout : styles.addPostFormLayoutOff}

@@ -1,0 +1,66 @@
+.editRewardsandFeedbackLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 4rem;
+}
+
+.modalIntro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.editRewardsandFeedbackLayout p {
+    width: 45rem;
+}
+
+.editBottomSection {
+    display: flex;
+    gap: 10rem;
+}
+
+.rewardElements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1rem;
+}
+
+.addRewardButton button {
+    background: #FFBF46;
+    width: 10rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+}
+
+.addFeedbackButton button {
+    background: #C03221;
+    color: white;
+    width: 10rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+}
+
+.editRewardsSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.rewardList .editButton {
+    border: 2px solid #5574ca;
+    margin: 0.5rem 0 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 15px;
+    width: 10rem;
+    box-shadow: 2px 2px 5px black;
+}
+
+.editButton button {
+    width: 100%;
+}
+
+

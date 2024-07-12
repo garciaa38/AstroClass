@@ -98,10 +98,16 @@
 
 .settingsDropdownList li {
   border-bottom: 1px solid black;
-  padding: 0.5rem 0 0.5rem 0;
   display: flex;
   justify-content: center;
   cursor: pointer;
+  max-width: 182px;
+  width: 100%;
+}
+
+.settingsDropdownList li button {
+  padding: 0.5rem 0 0.5rem 0;
+  width: 100%;
 }
 
 .settingsDropdownList li:hover {
@@ -112,6 +118,11 @@
   padding: 0.5rem 0 0.5rem 0;
   display: flex;
   justify-content: center;
+  cursor: default;
+}
+
+.settingsDropdownList li:first-child:hover {
+  background: #E9F1F7;
 }
 
 .settingsDropdownList li:last-child {

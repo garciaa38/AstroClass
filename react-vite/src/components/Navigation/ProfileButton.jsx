@@ -5,15 +5,21 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import EditClass from "../EditClass/EditClass";
+import EditRewardsandFeedback from "../EditRewardsandFeedback/EditRewardsandFeedback";
+import SignOutModal from "../SignOutModal/SignOutModal";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import styles from "./Navigation.module.css";
 
-function ProfileButton() {
+function ProfileButton({ navigate, cls, currClassIdx, setCurrClassIdx, rewards, feedback }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
+
+  console.log("USER", user)
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -55,29 +61,16 @@ function ProfileButton() {
       </button>
       {showMenu && (
         <ul className={showMenu ? styles.settingsDropDown : styles.settingsDropDownClosed} ref={ulRef}>
-          {user ? (
             <div className={styles.settingsDropdownList}>
-              <li>{user.email}</li>
-              <li>{user.email}</li>
-              <li>{user.email}</li>
-              <li onClick={logout}>
-                <button onClick={logout}>Log Out</button>
+              <li>{`Hey there ${user.suffix} ${user.last_name}`}</li>
+              <li>
+                <OpenModalButton buttonText="Update Class" modalComponent={<EditClass cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={rewards} feedback={feedback} />}/>
+              </li>
+              <li><OpenModalButton buttonText="Update Rewards and Feedback" modalComponent={<EditRewardsandFeedback cls={cls} rewards={rewards} feedback={feedback} />}/></li>
+              <li>
+                <OpenModalButton buttonText="Sign Out" modalComponent={<SignOutModal navigate={navigate} />}/>
               </li>
             </div>
-          ) : (
-            <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </>
-          )}
         </ul>
       )}
     </div>

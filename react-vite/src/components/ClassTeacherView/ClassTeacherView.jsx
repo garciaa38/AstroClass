@@ -106,7 +106,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                     <div className={styles.aboveSignOut}>
                         <div className={styles.classSettings}>
                             <div className={styles.classSettingsButton}>
-                                <ProfileButton />
+                                <ProfileButton navigate={navigate} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={currClass.rewards} feedback={currClass.feedback}/>
                             </div>
                         </div>
                         <div className={styles.classList}>
@@ -118,9 +118,6 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                             ))}
                         </div>
                     </div>
-                    {/* <div className={styles.signOutButton}>
-                        <OpenModalButton buttonText="Sign Out" modalComponent={<SignOutModal navigate={navigate} />}/>
-                    </div> */}
                 </div>
             </div>
             <div className={styles.navbar}>

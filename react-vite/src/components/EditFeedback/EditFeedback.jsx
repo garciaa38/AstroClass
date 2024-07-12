@@ -83,7 +83,7 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
 
     if (!isEditing) {
         return (
-            <div>
+            <div className={styles.editRewardButton}>
                 <button onClick={() => setIsEditing(true)}>{feedbackType} {pointsLost}</button>
             </div>
         )
