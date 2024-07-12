@@ -6,12 +6,42 @@
 .navButtons {
   display: flex;
   justify-content: center;
-  /* justify-content: space-evenly; */
   border-bottom: 1px solid black;
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem; */
   gap: 5rem;
 }
 
-.navButtons button {
+.navButtonsContainer {
+  background: #FFBF46;
+  height: 2.2rem;
+  margin-top: 0.1rem;
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   border: 1px solid black;
+  color: black;
+}
+
+.navButtons button:not(:first-child) {
+  border-left: 1px solid black;
+}
+
+.navButtons button {
+  width: 15rem;
+}
+
+.activeTab {
+  background: #C03221;
+  width: 15rem;
+  color: white;
+}
+
+.activeTab:first-child {
+  border-top-left-radius: 20px;
+}
+
+.activeTab:last-child {
+  border-top-right-radius: 20px;
 }

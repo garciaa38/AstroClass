@@ -29,4 +29,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 25px;
+  border: 10px solid #5574ca;
 }

@@ -63,7 +63,7 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
                 {name && (
                     <div className={styles.studentSearchResults}>
                         <div className={styles.studentSearchArea}>
-                            <h2>Search Results:</h2>
+                            <h2>Search Results</h2>
                             <ul>
                                 {searchStudents.map(student => (
                                     <button key={student.id} onClick={() => addStudent(student)}>{student.first_name} {student.last_name}</button>

@@ -1,6 +1,8 @@
 .showComments {
-    max-height: 1000px; /* Set this to a large enough value to accommodate your content */
+    max-height: 2000px;
     opacity: 1;
+    overflow: scroll;
+    scrollbar-width: none;
     transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
@@ -10,3 +12,4 @@
     overflow: hidden;
     transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
+

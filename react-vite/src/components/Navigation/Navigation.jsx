@@ -34,8 +34,10 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
   return (
     <div className={styles.navLayout}>
       <div className={styles.navButtons}>
-        <button onClick={() => setView("class")}>Class</button>
-        <button onClick={() => setView("message-board")}>Message Board</button>
+        <div className={styles.navButtonsContainer}>
+          <button className={view === 'class' ? styles.activeTab : ""} onClick={() => setView("class")}>Class</button>
+          <button className={view === 'message-board' ? styles.activeTab : ""} onClick={() => setView("message-board")}>Message Board</button>
+        </div>
       </div>
       {view === "class" &&
       <div>

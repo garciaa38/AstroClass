@@ -8,17 +8,16 @@
 }
 
 .postArea {
-    /* padding-bottom: 1rem; */
     background: #E9F1F7;
     border-top: 10px solid #5574ca;
     border-left: 10px solid #5574ca;
     border-right: 10px solid #5574ca;
 }
 
-.showComments {
-    
-}
-
-.hideComments {
-    display: none;
+.postArea:last-child {
+    background: #E9F1F7;
+    border-top: 10px solid #5574ca;
+    border-left: 10px solid #5574ca;
+    border-right: 10px solid #5574ca;
+    border-bottom: 10px solid #5574ca
 }

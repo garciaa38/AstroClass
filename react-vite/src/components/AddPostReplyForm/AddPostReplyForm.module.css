@@ -5,6 +5,7 @@
     border-left: 4px solid black;
     border-right: 4px solid black;
     border-bottom: 4px solid black;
+    position: sticky;
     /* max-height: 10rem; */
 }
 
@@ -15,15 +16,15 @@
     height: 100%;
 }
 
-.postReplyFormLayout form textarea {
+.postReplyFormLayout form input {
     width: 100%;
-    min-height: 8rem;
+    min-height: 2rem;
     height: 100%;
     border: 1px solid black;
     border-radius: 15px;
     display: flex;
     align-items: center;
-    padding-top: 15px;
+    padding-top: 10px;
     padding-left: 5px;
     padding-right: 5px;
     font-size: 1.2rem;

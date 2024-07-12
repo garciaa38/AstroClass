@@ -126,7 +126,9 @@ function StudentSignUp({classId, setAllStudentsState}) {
             />
             </label>
             {formErrors.confirmPassword && <p>{formErrors.confirmPassword}</p>}
-            <button type="submit">Sign Up</button>
+            <div className={styles.studentSignUpButton}>
+                <button type="submit">Sign Up</button>
+            </div>
         </form>
         </div>
     );

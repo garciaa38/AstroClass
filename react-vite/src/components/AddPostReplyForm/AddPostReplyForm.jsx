@@ -27,7 +27,7 @@ function AddPostReplyForm({currPost, currMsgBoard, sessionUser}) {
         <div className={styles.postReplyFormLayout}>
             <form onSubmit={handleSubmit}>
                 <label>
-                    <textarea
+                    <input
                         type="text"
                         placeholder="reply..."
                         value={newPostReply}
