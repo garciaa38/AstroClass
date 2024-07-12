@@ -3,6 +3,7 @@ import { addNewReplyReactionThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
+import styles from "./ReactionModal.module.css";
 
 function ReactionModal({sessionUserId, postId, currMsgBoardId, classId, type}) {
     const dispatch = useDispatch()
@@ -42,14 +43,17 @@ function ReactionModal({sessionUserId, postId, currMsgBoardId, classId, type}) {
     }
     
     return (
-        <div>
-            {emojis.map((emoji, index) => {
-                return (
-                    <div key={index}>
-                        <button onClick={() => addEmoji(emoji)}>{emoji}</button>
-                    </div>
-                )
-            })}
+        <div className={styles.reactionModalLayout}>
+            <h2>Express yourself!</h2>
+            <div className={styles.emojiGrid}>
+                {emojis.map((emoji, index) => {
+                    return (
+                        <div key={index}>
+                            <button onClick={() => addEmoji(emoji)}>{emoji}</button>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }

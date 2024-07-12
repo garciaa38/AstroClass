@@ -1,0 +1,23 @@
+.reactionModalLayout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+    align-items: center;
+}
+
+.emojiGrid {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 0.5rem;
+}
+
+.emojiGrid button {
+    border: 1px solid black;
+    padding: 0.3rem;
+    border-radius: 5px;
+}
+
+.emojiGrid button:hover {
+    background: #E9F1F7;
+}
