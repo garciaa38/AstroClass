@@ -13,7 +13,13 @@ function EditReward({reward, classId, handleRewardDelete}) {
     const [pointsEarned, setPointsEarned] = useState(reward.points);
     const [formErrors, setFormErrors] = useState({});
 
-    console.log("EDIT REWARD", reward)
+    const stringTrim = (string) => {
+        if (string.trim().length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +27,11 @@ function EditReward({reward, classId, handleRewardDelete}) {
         const errors = {};
         setFormErrors({});
 
-        if (rewardType.length > 20 || rewardType.length < 3) {
+        if (stringTrim(rewardType)) {
+            if (rewardType.length > 20 || rewardType.length < 3) {
+                errors.rewardType = "Reward Type must be between 3 and 20 characters."
+            }
+        } else {
             errors.rewardType = "Reward Type must be between 3 and 20 characters."
         }
 
@@ -70,7 +80,7 @@ function EditReward({reward, classId, handleRewardDelete}) {
 
     if (!isEditing) {
         return (
-            <div>
+            <div className={styles.editRewardButton}>
                 <button onClick={() => setIsEditing(true)}>{rewardType} {pointsEarned}</button>
             </div>
         )

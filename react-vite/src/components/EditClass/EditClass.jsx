@@ -24,34 +24,34 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
     const [feedbackState, setFeedbackState] = useState(feedback);
     const [formErrors, setFormErrors] = useState({});
 
-    const handleRewardUpdate = (newReward) => {
-        setRewardsState((prevRewards) => [...prevRewards, newReward]);
+    const stringTrim = (string) => {
+        if (string.trim().length === 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    const handleFeedbackUpdate = (newFeedback) => {
-        setFeedbackState((prevFeedback) => [...prevFeedback, newFeedback])
-    }
-
-    const handleRewardDelete = (reward) => {
-        setRewardsState((prevRewards) => prevRewards.filter(r => r !== reward));
-    }
-
-    const handleFeedbackDelete = (feedback) => {
-        setFeedbackState((prevFeedback) => prevFeedback.filter(f => f !== feedback));
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         
         const errors = {};
         setFormErrors({})
 
-        if (className.length > 10 || className.length <= 2) {
+        if (stringTrim(className)) {
+            if (className.length > 10 || className.length <= 2) {
+                errors.className = "Class Name must be between 3 and 10 characters."
+            }
+        } else {
             errors.className = "Class Name must be between 3 and 10 characters."
         }
 
-        if (currSubject.length > 20 || currSubject.length <= 2) {
+        if (stringTrim(currSubject)) {
+            if (currSubject.length > 20 || currSubject.length <= 2) {
+                errors.subject = "Subject must be between 3 and 20 characters."
+            }
+        } else {
             errors.subject = "Subject must be between 3 and 20 characters."
         }
 
@@ -81,89 +81,47 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
         closeModal()
     }
 
-    if (!addRewardFormAppear && !addFeedbackFormAppear) {
-        return (
-            <div className={styles.editClassFormLayout}>
-                <div className={styles.editTopSection}>
-                    <h1>Edit your class!</h1>
-                    <form onSubmit={handleSubmit}>
-                        <div className={styles.editFormInput}>
-                            <div className={styles.editClassName}>
-                                <label className={styles.formInput}>
-                                    Class Name
-                                    <input
-                                        type="text"
-                                        placeholder="Enter Class Name"
-                                        value={className}
-                                        onChange={(e) => setClassName(e.target.value)}
-                                        required
-                                    />
-                                </label>
-                                {formErrors.className && <p>{formErrors.className}</p>}
-                            </div>
-                            <div className={styles.editClassSubject}>
-                                <label className={styles.formInput}>
-                                    Subject
-                                    <input
-                                        type="text"
-                                        placeholder="Enter Class Subject"
-                                        value={currSubject}
-                                        onChange={(e) => setCurrSubject(e.target.value)}
-                                        required
-                                    />
-                                </label>
-                                {formErrors.subject && <p>{formErrors.subject}</p>}
-                            </div>
+    return (
+        <div className={styles.editClassFormLayout}>
+            <div className={styles.editTopSection}>
+                <h1>Edit your class!</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className={styles.editFormInput}>
+                        <div className={styles.editClassName}>
+                            <label className={styles.formInput}>
+                                Class Name
+                                <input
+                                    type="text"
+                                    placeholder="Enter Class Name"
+                                    value={className}
+                                    onChange={(e) => setClassName(e.target.value)}
+                                    required
+                                />
+                            </label>
+                            {formErrors.className && <p>{formErrors.className}</p>}
                         </div>
-                        <div className={styles.editFormButtons}>
-                            <button type="submit">Update your class</button>
-                            <button onClick={() => deleteClass(classId)}>Delete this Class</button>
+                        <div className={styles.editClassSubject}>
+                            <label className={styles.formInput}>
+                                Subject
+                                <input
+                                    type="text"
+                                    placeholder="Enter Class Subject"
+                                    value={currSubject}
+                                    onChange={(e) => setCurrSubject(e.target.value)}
+                                    required
+                                />
+                            </label>
+                            {formErrors.subject && <p>{formErrors.subject}</p>}
                         </div>
-                    </form>
-                </div>
-                <div className={styles.editBottomSection}>
-                    <div className={styles.editRewardsSection}>
-                        <div className={styles.rewardsListTitle}>
-                            <h1>Edit Rewards</h1>
-                        </div>
-                        <div className={styles.addRewardButton}>
-                            <button onClick={() => setAddRewardFormAppear(true)}>Add a reward</button>
-                        </div>
-                        {rewardsState?.map((reward) => {
-                            return (
-                                <EditReward key={reward.id} reward={reward} classId={classId} handleRewardDelete={handleRewardDelete}/>
-                            )
-                        })}
                     </div>
-                    <div className={styles.editFeedbackSection}>
-                        <div className={styles.rewardsListTitle}>
-                            <h1>Edit Feedback</h1>
-                        </div>
-                        <div className={styles.addRewardButton}>
-                            <button onClick={() => setAddFeedbackFormAppear(true)}>Add feedback</button>
-                        </div>
-                        {feedbackState?.map((feedback) => {
-                            return (
-                                <EditFeedback key={feedback.id} feedback={feedback} classId={classId} handleFeedbackDelete={handleFeedbackDelete}/>
-                            )
-                        })}
+                    <div className={styles.editFormButtons}>
+                        <button type="submit">Update your class</button>
+                        <button onClick={() => deleteClass(classId)}>Delete this Class</button>
                     </div>
-                </div>
+                </form>
             </div>
-        )
-    } else if (addRewardFormAppear) {
-        return (
-            <>
-                <RewardForm classId={classId} setAddRewardFormAppear={setAddRewardFormAppear} handleRewardUpdate={handleRewardUpdate}/>
-            </>
-        )
-    } else if (addFeedbackFormAppear) {
-        return (
-            <>
-                <FeedbackForm classId={classId} setAddFeedbackFormAppear={setAddFeedbackFormAppear} handleFeedbackUpdate={handleFeedbackUpdate}/>
-            </>
-        )
-    }
+        </div>
+    )
 }
 
 export default EditClass;

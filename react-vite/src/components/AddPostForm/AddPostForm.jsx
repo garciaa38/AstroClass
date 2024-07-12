@@ -8,9 +8,37 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
     const dispatch = useDispatch();
     const [newPost, setNewPost] = useState("");
     const [addingPost, setAddingPost] = useState(false);
+    const [formErrors, setFormErrors] = useState({});
+
+    console.log("CURR MESSAGE BOARD", currMsgBoard.posts.length)
+
+    const stringTrim = (string) => {
+        if (string.trim().length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const errors = {};
+        setFormErrors({});
+
+        if (stringTrim(newPost)) {
+            if (newPost.length <= 0) {
+                errors.newPost = "Cannot send an empty post."
+            }
+        } else {
+            errors.newPost = "Cannot send an empty post."
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors)
+            return;
+        }
+
         const createdPost = {
             text_field: newPost,
             user_id: sessionUser.id,
@@ -35,7 +63,7 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
     return (
         <div className={styles.addPostLayout}>
             <div className={styles.addPostButtonLayout} onClick={expandPostFeature}>
-                Make an announcement to the class!
+                Click here to make an announcement to the class!
             </div>
             <div 
                 className={addingPost ? styles.addPostFormLayout : styles.addPostFormLayoutOff}
@@ -53,6 +81,7 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
                             onChange={(e) => setNewPost(e.target.value)}
                         />
                     </label>
+                    {formErrors.newPost && <p>{formErrors.newPost}</p>}
                     <div className={addingPost ? styles.postFormButtons : styles.postFormButtonsOff}>
                         <button type="submit">Send</button>
                         <button onClick={expandPostFeature}>Cancel</button>

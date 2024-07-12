@@ -5,18 +5,70 @@
 .editReward form {
     display: flex;
     flex-direction: column;
-    width: 5rem;
+    align-items: center;
+    width: 10rem;
 }
 
 .rewardFormInput {
     display: flex;
 }
 
-.rewardFormInput input {
-    width: 5rem;
+.rewardNameInput input {
+    border: 2px solid #5574ca;
+    margin: 0.5rem 0 0 0;
+    padding: 0.5rem;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    width: 7rem;
+    box-shadow: 2px 2px 5px black;
+}
+
+.rewardPointsInput input {
+    border: 2px solid #5574ca;
+    margin: 0.5rem 0 0 0;
+    padding: 0.5rem;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 4rem;
+    box-shadow: 2px 2px 5px black;
+}
+
+.editRewardButton {
+    border: 2px solid #5574ca;
+    margin: 0.5rem 0 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 15px;
+    width: 10rem;
+    box-shadow: 2px 2px 5px black;
+}
+
+.editRewardButton button {
+    width: 100%;
 }
 
 .rewardFormButtons {
     display: flex;
+    margin: 0;
     gap: 0.3rem;
+}
+
+.rewardFormButtons button {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    background: #C03221;
+    color: white;
+    padding: 0.2rem;
+    box-shadow: 2px 2px 5px black;
+}
+
+.rewardFormButtons button:first-child {
+    background: #FFBF46;
+    color: black;
+}
+
+.rewardFormButtons button:last-child {
+    background: #5574ca;
+    color: white;
 }

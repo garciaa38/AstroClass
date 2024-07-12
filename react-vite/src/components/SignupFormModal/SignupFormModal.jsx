@@ -27,34 +27,63 @@ function SignupFormModal({role}) {
     }
   }
 
+  const whiteSpaceCheck = (string) => {
+    for (let i = 0; i < string.length; i++) {
+      if (string.charAt(i) === " ") {
+        return false;
+      }
+    }
+    return true
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const errors = {};
     setFormErrors({});
 
-    if (!email.split("@")[1]?.split(".")[1]) {
-      errors.email = "Please include a valid email address."
+    if (whiteSpaceCheck(email)) {
+      if (!email.split("@")[1]?.split(".")[1]) {
+        errors.email = "Please include a valid email address."
+      }
+    } else {
+      errors.email = "Please don't include spaces."
     }
 
-    if (firstName.length <= 2 || firstName.length > 20) {
-      errors.firstName = "First Name must be between 3 and 20 characters."
+    if (whiteSpaceCheck(firstName)) {
+      if (firstName.length <= 2 || firstName.length > 20) {
+        errors.firstName = "First Name must be between 3 and 20 characters."
+      }
+    } else {
+      errors.firstName = "Please don't include spaces."
     }
 
-    if (lastName.length <= 2 || lastName.length > 20) {
-      errors.lastName = "Last Name must be between 3 and 20 characters."
+    if (whiteSpaceCheck(lastName)) {
+      if (lastName.length <= 2 || lastName.length > 20) {
+        errors.lastName = "Last Name must be between 3 and 20 characters."
+      }
+    } else {
+      errors.lastName = "Please don't include spaces."
     }
 
     if (role === 'teacher' || role === 'parent') {
-      if (phoneNumber.length <= 9) {
-        errors.phoneNumber = "Please input a valid phone number."
-      } else if (isNaN(Number(phoneNumber))) {
-        errors.phoneNumber = "Please input a valid phone number."
+      if (whiteSpaceCheck(phoneNumber)) {
+        if (phoneNumber.length <= 9) {
+          errors.phoneNumber = "Please input a valid phone number."
+        } else if (isNaN(Number(phoneNumber))) {
+          errors.phoneNumber = "Please input a valid phone number."
+        }
+      } else {
+        errors.phoneNumber = "Please don't include spaces."
       }
     }
     
-    if (password !== confirmPassword) {
-      errors.confirmPassword = "Confirm Password field must be the same as the Password field"
+    if (whiteSpaceCheck(password)) {
+      if (password !== confirmPassword) {
+        errors.confirmPassword = "Confirm Password field must be the same as the Password field"
+      }
+    } else {
+      errors.password = "Please don't include spaces."
     }
 
     if (Object.keys(errors).length > 0) {

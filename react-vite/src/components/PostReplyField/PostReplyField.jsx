@@ -10,10 +10,35 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 function PostReplyField({postReply, classId, currMsgBoardId}) {
     const dispatch = useDispatch()
     const [isEditing, setIsEditing] = useState(false);
-    const [textField, setTextField] = useState(postReply.text_field)
+    const [textField, setTextField] = useState(postReply.text_field);
+    const [formErrors, setFormErrors] = useState({});
+
+    const stringTrim = (string) => {
+        if (string.trim().length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const errors = {};
+        setFormErrors({});
+
+        if (stringTrim(textField)) {
+            if (textField.length <= 0) {
+                errors.editedPostReply = "Cannot send an empty reply."
+            }
+        } else {
+            errors.editedPostReply = "Cannot send an empty reply."
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors)
+            return;
+        }
 
         const editedPostReply = {
             id: postReply.id,
@@ -27,8 +52,9 @@ function PostReplyField({postReply, classId, currMsgBoardId}) {
     }
 
     const cancelEdit = () => {
-        setIsEditing(false)
-        setTextField(postReply.text_field)
+        setIsEditing(false);
+        setTextField(postReply.text_field);
+        setFormErrors({});
     }
 
     const deletePostReply = async (e) => {
@@ -80,6 +106,7 @@ function PostReplyField({postReply, classId, currMsgBoardId}) {
                             placeholder="Enter reply..."
                         />
                     </label>
+                    {formErrors.editedPostReply && <p>{formErrors.editedPostReply}</p>}
                     <button type='submit'>Save</button>
                     <button onClick={cancelEdit}>Cancel</button>
                 </form>

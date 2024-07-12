@@ -2,6 +2,7 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import SignOutModal from "../SignOutModal/SignOutModal";
 import AddClassModal from "../AddClassModal/AddClassModal";
 import EditClass from "../EditClass/EditClass";
+import ProfileButton from "../Navigation/ProfileButton";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllClassesThunk, fetchClassByIdThunk } from "../../redux/classes";
@@ -104,14 +105,8 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                 <div className={styles.sideBarList}>
                     <div className={styles.aboveSignOut}>
                         <div className={styles.classSettings}>
-                            <div>
-                                <OpenModalButton 
-                                    buttonText="Class Settings"
-                                    modalComponent={<EditClass cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={currClass.rewards} feedback={currClass.feedback}/>}
-                                />
-                            </div>
-                            <div className={styles.downArrow}>
-                                <MdOutlineKeyboardArrowDown />
+                            <div className={styles.classSettingsButton}>
+                                <ProfileButton navigate={navigate} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={currClass.rewards} feedback={currClass.feedback}/>
                             </div>
                         </div>
                         <div className={styles.classList}>
@@ -122,9 +117,6 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                                 </div>
                             ))}
                         </div>
-                    </div>
-                    <div className={styles.signOutButton}>
-                        <OpenModalButton buttonText="Sign Out" modalComponent={<SignOutModal navigate={navigate} />}/>
                     </div>
                 </div>
             </div>

@@ -5,12 +5,21 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import EditClass from "../EditClass/EditClass";
+import EditRewardsandFeedback from "../EditRewardsandFeedback/EditRewardsandFeedback";
+import SignOutModal from "../SignOutModal/SignOutModal";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import { MdOutlineKeyboardArrowUp } from "react-icons/md";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import styles from "./Navigation.module.css";
 
-function ProfileButton() {
+function ProfileButton({ navigate, cls, currClassIdx, setCurrClassIdx, rewards, feedback }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
+
+  console.log("USER", user)
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -40,37 +49,31 @@ function ProfileButton() {
   };
 
   return (
-    <>
+    <div className={styles.settingsDropDownLayout}>
       <button onClick={toggleMenu}>
-        <FaUserCircle />
+        <div className={showMenu ? styles.settingsDropDownButton : styles.settingsDropDownButtonClosed}>
+          <h3>
+            Class Settings&nbsp;&nbsp;
+            {showMenu && <MdOutlineKeyboardArrowUp />}
+            {!showMenu && <MdOutlineKeyboardArrowDown />}
+          </h3>
+        </div>
       </button>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
-          {user ? (
-            <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
+        <ul className={showMenu ? styles.settingsDropDown : styles.settingsDropDownClosed} ref={ulRef}>
+            <div className={styles.settingsDropdownList}>
+              <li>{`Hey there ${user.suffix} ${user.last_name}`}</li>
               <li>
-                <button onClick={logout}>Log Out</button>
+                <OpenModalButton buttonText="Update Class" modalComponent={<EditClass cls={cls} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={rewards} feedback={feedback} />}/>
               </li>
-            </>
-          ) : (
-            <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </>
-          )}
+              <li><OpenModalButton buttonText="Update Rewards and Feedback" modalComponent={<EditRewardsandFeedback cls={cls} rewards={rewards} feedback={feedback} />}/></li>
+              <li>
+                <OpenModalButton buttonText="Sign Out" modalComponent={<SignOutModal navigate={navigate} />}/>
+              </li>
+            </div>
         </ul>
       )}
-    </>
+    </div>
   );
 }
 
