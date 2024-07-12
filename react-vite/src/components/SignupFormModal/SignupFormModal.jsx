@@ -92,7 +92,6 @@ function SignupFormModal({role}) {
         <label className={styles.formInput}>
           Email
           <input
-            placeholder="Email"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -104,7 +103,6 @@ function SignupFormModal({role}) {
         <label className={styles.formInput}>
           First Name
           <input
-            placeholder="First Name"
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -116,7 +114,6 @@ function SignupFormModal({role}) {
         <label className={styles.formInput}>
           Last Name
           <input
-            placeholder="Last Name"
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -127,7 +124,7 @@ function SignupFormModal({role}) {
         {formErrors.lastName && <p>{formErrors.lastName}</p>}
         {role === 'teacher' && <label className={styles.formInput}>
           Honorific
-          <select value={suffix} onChange={(e) => setSuffix(e.target.value)}>
+          <select className={styles.honorific} value={suffix} onChange={(e) => setSuffix(e.target.value)}>
             <option value="Mr.">Mr.</option>
             <option value="Mrs.">Mrs.</option>
             <option value="Ms.">Ms.</option>
@@ -140,7 +137,6 @@ function SignupFormModal({role}) {
         {(role === 'teacher' || role === 'parent') && <label className={styles.formInput}>
           Phone Number
           <input
-            placeholder="Phone Number"
             type="text"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
@@ -152,7 +148,6 @@ function SignupFormModal({role}) {
         <label className={styles.formInput}>
           Password
           <input
-            placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -163,7 +158,6 @@ function SignupFormModal({role}) {
         <label className={styles.formInput}>
           Confirm Password
           <input
-            placeholder="Confirm Password"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -171,7 +165,9 @@ function SignupFormModal({role}) {
           />
         </label>
         {formErrors.confirmPassword && <p>{formErrors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <div className={styles.signUpButton}>
+          <button type="submit">Sign Up</button>
+        </div>
       </form>
     </div>
   );

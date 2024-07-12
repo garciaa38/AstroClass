@@ -6,6 +6,7 @@
     height: 100%;
     width: 25rem;
     padding: 2rem;
+    gap: 1rem;
 }
 
 .logInFormLayout form {
@@ -16,6 +17,18 @@
     gap: 1rem;
 }
 
+.loginButton {
+    display: flex;
+    justify-content: center;
+}
+
+.logInFormLayout form button {
+    background: #FFBF46;
+    width: 6rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+}
+
 .formInput {
     display: flex;
     flex-direction: column;
@@ -24,5 +37,13 @@
 .demoButtons {
     display: flex;
     gap: 1.5rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
+}
+
+.demoButtons button {
+    background: #C03221;
+    color: white;
+    width: 10rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
 }

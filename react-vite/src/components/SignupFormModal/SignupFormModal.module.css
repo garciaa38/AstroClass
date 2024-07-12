@@ -6,6 +6,7 @@
     height: 100%;
     width: 30rem;
     padding: 2rem;
+    gap: 1rem;
 }
 
 .signUpFormLayout form {
@@ -16,8 +17,24 @@
     gap: 1rem;
 }
 
+.signUpButton {
+    display: flex;
+    justify-content: center;
+}
+
+.signUpFormLayout form button {
+    background: #FFBF46;
+    width: 6rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+}
+
 .formInput {
     display: flex;
     flex-direction: column;
+}
+
+.honorific {
+    width: 4rem;
 }
 

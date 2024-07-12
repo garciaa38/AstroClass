@@ -26,7 +26,8 @@ function AddStudentModal({ cls, setAllStudentsState, allStudents }) {
     } else {
         return (
             <div className={styles.addStudentSignUpLayout}>
-                <h1>Sign up your student below using their school email and password!</h1>
+                <h1>Add a New Student</h1>
+                <h4>Sign up a new student below using their school email and password.</h4>
                 <StudentSignUp classId={classId} setAllStudentsState={setAllStudentsState}/>
             </div>
         )

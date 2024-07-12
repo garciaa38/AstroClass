@@ -26,3 +26,18 @@
     display: flex;
     gap: 2rem;
 }
+
+.editStudentFormButtons button:last-child {
+    background: #C03221;
+    color: white;
+    width: 15rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+}
+
+.editStudentFormButtons button:first-child {
+    background: #FFBF46;
+    width: 15rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+}

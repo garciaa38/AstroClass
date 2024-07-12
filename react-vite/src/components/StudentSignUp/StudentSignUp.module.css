@@ -20,3 +20,15 @@
     display: flex;
     flex-direction: column;
 }
+
+.studentSignUpButton {
+    display: flex;
+    justify-content: center;
+}
+
+.studentSignUpButton button {
+    background: #FFBF46;
+    width: 6rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+}

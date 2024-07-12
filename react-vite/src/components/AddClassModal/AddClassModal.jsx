@@ -86,7 +86,6 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
                         Class Name
                         <input
                             type="text"
-                            placeholder="Class Name"
                             value={className}
                             onChange={(e) => setClassName(e.target.value)}
                             required
@@ -97,14 +96,15 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
                         Subject
                         <input
                             type="text"
-                            placeholder="Subject"
                             value={subject}
                             onChange={(e) => setSubject(e.target.value)}
                             required
                         />
                     </label>
                     {formErrors.subject && <p>{formErrors.subject}</p>}
-                    <button type="submit">Create Class</button>
+                    <div className={styles.addClassButton}>
+                        <button type="submit">Create Class</button>
+                    </div>
                 </form>
             </div>
         )
