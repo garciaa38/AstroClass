@@ -41,10 +41,12 @@ function PostField({post, classId, sessionUser}) {
     }
 
     const postDate = (date) => {
-        const removeWeekday = date.split(", ")[1]
-        const justDate = removeWeekday.split(" ")
+        const removeWeekday = date?.split(", ")[1]
+        const justDate = removeWeekday?.split(" ")
 
-        return justDate[1] + " " + justDate[0] + ", " + justDate[2];
+        if (justDate) {
+            return justDate[1] + " " + justDate[0] + ", " + justDate[2];
+        }
     }
 
     const handleSubmit = async (e) => {
