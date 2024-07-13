@@ -39,10 +39,15 @@ function PostReplyField({postReply, classId, currMsgBoardId, sessionUser}) {
     }
 
     const postDate = (date) => {
-        const removeWeekday = date.split(", ")[1]
-        const justDate = removeWeekday.split(" ")
+        console.log("CHECKING reply date 1", date)
+        const removeWeekday = date?.split(", ")[1]
+        console.log("CHECKING reply date 2", removeWeekday)
+        const justDate = removeWeekday?.split(" ")
+        console.log("CHECKING reply date 3", justDate)
 
-        return justDate[1] + " " + justDate[0] + ", " + justDate[2];
+        if (justDate) {
+            return justDate[1] + " " + justDate[0] + ", " + justDate[2];
+        }
     }
 
     const handleSubmit = async (e) => {
