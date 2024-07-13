@@ -7,11 +7,13 @@ import styles from "./PostField.module.css"
 import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
-function PostField({post, classId}) {
+function PostField({post, classId, sessionUser}) {
     const dispatch = useDispatch()
     const [isEditing, setIsEditing] = useState(false);
     const [textField, setTextField] = useState(post.text_field);
     const [formErrors, setFormErrors] = useState({});
+
+    console.log("CHECKING USER AND POST", sessionUser, post)
 
     const stringTrim = (string) => {
         if (string.trim().length === 0) {
@@ -19,6 +21,30 @@ function PostField({post, classId}) {
         } else {
             return true;
         }
+    }
+
+    const checkUserPermission = (user) => {
+        if (user.role === "student") {
+            if (user.id !== post.user_id) {
+                return false
+            }
+        }
+        return true
+    }
+
+    const postUserName = () => {
+        if (post.user_role === "student") {
+            return `${post.user_first_name} ${post.user_last_name}`
+        } else {
+            return `${post.user_suffix} ${post.user_last_name}`
+        }
+    }
+
+    const postDate = (date) => {
+        const removeWeekday = date.split(", ")[1]
+        const justDate = removeWeekday.split(" ")
+
+        return justDate[1] + " " + justDate[0] + ", " + justDate[2];
     }
 
     const handleSubmit = async (e) => {
@@ -75,19 +101,19 @@ function PostField({post, classId}) {
                     <div className={styles.postbox}>
                         <div className={styles.postInfo}>
                             <div className={styles.username}>
-                                Mr. Garcia
+                                {postUserName()}
                             </div>
                             <div className={styles.postDate}>
-                                7/10/2024 10:36pm
+                                {postDate(post.created_at)}
                             </div>
                         </div>
                         <div className={styles.postText}>
                             {post.text_field}
                         </div>
                     </div>
-                    <div className={styles.postButtons}>
-                        <button onClick={() => setIsEditing(true)}><MdOutlineModeEdit /></button>
-                        <button onClick={deletePost}><RiDeleteBin6Fill /></button>
+                    <div hidden={!checkUserPermission(sessionUser)} className={styles.postButtons}>
+                        <button  hidden={!checkUserPermission(sessionUser)} onClick={() => setIsEditing(true)}><MdOutlineModeEdit /></button>
+                        <button  hidden={!checkUserPermission(sessionUser)} onClick={deletePost}><RiDeleteBin6Fill /></button>
                     </div>
                 </div>
             </div>

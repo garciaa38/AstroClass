@@ -106,7 +106,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                     <div className={styles.aboveSignOut}>
                         <div className={styles.classSettings}>
                             <div className={styles.classSettingsButton}>
-                                <ProfileButton navigate={navigate} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={currClass.rewards} feedback={currClass.feedback}/>
+                                <ProfileButton role={sessionUser.role} navigate={navigate} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={currClass.rewards} feedback={currClass.feedback}/>
                             </div>
                         </div>
                         <div className={styles.classList}>

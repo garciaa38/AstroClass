@@ -6,6 +6,7 @@ import { fetchAllStudentClassesThunk } from "../../redux/studentClasses";
 import { fetchStudentClassById } from "../../redux/studentClasses";
 import AddClassModal from "../AddClassModal/AddClassModal";
 import Navigation from "../Navigation/Navigation";
+import ProfileButton from "../Navigation/ProfileButton";
 import { socket } from "../../socket";
 import { fetchMessageBoardThunk } from "../../redux/messageBoard";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -64,26 +65,6 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
         }, [currClass?.class_id, prevClass?.class_id]);
     
         useEffect(() => {
-            // const fetchClass = (data) => {
-            //     dispatch(fetchStudentClassById(sessionUser.id, data['room']))
-            // }
-
-            // const fetchClasses = (data) => {
-            //     if (data['type'] === 'delete') {
-            //         setPrevClassIdx(currClassIdx)
-            //         setCurrClassIdx(0)
-            //     }
-            //     dispatch(fetchAllStudentClassesThunk(sessionUser.id))
-            // }
-
-            // const fetchStudents = () => {
-            //     dispatch(fetchAllStudentsThunk())
-            // }
-    
-            // socket.on('updateStudentClass', (data) => fetchClass(data));
-            // socket.on('updateClasses', (data) => fetchClasses(data));
-            // socket.on('updateStudents', (data) => fetchStudents(data))
-
             const handleUpdateClass = (data) => {
                 debouncedFetchClass(data);
             };
@@ -105,10 +86,6 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
                 socket.off('updateStudentClass', handleUpdateClass);
                 socket.off('updateClasses', handleUpdateClasses);
                 socket.off('updateMsgBoard', handleUpdateMsgBoard)
-
-                // socket.off('updateStudentClass', fetchClass)
-                // socket.off('updateClasses', fetchClasses)
-                // socket.off('updateStudents', fetchStudents)
             };
         }, [dispatch, sessionUser.id, currClassIdx, currClass, debouncedFetchClass, throttledFetchClasses, throttledFetchMsgBoard])
 
@@ -142,22 +119,30 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
             </div>
             <div className={sideBarOpen ? styles.sideBarOpen : styles.sideBarClosed}>
                 <div className={styles.sideBarList}>
-                    <div className={styles.classList}>
-                        <OpenModalButton buttonText="Join a class" modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser} />}/>
-                        {classes?.map((cls, index) => (
-                            <div key={cls?.id}>
-                                <button onClick={() => switchClass(index, cls.class_id, sessionUser.id)}>{cls.class_name}</button>
+                    <div className={styles.aboveSignOut}>
+                        <div className={styles.classSettings}>
+                            <div className={styles.classSettingsButton}>
+                                <ProfileButton role={sessionUser.role} navigate={navigate} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} />
                             </div>
-                        ))}
+                        </div>
+                        <div className={styles.classList}>
+                            <OpenModalButton buttonText="Join a class" modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser} />}/>
+                            {classes?.map((cls, index) => (
+                                <div key={cls?.id}>
+                                    <button onClick={() => switchClass(index, cls.class_id, sessionUser.id)}>{cls.class_name}</button>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
             <div className={styles.navbar}>
                 <div className={styles.navbarGreeting}>
-                    <h1>Hey there {first_name} {last_name}.</h1>
-                    <h2>You are currently signed in as a student!</h2>
-                    <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} />
-                    <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
+                    <div className={styles.navbarTop}>
+                        <h1>Hey there {first_name} {last_name}.</h1>
+                        <h2>You are currently signed in as a student!</h2>
+                        <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} />
+                    </div>
                 </div>
             </div>
         </div>
