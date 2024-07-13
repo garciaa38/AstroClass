@@ -5,23 +5,25 @@ import styles from './PostReply.module.css'
 function PostReply({post_replies, classId, currMsgBoardId, sessionUserId, sessionUser}) {
     
     const sortPosts = allPosts => {
-        if (allPosts?.length <= 1) {
-            return allPosts;
-        }
-
-        let pivot = allPosts[0];
-        let leftArr = [];
-        let rightArr = [];
-
-        for (let i = 1; i < allPosts?.length; i++) {
-            if (allPosts[i]?.created_at > pivot.created_at) {
-                leftArr.push(allPosts[i])
-            } else {
-                rightArr.push(allPosts[i])
+        if (allPosts) {
+            if (allPosts?.length <= 1) {
+                return allPosts;
             }
+    
+            let pivot = allPosts[0];
+            let leftArr = [];
+            let rightArr = [];
+    
+            for (let i = 1; i < allPosts?.length; i++) {
+                if (allPosts[i]?.created_at > pivot.created_at) {
+                    leftArr.push(allPosts[i])
+                } else {
+                    rightArr.push(allPosts[i])
+                }
+            }
+    
+            return [...sortPosts(leftArr), pivot, ...sortPosts(rightArr)]
         }
-
-        return [...sortPosts(leftArr), pivot, ...sortPosts(rightArr)]
     }
 
     const sortedPosts = sortPosts(post_replies)
