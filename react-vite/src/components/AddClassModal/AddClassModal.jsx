@@ -3,16 +3,18 @@ import { useDispatch } from "react-redux";
 import { addNewClassThunk } from "../../redux/classes";
 import { useModal } from "../../context/Modal";
 import { studentJoinClassThunk } from "../../redux/classes";
+import { editPlanetThunk } from "../../redux/classes";
 import { fetchCurrentUser } from "../../redux/session";
 import { addMessageBoardThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
 import styles from './AddClassModal.module.css';
 
-function AddClassModal({sessionUser, setCurrentUser, classId}) {
+function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
     const dispatch = useDispatch()
-    const [className, setClassName] = useState("")
-    const [subject, setSubject] = useState("")
-    const [studentInviteCode, setStudentInviteCode] = useState("")
+    const [className, setClassName] = useState("");
+    const [subject, setSubject] = useState("");
+    const [studentInviteCode, setStudentInviteCode] = useState("");
+    const [planet, setPlanet] = useState('Any')
     const [formErrors, setFormErrors] = useState({});
     const { closeModal } = useModal()
 
@@ -82,7 +84,8 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         e.preventDefault()
 
         const inviteCode = {
-            class_code: studentInviteCode
+            class_code: studentInviteCode,
+            planet
         }
 
         await dispatch(studentJoinClassThunk(sessionUser.id, inviteCode))
@@ -91,7 +94,6 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         await setCurrentUser(currentUser)
         socket.emit('updateClasses', {room: classId, type: 'add'})
         closeModal()
-
     }
 
     if (sessionUser.role === 'teacher') {
@@ -139,11 +141,27 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
                             required
                         />
                     </label>
+                    <label>
+                        Select a planet
+                        <select name="planets" id="planets" value={planet} onChange={(e) => setPlanet(e.target.value)}>
+                            <option value="Any">Any</option>
+                            <option value="mercury">Mercury</option>
+                            <option value="venus">Venus</option>
+                            <option value="earth">Earth</option>
+                            <option value="mars">Mars</option>
+                            <option value="jupiter">Jupiter</option>
+                            <option value="saturn">Saturn</option>
+                            <option value="uranus">Uranus</option>
+                            <option value="neptune">Neptune</option>
+                            <option value="pluto">Pluto</option>
+                        </select>
+                    </label>
                     {formErrors.studentInviteCode && <p>{formErrors.studentInviteCode}</p>}
                     <button type="submit">Join Class</button>
                 </form>
             </div>
         )
+    
     }
 }
 

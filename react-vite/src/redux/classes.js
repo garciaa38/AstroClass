@@ -201,6 +201,19 @@ export const removePointsFromStudentThunk = (student_class_id, feedback_id) => a
     dispatch(loadClass(res))
 }
 
+export const editPlanetThunk = (student_class_id, planet) => async (dispatch) => {
+    console.log("SELECTED PLANET", planet)
+    const res = await fetch(`/api/students/student-class/${student_class_id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(planet)
+    })
+        .then(res => res.json())
+        .catch(e => console.error(e))
+        console.log("SELECTED PLANET", res)
+        dispatch(loadClass(res))
+}
+
 export const editStudentInfoThunk = (student, class_id) => async (dispatch) => {
     console.log("EDIT STUDENT", student)
     const res = await fetch(`/api/students/${student.id}/class/${class_id}`, {

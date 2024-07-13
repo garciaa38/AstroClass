@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
 from app.models import User, Class, StudentClass, db, Reward, Feedback
 import uuid
+import random
 
 class_routes = Blueprint('classes', __name__)
 
@@ -37,6 +38,10 @@ def check_student_in_class(student_id, student_list):
         if student_id == student['id']:
             return True
     return False
+
+def pick_random_planet():
+    planets = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto']
+    return random.choice(planets)
 
 # Create a new class
 @class_routes.route('/<int:teacher_id>/class', methods=['POST'])
@@ -130,10 +135,13 @@ def add_student_to_class(class_id, student_id):
     if check_student_in_class(student_id, student_list) is True:
         return jsonify({'error': 'Student is already enrolled in class.'}), 403
 
+    planet = pick_random_planet()
+
     new_student = StudentClass(
         student_id=requested_student.id,
         class_id=requested_class.id,
-        points=0
+        points=0,
+        planet=planet
     )
 
     if (teacher_check(current_user) is False) or (current_user.id != requested_class.teacher_id):
