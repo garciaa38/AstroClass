@@ -7,7 +7,7 @@ import styles from './PostReplyField.module.css';
 import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
-function PostReplyField({postReply, classId, currMsgBoardId}) {
+function PostReplyField({postReply, classId, currMsgBoardId, sessionUser}) {
     const dispatch = useDispatch()
     const [isEditing, setIsEditing] = useState(false);
     const [textField, setTextField] = useState(postReply.text_field);
@@ -19,6 +19,30 @@ function PostReplyField({postReply, classId, currMsgBoardId}) {
         } else {
             return true;
         }
+    }
+
+    const checkUserPermission = (user) => {
+        if (user.role === "student") {
+            if (user.id !== postReply.user_id) {
+                return false
+            }
+        }
+        return true
+    }
+
+    const postUserName = () => {
+        if (postReply.user_role === "student") {
+            return `${postReply.user_first_name} ${postReply.user_last_name}`
+        } else {
+            return `${postReply.user_suffix} ${postReply.user_last_name}`
+        }
+    }
+
+    const postDate = (date) => {
+        const removeWeekday = date.split(", ")[1]
+        const justDate = removeWeekday.split(" ")
+
+        return justDate[1] + " " + justDate[0] + ", " + justDate[2];
     }
 
     const handleSubmit = async (e) => {
@@ -76,19 +100,19 @@ function PostReplyField({postReply, classId, currMsgBoardId}) {
                     <div className={styles.postReplyBox}>
                         <div className={styles.postReplyInfo}>
                             <div className={styles.username}>
-                                Mr. Garcia
+                                {postUserName()}
                             </div>
                             <div className={styles.postReplyDate}>
-                                7/10/2024 10:36pm
+                                {postDate(postReply.created_at)}
                             </div>
                         </div>
                         <div className={styles.postReplyText}>
                             {postReply.text_field}
                         </div>
                     </div>
-                    <div className={styles.postReplyButtons}>
-                        <button onClick={() => setIsEditing(true)}><MdOutlineModeEdit /></button>
-                        <button onClick={deletePostReply}><RiDeleteBin6Fill /></button>
+                    <div hidden={!checkUserPermission(sessionUser)} className={styles.postReplyButtons}>
+                        <button hidden={!checkUserPermission(sessionUser)} onClick={() => setIsEditing(true)}><MdOutlineModeEdit /></button>
+                        <button hidden={!checkUserPermission(sessionUser)} onClick={deletePostReply}><RiDeleteBin6Fill /></button>
                     </div>
                 </div>
             </div>

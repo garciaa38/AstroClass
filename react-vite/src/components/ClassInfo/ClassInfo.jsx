@@ -10,6 +10,8 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
     const dispatch = useDispatch()
     const {class_name, students, id: classId, rewards, feedback} = cls;
 
+    console.log("CURR STUDENT", sessionUser)
+
     const randomNum = () => {
         const planets = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto']
 
@@ -85,9 +87,28 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
     } else if (role === 'student') {
         return (
             <div className={styles.classInfoLayout}>
+                <div className={styles.classInfoOpener}>
+                    <h1>{class_name}</h1>
+                </div>
                 <div className={styles.studentInfo}>
-                    <h1>This is {class_name}</h1>
+                    <div className={`${styles.student} ${styles[randomNum()]}`}>
+                        <div className={styles.starsContainerStudent}>
+                            {Array.from({ length: cls.points }).map((_, index) => (
+                                <div
+                                    key={index}
+                                    className={`${styles.starStudent} ${
+                                        (index + 1) % 10 === 0 ? styles.bigStarStudent : ''
+                                    }`}
+                                    style={{
+                                        animationDelay: `${index * 0.3}s`,
+                                    }}
+                                ></div>
+                            ))}
+                        </div>
+                </div>
+                <div className={styles.studentPoints}>
                     <h2>Your current class score is {cls.points}.</h2>
+                </div>
                 </div>
             </div>
         )
