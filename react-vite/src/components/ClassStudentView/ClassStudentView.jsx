@@ -126,7 +126,7 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
                             </div>
                         </div>
                         <div className={styles.classList}>
-                            <OpenModalButton buttonText="Join a class" modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser} />}/>
+                            <OpenModalButton buttonText="Join a class" modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser} studentClassId={currClass.id}/>}/>
                             {classes?.map((cls, index) => (
                                 <div key={cls?.id}>
                                     <button onClick={() => switchClass(index, cls.class_id, sessionUser.id)}>{cls.class_name}</button>

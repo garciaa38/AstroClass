@@ -213,7 +213,7 @@
     width: 30rem;
     border-radius: 100%;
     justify-content: center;
-    background: radial-gradient(circle at 20% 20%, #4f83b4, #3078a8, #0d3b66);
+    background: radial-gradient(circle, #d14b40, #a5352a);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
 }
@@ -239,7 +239,7 @@
     width: 30rem;
     border-radius: 100%;
     justify-content: center;
-    background: radial-gradient(circle at 20% 20%, #4f83b4, #3078a8, #0d3b66);
+    background: linear-gradient(45deg, #d9a066, #e5cf9a, #d9a066);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
 }

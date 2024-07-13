@@ -96,6 +96,7 @@ class Class(db.Model):
             'first_name': student.user.first_name,
             'last_name': student.user.last_name,
             'points': student.points,
+            'planet': student.planet,
             'student_class_id': student.id
         } for student in self.student_class_rel]
 
@@ -139,6 +140,7 @@ class StudentClass(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     class_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('classes.id')), nullable=False)
     points = db.Column(db.Integer, default=0)
+    planet = db.Column(db.String, default="Any", nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
@@ -152,6 +154,7 @@ class StudentClass(db.Model):
             'class_id': self.class_id,
             'class_name': class_data.class_name if class_data else None,
             'points': self.points,
+            'planet': self.planet,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

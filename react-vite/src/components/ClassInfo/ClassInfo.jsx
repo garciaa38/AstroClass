@@ -10,7 +10,7 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
     const dispatch = useDispatch()
     const {class_name, students, id: classId, rewards, feedback} = cls;
 
-    console.log("CURR STUDENT", sessionUser)
+    console.log("SELECTED PLANET", cls)
 
     const randomNum = () => {
         const planets = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto']
@@ -52,12 +52,11 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
                 </div>
                 <div className={styles.studentList}>
                     {sortedStudents.map((student) => {
-                        const planetClass = randomNum();
                         return(
                             <div key={student?.id}>
                                 <OpenModalButton 
                                     buttonText={
-                                        <div className={`${styles.student}  ${styles[planetClass]}`}>
+                                        <div className={`${styles.student}  ${styles[student.planet]}`}>
                                             <div className={styles.starsContainer}>
                                                 {Array.from({ length: student.points }).map((_, index) => (
                                                     <div
@@ -91,7 +90,7 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
                     <h1>{class_name}</h1>
                 </div>
                 <div className={styles.studentInfo}>
-                    <div className={`${styles.student} ${styles[randomNum()]}`}>
+                    <div className={`${styles.student} ${styles[cls.planet]}`}>
                         <div className={styles.starsContainerStudent}>
                             {Array.from({ length: cls.points }).map((_, index) => (
                                 <div

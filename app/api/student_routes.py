@@ -2,8 +2,13 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
 from app.models import User, Class, StudentClass, db, Reward, Feedback
+import random
 
 student_routes = Blueprint('students', __name__)
+
+def pick_random_planet():
+    planets = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto']
+    return random.choice(planets)
 
 # Get all students
 @student_routes.route('/', methods=['GET'])
@@ -104,6 +109,26 @@ def remove_student_points(student_class_id, feedback_id):
 
     return jsonify(requested_class.to_dict())
 
+# Change student planet
+@student_routes.route('/student-class/<int:student_class_id>', methods=['PUT'])
+@login_required
+def change_planet(student_class_id):
+    student = StudentClass.query.get_or_404(student_class_id)
+    requested_class = Class.query.get_or_404(student.class_id)
+    data = request.get_json()
+    planet = data.get('planet')
+
+    print("SELECTED PLANET", planet)
+
+    if planet == 'Any':
+        planet = pick_random_planet()
+    
+    student.planet = planet
+
+    db.session.commit()
+
+    return jsonify(requested_class.to_dict())
+
 # Edit student information
 @student_routes.route('/<int:student_id>/class/<int:class_id>', methods=['PUT'])
 @login_required
@@ -168,13 +193,18 @@ def get_student_class_by_id(student_id, class_id):
 def student_join_class(student_id):
     data = request.get_json()
     class_code = data.get('class_code')
+    planet = data.get('planet')
+
+    if planet == "Any":
+        planet = pick_random_planet()
 
     requested_class = Class.query.filter(Class.student_invite_code == class_code).first()
 
     new_student = StudentClass(
         student_id=student_id,
         class_id=requested_class.id,
-        points=0
+        points=0,
+        planet=planet
     )
 
     db.session.add(new_student)

@@ -186,90 +186,105 @@ def seed_student_class():
     demo_student_class_1 = StudentClass(
         student_id=3,
         class_id=1,
+        planet='mercury',
         points=10
     )
 
     demo_student_class_2 = StudentClass(
         student_id=5,
         class_id=1,
+        planet='earth',
         points=9
     )
 
     demo_student_class_3 = StudentClass(
         student_id=7,
         class_id=1,
+        planet='mars',
         points=8
     )
 
     demo_student_class_4 = StudentClass(
         student_id=9,
         class_id=1,
+        planet='venus',
         points=7
     )
 
     demo_student_class_5 = StudentClass(
         student_id=11,
         class_id=1,
+        planet='jupiter',
         points=6
     )
 
     demo_student_class_6 = StudentClass(
         student_id=4,
         class_id=2,
+        planet='uranus',
         points=5
     )
 
     demo_student_class_7 = StudentClass(
         student_id=6,
         class_id=2,
+        planet='pluto',
         points=4
     )
 
     demo_student_class_8 = StudentClass(
         student_id=8,
         class_id=2,
+        planet='saturn',
         points=3
     )
 
     demo_student_class_9 = StudentClass(
         student_id=10,
         class_id=2,
+        planet='neptune',
         points=2
     )
 
     demo_student_class_10 = StudentClass(
         student_id=12,
         class_id=2,
+        planet='uranus',
         points=1
     )
 
     demo_student_class_11 = StudentClass(
         student_id=4,
         class_id=3,
+        planet='earth',
         points=5
     )
 
     demo_student_class_12 = StudentClass(
         student_id=6,
         class_id=3,
+        planet='jupiter',
         points=4
     )
 
     demo_student_class_13 = StudentClass(
         student_id=8,
         class_id=3,
+        planet='pluto',
         points=3
     )
 
     demo_student_class_14 = StudentClass(
         student_id=10,
         class_id=3,
+        planet='mars',
         points=2
     )
 
     demo_student_class_15 = StudentClass(
         student_id=12,
         class_id=3,
+        planet='mercury',
         points=1
     )
 
