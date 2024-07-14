@@ -55,7 +55,6 @@ function LoginFormPage() {
               }
             />
           </div>
-        </div>
           <div className={styles.loginSection}>
             <h3>{'Already a part of the team? Then'}&nbsp;</h3>
             <OpenModalButton 
@@ -68,6 +67,7 @@ function LoginFormPage() {
             /> 
             <h3>&nbsp;to get back to class!</h3>
           </div>
+        </div>
       </div>
     </div>
   );

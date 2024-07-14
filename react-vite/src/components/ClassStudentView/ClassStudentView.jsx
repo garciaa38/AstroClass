@@ -10,6 +10,7 @@ import ProfileButton from "../Navigation/ProfileButton";
 import { socket } from "../../socket";
 import { fetchMessageBoardThunk } from "../../redux/messageBoard";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { FaPlus } from "react-icons/fa";
 import styles from "./ClassStudentView.module.css";
 
 function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
@@ -126,10 +127,10 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
                             </div>
                         </div>
                         <div className={styles.classList}>
-                            <OpenModalButton buttonText="Join a class" modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser} studentClassId={currClass.id}/>}/>
+                            <OpenModalButton buttonText={<div className={styles.addClassSection}><div className={styles.addClassTab} >Join a Class&nbsp;<div className={styles.plusSymbol}><FaPlus /></div></div> </div>} modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser} studentClassId={currClass.id}/>}/>
                             {classes?.map((cls, index) => (
                                 <div key={cls?.id}>
-                                    <button onClick={() => switchClass(index, cls.class_id, sessionUser.id)}>{cls.class_name}</button>
+                                    <button className={currClassIdx === index ? styles.activeTab : styles.classTab} onClick={() => switchClass(index, cls.class_id, sessionUser.id)}>{cls.class_name}</button>
                                 </div>
                             ))}
                         </div>

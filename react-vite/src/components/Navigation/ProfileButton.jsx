@@ -97,7 +97,7 @@ function ProfileButton({ role, navigate, cls, currClassIdx, setCurrClassIdx, rew
           <ul className={showMenu ? styles.settingsDropDown : styles.settingsDropDownClosed} ref={ulRef}>
               <div className={styles.settingsDropdownList}>
                 <li>{`Hey there ${user.first_name} ${user.last_name}`}</li>
-                <li><OpenModalButton buttonText="Chane Planet" modalComponent={<EditPlanet studentClassId={cls.id} classId={cls.class_id} planet={cls.planet}/>}/></li>
+                <li><OpenModalButton buttonText="Change Planet" modalComponent={<EditPlanet studentClassId={cls.id} classId={cls.class_id} planet={cls.planet}/>}/></li>
                 <li>
                   <OpenModalButton buttonText="Sign Out" modalComponent={<SignOutModal navigate={navigate} />}/>
                 </li>

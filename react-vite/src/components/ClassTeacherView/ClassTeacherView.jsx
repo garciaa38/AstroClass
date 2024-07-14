@@ -12,6 +12,7 @@ import { fetchAllStudentsThunk } from "../../redux/students";
 import { fetchMessageBoardThunk } from "../../redux/messageBoard";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { FaPlus } from "react-icons/fa";
 import styles from "./ClassTeacherView.module.css";
 
 function ClassTeacherView({sessionUser, navigate, classes}) {
@@ -110,10 +111,10 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                             </div>
                         </div>
                         <div className={styles.classList}>
-                            <OpenModalButton buttonText="Add a class" modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
+                            <OpenModalButton buttonText={<div className={styles.addClassSection}><div className={styles.addClassTab} >Add a Class&nbsp;&nbsp;<div className={styles.plusSymbol}><FaPlus /></div></div> </div>} modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
                             {classes?.map((cls, index) => (
                                 <div key={cls?.id}>
-                                    {cls.class_name.length > 0 && <button onClick={() => switchClass(index)}>{cls.class_name}</button>}
+                                    {cls.class_name.length > 0 && <button className={currClassIdx === index ? styles.activeTab : styles.classTab} onClick={() => switchClass(index)}>{cls.class_name}</button>}
                                 </div>
                             ))}
                         </div>

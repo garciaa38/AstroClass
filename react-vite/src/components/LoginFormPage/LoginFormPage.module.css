@@ -17,6 +17,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #E9F1F7;
+}
+
+.title h1 {
+    -webkit-text-stroke: 3px #5574ca;
+}
+
+.title h3 {
+    -webkit-text-stroke: 1px #5574ca;
 }
 
 .signUp {
@@ -27,13 +36,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 4rem;
+    padding: 2rem;
+    background: #E9F1F7;
+    border: 10px solid #5574ca;
+    border-radius: 15px;
 }
 
 .buttonLayout {
     display: flex;
     justify-content: space-between;
     width: 45rem;
+}
+
+.buttonLayout button {
+    background: #E9F1F7;
+    border: 10px solid #5574ca;
+    border-radius: 15px;
 }
 
 .buttonContent {
@@ -53,12 +71,16 @@
 
 .signUpUser {
     padding-top: 5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 .loginSection {
     display: flex;
+    padding: 1rem;
 }
 
 .loginButton {
     text-decoration: underline;
+    color: #C03221;
 }

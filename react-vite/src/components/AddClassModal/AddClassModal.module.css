@@ -50,3 +50,8 @@
     padding: 0.5rem;
     box-shadow: 2px 2px 5px black;
 }
+
+.planetSelect {
+    display: flex;
+    gap: 1rem;
+}

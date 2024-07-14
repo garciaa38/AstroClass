@@ -110,3 +110,68 @@
     padding-top: 15%;
     gap: 1rem;
 }
+
+.classList .classTab {
+    width: 80%;
+    display: flex;
+    padding: 0.7rem;
+    border-radius: 15px;
+    background: #E9F1F7;
+    color: #182C64;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: 5px solid #5574ca
+}
+
+.classList .classTab:hover {
+    background: #FFBF46;
+}
+
+.classList .activeTab {
+    background: #FFBF46;
+    color: #182C64;
+    width: 80%;
+    display: flex;
+    padding: 0.7rem;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: 5px solid #5574ca
+}
+
+.addClassTab {
+    background: #07112A;
+    border: 5px solid #E9F1F7;
+    width: 80%;
+    display: flex;
+    padding: 0.7rem;
+    border-radius: 15px;
+    color: #E9F1F7;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.addClassTab:hover {
+    background: #E9F1F7;
+    border: 5px solid #07112A;
+    width: 80%;
+    display: flex;
+    padding: 0.7rem;
+    border-radius: 15px;
+    color: #07112A;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.addClassSection {
+    display: flex;
+    width: 100%;
+}
+
+.plusSymbol {
+    padding-top: 0.2rem;
+}
