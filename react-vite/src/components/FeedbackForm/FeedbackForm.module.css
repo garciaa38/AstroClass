@@ -24,3 +24,11 @@
     padding-top: 2rem;
     padding-bottom: 1rem;
 }
+
+.addRewardButtons button {
+    background: #C03221;
+    color: #E9F1F7;
+    width: 13rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+}

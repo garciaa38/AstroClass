@@ -44,16 +44,21 @@ function StudentInfoModal({student, classId, rewards, feedback, allStudentsState
                 </div>
                 <div className={styles.studentInfoMiddle}>
                     <div className={styles.rewardsSection}>
-                        <AddReward first_name={first_name} rewards={rewardsState} student_class_id={student_class_id} points={points} classId={classId}/>
+                        <div className={styles.rewardTitle}>
+                            <h2>Reward {student.first_name}</h2>
+                        </div>
                         <button className={styles.addRewardButton} onClick={() => setAddRewardFormAppear(true)}>Add a Reward</button>
+                        <AddReward first_name={first_name} rewards={rewardsState} student_class_id={student_class_id} points={points} classId={classId}/>
                     </div>
-                    <div className={styles.rewardsSection}>
-                        <AddFeedback first_name={first_name} feedback={feedbackState} student_class_id={student_class_id} classId={classId}/>
+                    <div className={styles.feedbackSection}>
+                        <div className={styles.feedbackTitle}>
+                            <h2>Give feedback to {student.first_name}</h2>
+                        </div>
                         <button className={styles.addRewardButton} onClick={() => setAddFeedbackFormAppear(true)}>Add Feedback</button>
+                        <AddFeedback first_name={first_name} feedback={feedbackState} student_class_id={student_class_id} classId={classId}/>
                     </div>
                 </div>
-
-                <button onClick={() => setEditStudentInfoAppear(true)}>{`Edit ${first_name}'s information.`}</button>
+                <button className={styles.editStudentButton} onClick={() => setEditStudentInfoAppear(true)}>{`Edit ${first_name}'s information.`}</button>
             </div>
         )
     } else if (addRewardFormAppear) {

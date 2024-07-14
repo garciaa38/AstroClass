@@ -23,7 +23,7 @@ function EditPlanet({ studentClassId, classId, planet }) {
     }
     
     return (
-        <div>
+        <div className={styles.editPlanetLayout}>
             <h1>Select a new planet</h1>
             <form onSubmit={handleSubmit}>
                 <select name="planets" id="planets" value={currPlanet} onChange={(e) => setCurrPlanet(e.target.value)}>

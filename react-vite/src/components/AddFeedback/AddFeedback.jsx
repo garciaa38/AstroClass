@@ -2,6 +2,7 @@ import { removePointsFromStudentThunk } from "../../redux/classes";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { socket } from "../../socket";
+import styles from "./AddFeedback.module.css";
 
 function AddFeedback({first_name, feedback, student_class_id, classId }) {
     const dispatch = useDispatch();
@@ -14,17 +15,16 @@ function AddFeedback({first_name, feedback, student_class_id, classId }) {
     }
 
     return (
-        <>
-                <h3>Give feedback to {first_name}</h3>
+            <div className={styles.rewardGrid}>
                 {feedback.map(feedback => {
                     return (
                         <div key={feedback.id}>
-                            <button onClick={() => removePoints(student_class_id, feedback.id, classId)}>{feedback.feedback_type} {feedback.points}</button>
+                            <button className={styles.addRewardButton} onClick={() => removePoints(student_class_id, feedback.id, classId)}>{feedback.feedback_type} {feedback.points}</button>
                         </div>
                     )
                 })}
                 
-            </>
+            </div>
     )
 }
 

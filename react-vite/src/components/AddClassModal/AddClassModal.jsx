@@ -132,7 +132,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
             <div className={styles.joinClassFormLayout}>
                 <h1>Enter class code below</h1>
                 <form onSubmit={joinClass}>
-                    <label>
+                    <label className={styles.formInput}>
                         <input
                             type="text"
                             placeholder="Class Code"
@@ -141,7 +141,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
                             required
                         />
                     </label>
-                    <label>
+                    <label className={styles.planetSelect}>
                         Select a planet
                         <select name="planets" id="planets" value={planet} onChange={(e) => setPlanet(e.target.value)}>
                             <option value="Any">Any</option>
@@ -157,7 +157,9 @@ function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
                         </select>
                     </label>
                     {formErrors.studentInviteCode && <p>{formErrors.studentInviteCode}</p>}
-                    <button type="submit">Join Class</button>
+                    <div className={styles.addClassButton}>
+                        <button type="submit">Join Class</button>
+                    </div>
                 </form>
             </div>
         )

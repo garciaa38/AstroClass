@@ -19,13 +19,11 @@ function AddReward({first_name, rewards, student_class_id, classId }) {
     }
 
     return (
-            <div>
-                <h3>Reward {first_name}</h3>
+            <div className={styles.rewardGrid}>
                 {rewards.map(reward => {
-                    console.log('REWARD!', reward)
                     return (
                         <div key={reward.id}>
-                            <button onClick={() => addPoints(student_class_id, reward.id, classId, reward.points)}>{reward.reward_type} {reward.points}</button>
+                            <button className={styles.addRewardButton} onClick={() => addPoints(student_class_id, reward.id, classId, reward.points)}>{reward.reward_type} {reward.points}</button>
                         </div>
                     )
                 })}
