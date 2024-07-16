@@ -134,8 +134,10 @@ function PostField({post, classId, sessionUser}) {
                         />
                     </label>
                     {formErrors.editedPost && <p>{formErrors.editedPost}</p>}
-                    <button type='submit'>Save</button>
-                    <button onClick={cancelEdit}>Cancel</button>
+                    <div className={styles.editPostButtons}>
+                        <button type='submit'>Save</button>
+                        <button onClick={cancelEdit}>Cancel</button>
+                    </div>
                 </form>
             </div>
         )

@@ -27,17 +27,23 @@
     gap: 2rem;
 }
 
-.editStudentFormButtons button:last-child {
-    background: #C03221;
-    color: white;
-    width: 15rem;
+.editStudentFormButtons button:first-child {
+    border: 2px solid #5574ca;
+    margin: 0.5rem 0 0.5rem 0;
     padding: 0.5rem;
+    border-radius: 15px;
+    width: 12rem;
     box-shadow: 2px 2px 5px black;
+    transition: background 0.2s ease-in-out;
 }
 
-.editStudentFormButtons button:first-child {
-    background: #FFBF46;
-    width: 15rem;
+.editStudentFormButtons button:first-child:hover {
+    border: 2px solid #5574ca;
+    margin: 0.5rem 0 0.5rem 0;
     padding: 0.5rem;
+    border-radius: 15px;
+    width: 12rem;
     box-shadow: 2px 2px 5px black;
+    background: #FFBF46;
+    transition: background 0.2s ease-in-out;
 }

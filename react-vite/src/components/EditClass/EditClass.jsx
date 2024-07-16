@@ -18,10 +18,7 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
 
     const [className, setClassName] = useState(class_name);
     const [currSubject, setCurrSubject] = useState(subject);
-    const [addRewardFormAppear, setAddRewardFormAppear] = useState(false);
-    const [addFeedbackFormAppear, setAddFeedbackFormAppear] = useState(false);
-    const [rewardsState, setRewardsState] = useState(rewards);
-    const [feedbackState, setFeedbackState] = useState(feedback);
+    const [deletionWarning, setDeletionWarning] = useState(false);
     const [formErrors, setFormErrors] = useState({});
 
     const stringTrim = (string) => {
@@ -81,47 +78,59 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
         closeModal()
     }
 
-    return (
-        <div className={styles.editClassFormLayout}>
-            <div className={styles.editTopSection}>
-                <h1>Edit your class!</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className={styles.editFormInput}>
-                        <div className={styles.editClassName}>
-                            <label className={styles.formInput}>
-                                Class Name
-                                <input
-                                    type="text"
-                                    placeholder="Enter Class Name"
-                                    value={className}
-                                    onChange={(e) => setClassName(e.target.value)}
-                                    required
-                                />
-                            </label>
-                            {formErrors.className && <p>{formErrors.className}</p>}
+    if (!deletionWarning) {
+        return (
+            <div className={styles.editClassFormLayout}>
+                <div className={styles.editTopSection}>
+                    <h1>Edit your class!</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className={styles.editFormInput}>
+                            <div className={styles.editClassName}>
+                                <label className={styles.formInput}>
+                                    Class Name
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Class Name"
+                                        value={className}
+                                        onChange={(e) => setClassName(e.target.value)}
+                                        required
+                                    />
+                                </label>
+                                {formErrors.className && <p className="error">{formErrors.className}</p>}
+                            </div>
+                            <div className={styles.editClassSubject}>
+                                <label className={styles.formInput}>
+                                    Subject
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Class Subject"
+                                        value={currSubject}
+                                        onChange={(e) => setCurrSubject(e.target.value)}
+                                        required
+                                    />
+                                </label>
+                                {formErrors.subject && <p className="error">{formErrors.subject}</p>}
+                            </div>
                         </div>
-                        <div className={styles.editClassSubject}>
-                            <label className={styles.formInput}>
-                                Subject
-                                <input
-                                    type="text"
-                                    placeholder="Enter Class Subject"
-                                    value={currSubject}
-                                    onChange={(e) => setCurrSubject(e.target.value)}
-                                    required
-                                />
-                            </label>
-                            {formErrors.subject && <p>{formErrors.subject}</p>}
+                        <div className={styles.editFormButtons}>
+                            <button type="submit">Update your class</button>
+                            <button onClick={() => setDeletionWarning(true)}>Delete this Class</button>
                         </div>
-                    </div>
-                    <div className={styles.editFormButtons}>
-                        <button type="submit">Update your class</button>
-                        <button onClick={() => deleteClass(classId)}>Delete this Class</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return (
+            <div className={styles.editClassFormDeletionWarning}>
+                <h1>Are you sure you want to delete this class?</h1>
+                <div className={styles.deletionWarningButtons}>
+                    <button onClick={() => deleteClass(classId)}>Yes</button>
+                    <button onClick={() => closeModal()}>No</button>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default EditClass;

@@ -15,4 +15,17 @@
     border-radius: 15px;
     width: 10rem;
     box-shadow: 2px 2px 5px black;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.addRewardButton:hover {
+    border: 2px solid #5574ca;
+    margin: 0.5rem 0 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 15px;
+    width: 10rem;
+    box-shadow: 2px 2px 5px black;
+    background: #C03221;
+    color: #E9F1F7;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
 }

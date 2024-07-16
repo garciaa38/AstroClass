@@ -66,16 +66,6 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
 
     }
 
-    const removeStudent = async (student_class_id) => {
-        await dispatch(removeStudentFromClassThunk(student_class_id))
-        const res = await dispatch(fetchAllStudentsThunk())
-        // await setAllStudentsState(res)
-        socket.emit('updateClass', { room: classId })
-        socket.emit('updateClasses', { room: classId, type: 'delete' })
-        socket.emit('updateStudents', { room: classId })
-        closeModal()
-    }
-
     return (
         <div className={styles.editStudentFormLayout}>
             <div className={styles.editStudentFormTitle}>
@@ -91,7 +81,7 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
                         onChange={(e) => setFirstName(e.target.value)}
                     />
                 </label>
-                {formErrors.firstName && <p>{formErrors.firstName}</p>}
+                {formErrors.firstName && <p className="error">{formErrors.firstName}</p>}
                 <label className={styles.formInput}>
                     Enter Last Name
                     <input
@@ -101,10 +91,9 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
                         onChange={(e) => setLastName(e.target.value)}
                     />
                 </label>
-                {formErrors.lastName && <p>{formErrors.lastName}</p>}
+                {formErrors.lastName && <p className="error">{formErrors.lastName}</p>}
                 <div className={styles.editStudentFormButtons}>
                     <button type="submit">Update Student Info</button>
-                    <button onClick={() => removeStudent(student_class_id)}>Remove student from class</button>
                 </div>
             </form>
         </div>

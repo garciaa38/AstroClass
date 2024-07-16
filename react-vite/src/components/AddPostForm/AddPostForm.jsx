@@ -81,7 +81,7 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
                             onChange={(e) => setNewPost(e.target.value)}
                         />
                     </label>
-                    {formErrors.newPost && <p>{formErrors.newPost}</p>}
+                    {formErrors.newPost && <p className="error">{formErrors.newPost}</p>}
                     <div className={addingPost ? styles.postFormButtons : styles.postFormButtonsOff}>
                         <button type="submit">Send</button>
                         <button onClick={expandPostFeature}>Cancel</button>

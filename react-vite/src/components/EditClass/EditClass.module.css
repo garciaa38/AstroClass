@@ -6,6 +6,60 @@
     height: 100%;
 }
 
+.editClassFormDeletionWarning {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.deletionWarningButtons {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+}
+
+.deletionWarningButtons button:last-child {
+    background: #E9F1F7;
+    width: 4rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out;
+}
+
+.deletionWarningButtons button:last-child:hover {
+    background: #FFBF46;
+    width: 4rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out;
+}
+
+.deletionWarningButtons button:first-child {
+    background: #E9F1F7;
+    width: 4rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    border-radius: 15px;
+    border: 2px solid #5574ca;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.deletionWarningButtons button:first-child:hover {
+    background: #C03221;
+    width: 4rem;
+    color: #E9F1F7;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
 .editClassFormLayout form {
     display: flex;
     flex-direction: column;
@@ -25,18 +79,44 @@
 }
 
 .editFormButtons button:first-child {
+    background: #E9F1F7;
+    width: 10rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out;
+}
+
+.editFormButtons button:first-child:hover {
     background: #FFBF46;
     width: 10rem;
     padding: 0.5rem;
     box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out;
 }
 
 .editFormButtons button:last-child {
-    background: #C03221;
-    color: white;
+    background: #E9F1F7;
     width: 10rem;
     padding: 0.5rem;
     box-shadow: 2px 2px 5px black;
+    border-radius: 15px;
+    border: 2px solid #5574ca;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.editFormButtons button:last-child:hover {
+    background: #C03221;
+    width: 10rem;
+    color: #E9F1F7;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .formInput {

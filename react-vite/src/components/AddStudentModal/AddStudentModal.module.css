@@ -25,6 +25,14 @@
 
 .addStudentBottom button {
     text-decoration: underline;
-    color: #C03221
+    color: #C03221;
+    transition: color 0.2s ease-in-out, background 0.2s ease-in-out;
+}
+
+.addStudentBottom button:hover {
+    text-decoration: underline;
+    color: #E9F1F7;
+    background: #C03221;
+    transition: color 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 

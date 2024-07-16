@@ -33,11 +33,20 @@
 }
 
 .postReplyFormLayout form button {
-    background: #5574ca;
+    background: #E9F1F7;
     width: 4rem;
     padding: 0.5rem;
     font-size: 1rem;
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+    border: 2px solid #5574ca;
+    color: #182C64;
+    border-radius: 15px;
+}
+
+.postReplyFormLayout form button:hover {
+    background: #5574ca;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+    color: #E9F1F7;
 }

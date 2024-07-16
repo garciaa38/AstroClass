@@ -106,3 +106,7 @@ textarea:not([rows]) {
 :target {
     scroll-margin-block: 5ex;
 }
+
+.error {
+    color: #C03221;
+}

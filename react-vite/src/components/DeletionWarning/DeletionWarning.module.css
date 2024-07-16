@@ -1,0 +1,4 @@
+.deleteLayout {
+    display: flex;
+    flex-direction: column;
+}

@@ -44,11 +44,24 @@
     justify-content: center;
 }
 
-.addClassButton button {
+.addClassButton button:hover {
     background: #FFBF46;
     width: 10rem;
     padding: 0.5rem;
     box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out;
+}
+
+.addClassButton button {
+    background: #E9F1F7;
+    width: 10rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out;
 }
 
 .planetSelect {

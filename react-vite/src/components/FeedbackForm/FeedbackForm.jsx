@@ -59,16 +59,18 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
                 <h1>Add feedback here.</h1>
                 <form onSubmit={handleSubmit}>
                     <div className={styles.addRewardInput}>
-                        <label>
-                            <input
-                                type="text"
-                                value={feedbackType}
-                                placeholder="Type of Feedback"
-                                onChange={(e) => setFeedbackType(e.target.value)}
-                                required
-                            />
-                        </label>
-                        {formErrors.feedbackType && <p>{formErrors.feedbackType}</p>}
+                        <div className={styles.formInput}>
+                            <label>
+                                <input
+                                    type="text"
+                                    value={feedbackType}
+                                    placeholder="Type of Feedback"
+                                    onChange={(e) => setFeedbackType(e.target.value)}
+                                    required
+                                />
+                            </label>
+                            {formErrors.feedbackType && <p className="error">{formErrors.feedbackType}</p>}
+                        </div>
                         <label>
                             <input
                                 type="number"
@@ -80,7 +82,7 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
                                 required
                             />
                         </label>
-                        {formErrors.pointsLost && <p>{formErrors.pointsLost}</p>}
+                        {formErrors.pointsLost && <p className="error">{formErrors.pointsLost}</p>}
                     </div>
                     <div className={styles.addRewardButtons}>
                         <button type="submit">Add Class Feedback</button>

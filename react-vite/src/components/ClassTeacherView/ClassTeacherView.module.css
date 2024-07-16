@@ -97,6 +97,15 @@
     gap: 0.5rem;
     margin-right: 2rem;
     border-radius: 15px;
+    z-index: 1001;
+    padding-bottom: 2rem;
+}
+
+.aboveSignOut {
+    z-index: 1001;
+    background: #07112A;
+    width: 100%;
+    height: 4rem;
 }
 
 .classSettingsButton {
@@ -112,7 +121,14 @@
     display: flex;
     flex-direction: column;
     padding-top: 15%;
+    overflow-y: scroll;
+    max-height: 1200px;
+    height: 95%;
+    width: 15rem;
+    scrollbar-width: none;
     gap: 1rem;
+    position: absolute;
+    padding-top: 5rem;
 }
 
 .classList .classTab {
@@ -124,11 +140,13 @@
     color: #182C64;
     font-weight: bold;
     font-size: 1.2rem;
-    border: 5px solid #5574ca
+    border: 5px solid #5574ca;
+    transition: background 0.2s ease-in-out;
 }
 
 .classList .classTab:hover {
     background: #FFBF46;
+    transition: background 0.2s ease-in-out;
 }
 
 .classList .activeTab {
@@ -146,11 +164,12 @@
 .addClassTab {
     background: #07112A;
     border: 5px solid #E9F1F7;
+    color: #E9F1F7;
+    transition: background 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out;
     width: 80%;
     display: flex;
     padding: 0.7rem;
     border-radius: 15px;
-    color: #E9F1F7;
     font-weight: bold;
     font-size: 1.2rem;
     display: flex;
@@ -160,6 +179,7 @@
 .addClassTab:hover {
     background: #E9F1F7;
     border: 5px solid #07112A;
+    transition: background 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out;
     width: 80%;
     display: flex;
     padding: 0.7rem;

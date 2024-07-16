@@ -23,10 +23,21 @@
 }
 
 .logInFormLayout form button {
+    background: #E9F1F7;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    width: 6rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    transition: background 0.2s ease-in-out;
+}
+
+.logInFormLayout form button:hover {
     background: #FFBF46;
     width: 6rem;
     padding: 0.5rem;
     box-shadow: 2px 2px 5px black;
+    transition: background 0.2s ease-in-out;
 }
 
 .formInput {
@@ -41,9 +52,23 @@
 }
 
 .demoButtons button {
+    background: #E9F1F7;
+    color: #182C64;
+    width: 10rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.demoButtons button:hover {
     background: #C03221;
     color: white;
     width: 10rem;
     padding: 0.5rem;
     box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
 }

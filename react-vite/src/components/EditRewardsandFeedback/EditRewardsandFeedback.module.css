@@ -1,8 +1,8 @@
 .editRewardsandFeedbackLayout {
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
     gap: 4rem;
 }
 
@@ -19,19 +19,64 @@
 
 .editBottomSection {
     display: flex;
-    gap: 10rem;
+    gap: 2rem;
 }
 
 .rewardElements {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    padding-top: 1rem;
+    padding-bottom: 2rem;
+    background: #E9F1F7;
+    max-width: 50rem;
+    max-height: 510px;
+    width: 100%;
+    min-width: 20rem;
+    border: 7px solid #5574ca;
+    border-radius: 20px;
+}
+
+.rewardsListTitle {
+    background: #FFBF46;
+    border-bottom: 4px solid #5574ca;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+.feedbackListTitle {
+    background: #C03221;
+    color: #E9F1F7;
+    border-bottom: 4px solid #5574ca;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+.rewardList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    padding: 1rem;
+    gap: 0.5rem;
+}
+
+.addRewardButton {
+    padding: 1rem;
 }
 
 .addRewardButton button {
     background: #FFBF46;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
     width: 10rem;
     padding: 0.5rem;
     box-shadow: 2px 2px 5px black;
@@ -39,10 +84,16 @@
 
 .addFeedbackButton button {
     background: #C03221;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
     color: white;
     width: 10rem;
     padding: 0.5rem;
     box-shadow: 2px 2px 5px black;
+}
+
+.addFeedbackButton {
+    padding: 1rem;
 }
 
 .editRewardsSection {
