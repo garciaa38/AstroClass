@@ -23,10 +23,21 @@
 }
 
 .signUpFormLayout form button {
+    background: #E9F1F7;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    width: 6rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    transition: background 0.2s ease-in-out;
+}
+
+.signUpFormLayout form button:hover {
     background: #FFBF46;
     width: 6rem;
     padding: 0.5rem;
     box-shadow: 2px 2px 5px black;
+    transition: background 0.2s ease-in-out;
 }
 
 .formInput {

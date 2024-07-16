@@ -110,7 +110,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
                             required
                         />
                     </label>
-                    {formErrors.className && <p>{formErrors.className}</p>}
+                    {formErrors.className && <p className="error">{formErrors.className}</p>}
                     <label className={styles.formInput}>
                         Subject
                         <input
@@ -120,7 +120,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
                             required
                         />
                     </label>
-                    {formErrors.subject && <p>{formErrors.subject}</p>}
+                    {formErrors.subject && <p className="error">{formErrors.subject}</p>}
                     <div className={styles.addClassButton}>
                         <button type="submit">Create Class</button>
                     </div>
@@ -141,6 +141,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
                             required
                         />
                     </label>
+                    {formErrors.studentInviteCode && <p className="error">{formErrors.studentInviteCode}</p>}
                     <label className={styles.planetSelect}>
                         Select a planet
                         <select name="planets" id="planets" value={planet} onChange={(e) => setPlanet(e.target.value)}>
@@ -156,7 +157,6 @@ function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
                             <option value="pluto">Pluto</option>
                         </select>
                     </label>
-                    {formErrors.studentInviteCode && <p>{formErrors.studentInviteCode}</p>}
                     <div className={styles.addClassButton}>
                         <button type="submit">Join Class</button>
                     </div>

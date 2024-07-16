@@ -33,7 +33,21 @@
     gap: 0.5rem;
 }
 
-.addReactionButton{
+.addReactionButton {
+    display: flex;
+    margin: 1rem;
+    border: 2px solid #182C64;
+    box-shadow: 2px 2px 5px black;
+    width: 10%;
+    height: 3%;
+    border-radius: 40%;
+    background: #E9F1F7;
+    color: #07112A;
+    font-size: 0.9rem;
+    transition: background 0.2s ease-in-out;
+}
+
+.addReactionButton:hover {
     display: flex;
     margin: 1rem;
     border: 2px solid #182C64;
@@ -44,6 +58,7 @@
     background: #FFBF46;
     color: #07112A;
     font-size: 0.9rem;
+    transition: background 0.2s ease-in-out;
 }
 
 .reactButton {

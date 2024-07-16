@@ -110,6 +110,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                                 <ProfileButton role={sessionUser.role} navigate={navigate} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={currClass.rewards} feedback={currClass.feedback}/>
                             </div>
                         </div>
+                    </div>
                         <div className={styles.classList}>
                             <OpenModalButton buttonText={<div className={styles.addClassSection}><div className={styles.addClassTab} >Add a Class&nbsp;&nbsp;<div className={styles.plusSymbol}><FaPlus /></div></div> </div>} modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
                             {classes?.map((cls, index) => (
@@ -118,7 +119,6 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                                 </div>
                             ))}
                         </div>
-                    </div>
                 </div>
             </div>
             <div className={styles.navbar}>

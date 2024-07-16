@@ -25,6 +25,24 @@
     border-top: 10px solid #5574ca;
     border-left: 10px solid #5574ca;
     border-right: 10px solid #5574ca;
+    background: #E9F1F7;
+    max-height: 4rem;
+    width: 66.5rem;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    display: flex;
+    justify-content: center;
+    color: black;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.addPostButtonLayout:hover {
+    border-top: 10px solid #5574ca;
+    border-left: 10px solid #5574ca;
+    border-right: 10px solid #5574ca;
     background: #FFBF46;
     max-height: 4rem;
     width: 66.5rem;
@@ -35,7 +53,8 @@
     color: black;
     font-size: 1.5rem;
     padding: 0.5rem;
-    cursor: pointer
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
 }
 
 .addPostButton textarea{
@@ -99,15 +118,25 @@
 .addPostForm button {
     max-height: 100%;
     opacity: 1;
-    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, background 0.2s ease-in-out, color 0.2s ease-in-out;
 
-    background: #5574ca;
+    background: #E9F1F7;
+    color: #182C64;
+    border-radius: 15px;
     width: 4rem;
     padding: 0.5rem;
     font-size: 1rem;
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+    border: 2px solid #5574ca;
+    box-shadow: 2px 2px 5px black;
+}
+
+.addPostForm button:hover {
+    background: #5574ca;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+    color: #E9F1F7;
 }
 
 .addPostFormOff button {

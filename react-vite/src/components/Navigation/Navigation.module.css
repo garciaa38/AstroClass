@@ -1,6 +1,7 @@
 .navLayout {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .navButtons {
@@ -12,7 +13,7 @@
 }
 
 .navButtonsContainer {
-  background: #FFBF46;
+  background: #E9F1F7;
   height: 2.2rem;
   margin-top: 0.1rem;
   display: flex;
@@ -20,8 +21,16 @@
   margin: 0.5rem;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  border: 1px solid black;
-  color: black;
+  border-top: 4px solid #5574ca;
+  border-left: 4px solid #5574ca;
+  border-right: 4px solid #5574ca;
+  color: #182C64;
+  transition: background 0.2s ease-in-out;
+}
+
+.navButtonsContainer:hover {
+  background: #FFBF46;
+  transition: background 0.2s ease-in-out;
 }
 
 .navButtons button:not(:first-child) {
@@ -33,17 +42,17 @@
 }
 
 .activeTab {
-  background: #C03221;
+  background: #FFBF46;
   width: 15rem;
-  color: white;
+  color: #182C64
 }
 
 .activeTab:first-child {
-  border-top-left-radius: 20px;
+  border-top-left-radius: 16px;
 }
 
 .activeTab:last-child {
-  border-top-right-radius: 20px;
+  border-top-right-radius: 16px;
 }
 
 .settingsDropdownLayout {
@@ -69,6 +78,7 @@
   border: 4px solid #E9F1F7;
   border-radius: 15px;
   width: 11.5rem;
+  transition: border 0.2s ease-in-out, background 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .settingsDropDownButtonClosed:hover {
@@ -106,6 +116,7 @@
   cursor: pointer;
   max-width: 182px;
   width: 100%;
+  transition: background 0.2s ease-in-out;
 }
 
 .settingsDropdownList li button {

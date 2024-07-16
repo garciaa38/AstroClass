@@ -22,7 +22,7 @@
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: auto;
     grid-column-gap: 5rem;
-    grid-row-gap: 5rem; 
+    grid-row-gap: 13.5rem; 
     width: 80%;
     padding-top: 2rem;
     padding-bottom: 5rem;
@@ -104,26 +104,42 @@
     /* border: 5px solid #FFBF46; */
     display: flex;
     flex-direction: column;
-    height: 10rem;
-    width: 10rem;
+    height: 9rem;
+    width: 9rem;
     border-radius: 100%;
     justify-content: center;
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
+    transition: color 0.5s ease-in-out, background 0.5s ease-in-out;
+}
+
+.studentList .student:hover {
+    background: #E9F1F7;
+    color: black;
+    transition: color 0.5s ease-in-out, background 0.5s ease-in-out;
 }
 
 .studentList .student.mercury {
     /* border: 5px solid #FFBF46; */
     display: flex;
     flex-direction: column;
-    height: 10rem;
-    width: 10rem;
+    height: 9rem;
+    width: 9rem;
     border-radius: 100%;
     justify-content: center;
     background: radial-gradient(circle, #b5b5b5, #8a8a8a);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    position: absolute;
     
+}
+
+.studentList .student.mercury:hover {
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
 
 .studentInfo .student.mercury {
@@ -144,13 +160,22 @@
     /* border: 5px solid #FFBF46; */
     display: flex;
     flex-direction: column;
-    height: 10rem;
-    width: 10rem;
+    height: 9rem;
+    width: 9rem;
     border-radius: 100%;
     justify-content: center;
     background: radial-gradient(circle, #e5c27d, #c0a464);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    position: absolute;
+}
+
+.studentList .student.venus:hover {
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
 
 .studentInfo .student.venus {
@@ -170,13 +195,22 @@
     /* border: 5px solid #FFBF46; */
     display: flex;
     flex-direction: column;
-    height: 10rem;
-    width: 10rem;
+    height: 9rem;
+    width: 9rem;
     border-radius: 100%;
     justify-content: center;
     background: radial-gradient(circle at 20% 20%, #4f83b4, #3078a8, #0d3b66);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    position: absolute;
+}
+
+.studentList .student.earth:hover {
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
 
 .studentInfo .student.earth {
@@ -196,13 +230,22 @@
     /* border: 5px solid #FFBF46; */
     display: flex;
     flex-direction: column;
-    height: 10rem;
-    width: 10rem;
+    height: 9rem;
+    width: 9rem;
     border-radius: 100%;
     justify-content: center;
     background: radial-gradient(circle, #d14b40, #a5352a);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    position: absolute;
+}
+
+.studentList .student.mars:hover {
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
 
 .studentInfo .student.mars {
@@ -222,13 +265,22 @@
     /* border: 5px solid #FFBF46; */
     display: flex;
     flex-direction: column;
-    height: 10rem;
-    width: 10rem;
+    height: 9rem;
+    width: 9rem;
     border-radius: 100%;
     justify-content: center;
     background: linear-gradient(45deg, #d9a066, #e5cf9a, #d9a066);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    position: absolute;
+}
+
+.studentList .student.jupiter:hover {
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
 
 .studentInfo .student.jupiter {
@@ -248,13 +300,22 @@
     /* border: 5px solid #FFBF46; */
     display: flex;
     flex-direction: column;
-    height: 10rem;
-    width: 10rem;
+    height: 9rem;
+    width: 9rem;
     border-radius: 100%;
     justify-content: center;
     background: radial-gradient(circle, #e5cf9a, #c1aa76);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    position: absolute;
+}
+
+.studentList .student.saturn:hover {
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
 
 .studentInfo .student.saturn {
@@ -274,13 +335,22 @@
     /* border: 5px solid #FFBF46; */
     display: flex;
     flex-direction: column;
-    height: 10rem;
-    width: 10rem;
+    height: 9rem;
+    width: 9rem;
     border-radius: 100%;
     justify-content: center;
     background: radial-gradient(circle, #8fc0d0, #6a9dad);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    position: absolute;
+}
+
+.studentList .student.uranus:hover {
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
 
 .studentInfo .student.uranus {
@@ -300,13 +370,22 @@
     /* border: 5px solid #FFBF46; */
     display: flex;
     flex-direction: column;
-    height: 10rem;
-    width: 10rem;
+    height: 9rem;
+    width: 9rem;
     border-radius: 100%;
     justify-content: center;
     background: radial-gradient(circle, #4977a3, #365a84);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    position: absolute;
+}
+
+.studentList .student.neptune:hover {
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
 
 .studentInfo .student.neptune {
@@ -326,13 +405,22 @@
     /* border: 5px solid #FFBF46; */
     display: flex;
     flex-direction: column;
-    height: 10rem;
-    width: 10rem;
+    height: 9rem;
+    width: 9rem;
     border-radius: 100%;
     justify-content: center;
     background: radial-gradient(circle, #cbb8a4, #a39280);
     color: #E9F1F7;
     animation: moveShadow 10s linear infinite;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    position: absolute;
+}
+
+.studentList .student.pluto:hover {
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
 
 .studentInfo .student.pluto {

@@ -1,13 +1,8 @@
-.addRewardField {
-    height: 12rem;
-}
-
 .addRewardForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    height: 90%;
     padding: 2rem;
 }
 
@@ -17,18 +12,41 @@
     align-items: center;
     justify-content: space-around;
     height: 70%;
-    
+}
+
+.formInput {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.formInput input {
+    width: 100%;
 }
 
 .addRewardInput {
-    padding-top: 2rem;
+    padding-top: 1rem;
     padding-bottom: 1rem;
+    display: flex;
+    /* flex-direction: column; */
 }
 
-.addRewardButtons button {
+.addRewardButtons button:hover {
     background: #FFBF46;
     width: 10rem;
     padding: 0.5rem;
     box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out;
 }
 
+.addRewardButtons button {
+    background: #E9F1F7;
+    width: 10rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out;
+}

@@ -32,15 +32,29 @@
     gap: 0.5rem;
 }
 
-.addReactionButton{
+.addReactionButton:hover{
     display: flex;
     margin: 1rem;
-    border: 2px solid #182C64;
+    border: 2px solid #5574ca;
     box-shadow: 2px 2px 5px black;
     width: 12%;
     height: 5%;
     border-radius: 40%;
     background: #FFBF46;
+    color: #07112A;
+    font-size: 1.2rem;
+    transition: background 0.2s ease-in-out;
+}
+
+.addReactionButton{
+    display: flex;
+    margin: 1rem;
+    border: 2px solid #5574ca;
+    box-shadow: 2px 2px 5px black;
+    width: 12%;
+    height: 5%;
+    border-radius: 40%;
+    background: #E9F1F7;
     color: #07112A;
     font-size: 1.2rem;
 }
@@ -61,11 +75,26 @@
     gap: 1rem;
 }
 
-.addCommentButton {
+.addCommentButton:hover {
     display: flex;
     color: #07112A;
     margin: 1rem;
-    border: 2px solid #182C64;
+    border: 2px solid #5574ca;
+    box-shadow: 2px 2px 5px black;
+    width: 12%;
+    height: 5%;
+    border-radius: 40%;
+    font-size: 1.2rem;
+    background: #E9F1F7;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.addCommentButton {
+    display: flex;
+    background: #07112A;
+    color: #E9F1F7;
+    margin: 1rem;
+    border: 2px solid #5574ca;
     box-shadow: 2px 2px 5px black;
     width: 12%;
     height: 5%;

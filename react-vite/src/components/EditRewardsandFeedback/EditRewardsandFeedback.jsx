@@ -45,10 +45,10 @@ function EditRewardsandFeedback ({cls, rewards, feedback}) {
                 </div>
                 <div className={styles.editBottomSection}>
                     <div className={styles.editRewardsSection}>
-                        <div className={styles.rewardsListTitle}>
-                            <h2>Edit Rewards</h2>
-                        </div>
                         <div className={styles.rewardElements}>
+                            <div className={styles.rewardsListTitle}>
+                                <h2>Edit Rewards</h2>
+                            </div>
                             <div className={styles.addRewardButton}>
                                 <button onClick={() => setAddRewardFormAppear(true)}>Add a reward</button>
                             </div>
@@ -62,10 +62,10 @@ function EditRewardsandFeedback ({cls, rewards, feedback}) {
                         </div>
                     </div>
                     <div className={styles.editFeedbackSection}>
-                        <div className={styles.rewardsListTitle}>
-                            <h2>Edit Feedback</h2>
-                        </div>
                         <div className={styles.rewardElements}>
+                            <div className={styles.feedbackListTitle}>
+                                <h2>Edit Feedback</h2>
+                            </div>
                             <div className={styles.addFeedbackButton}>
                                 <button onClick={() => setAddFeedbackFormAppear(true)}>Add feedback</button>
                             </div>

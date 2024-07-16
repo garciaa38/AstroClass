@@ -61,7 +61,7 @@ function AddPostReplyForm({currPost, currMsgBoard, sessionUser}) {
                         required
                     />
                 </label>
-                {formErrors.newPostReply && <p>{formErrors.newPostReply}</p>}
+                {formErrors.newPostReply && <p className="error">{formErrors.newPostReply}</p>}
                 <button type="submit">Send</button>
             </form>
         </div>

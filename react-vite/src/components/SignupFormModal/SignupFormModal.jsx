@@ -78,13 +78,14 @@ function SignupFormModal({role}) {
       }
     }
     
-    if (whiteSpaceCheck(password)) {
-      if (password !== confirmPassword) {
-        errors.confirmPassword = "Confirm Password field must be the same as the Password field"
-      }
-    } else {
+    if (!whiteSpaceCheck(password)) {
       errors.password = "Please don't include spaces."
     }
+
+    if (password !== confirmPassword) {
+      errors.confirmPassword = "Confirm Password field must be the same as the Password field"
+    }
+    
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors)
@@ -113,93 +114,102 @@ function SignupFormModal({role}) {
     }
   };
 
-  return (
-    <div className={styles.signUpFormLayout}>
-      <h1>{signUpMessage()}</h1>
-      {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
-        <label className={styles.formInput}>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        {formErrors.email && <p>{formErrors.email}</p>}
-        <label className={styles.formInput}>
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
-        {formErrors.firstName && <p>{formErrors.firstName}</p>}
-        <label className={styles.formInput}>
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
-        {formErrors.lastName && <p>{formErrors.lastName}</p>}
-        {role === 'teacher' && <label className={styles.formInput}>
-          Honorific
-          <select className={styles.honorific} value={suffix} onChange={(e) => setSuffix(e.target.value)}>
-            <option value="Mr.">Mr.</option>
-            <option value="Mrs.">Mrs.</option>
-            <option value="Ms.">Ms.</option>
-            <option value="Miss.">Miss.</option>
-            <option value="Mx.">Mx.</option>
-          </select>
-        </label>}
-        {errors.suffix && <p>{errors.suffix}</p>}
-        {formErrors.suffix && <p>{formErrors.suffix}</p>}
-        {(role === 'teacher' || role === 'parent') && <label className={styles.formInput}>
-          Phone Number
-          <input
-            type="text"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            required
-          />
-        </label>}
-        {errors.phoneNumber && <p>{errors.phoneNumber}</p>}
-        {formErrors.phoneNumber && <p>{formErrors.phoneNumber}</p>}
-        <label className={styles.formInput}>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label className={styles.formInput}>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        {formErrors.confirmPassword && <p>{formErrors.confirmPassword}</p>}
-        <div className={styles.signUpButton}>
-          <button type="submit">Sign Up</button>
-        </div>
-      </form>
-    </div>
-  );
+  if (role === 'parent') {
+    return (
+      <div className={styles.signUpFormLayout}>
+        <h1>Parent Features Coming Soon!</h1>
+      </div>
+    )
+  } else {
+    return (
+      <div className={styles.signUpFormLayout}>
+        <h1>{signUpMessage()}</h1>
+        {errors.server && <p>{errors.server}</p>}
+        <form onSubmit={handleSubmit}>
+          <label className={styles.formInput}>
+            Email
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          {errors.email && <p className="error">{errors.email}</p>}
+          {formErrors.email && <p className="error">{formErrors.email}</p>}
+          <label className={styles.formInput}>
+            First Name
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </label>
+          {errors.firstName && <p className="error">{errors.firstName}</p>}
+          {formErrors.firstName && <p className="error">{formErrors.firstName}</p>}
+          <label className={styles.formInput}>
+            Last Name
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </label>
+          {errors.lastName && <p className="error">{errors.lastName}</p>}
+          {formErrors.lastName && <p className="error">{formErrors.lastName}</p>}
+          {role === 'teacher' && <label className={styles.formInput}>
+            Honorific
+            <select className={styles.honorific} value={suffix} onChange={(e) => setSuffix(e.target.value)}>
+              <option value="Mr.">Mr.</option>
+              <option value="Mrs.">Mrs.</option>
+              <option value="Ms.">Ms.</option>
+              <option value="Miss.">Miss.</option>
+              <option value="Mx.">Mx.</option>
+            </select>
+          </label>}
+          {errors.suffix && <p className="error">{errors.suffix}</p>}
+          {formErrors.suffix && <p className="error">{formErrors.suffix}</p>}
+          {(role === 'teacher' || role === 'parent') && <label className={styles.formInput}>
+            Phone Number
+            <input
+              type="text"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
+            />
+          </label>}
+          {errors.phoneNumber && <p className="error">{errors.phoneNumber}</p>}
+          {formErrors.phoneNumber && <p className="error">{formErrors.phoneNumber}</p>}
+          <label className={styles.formInput}>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          {errors.password && <p className="error">{errors.password}</p>}
+          {formErrors.password && <p className="error">{formErrors.password}</p>}
+          <label className={styles.formInput}>
+            Confirm Password
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </label>
+          {formErrors.confirmPassword && <p className="error">{formErrors.confirmPassword}</p>}
+          <div className={styles.signUpButton}>
+            <button type="submit">Sign Up</button>
+          </div>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default SignupFormModal;

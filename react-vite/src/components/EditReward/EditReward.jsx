@@ -75,6 +75,7 @@ function EditReward({reward, classId, handleRewardDelete}) {
     const stopEditing = async () => {
         setRewardType(reward.reward_type)
         setPointsEarned(reward.points)
+        setFormErrors({});
         setIsEditing(false);
     }
 

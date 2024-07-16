@@ -102,7 +102,7 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
                                     required
                                 />
                             </label>
-                            {formErrors.feedbackType && <p>{formErrors.feedbackType}</p>}
+                            {formErrors.feedbackType && <p className="error">{formErrors.feedbackType}</p>}
                         </div>
                         <div>
                             <label className={styles.rewardPointsInput}>
@@ -116,7 +116,7 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
                                     min="-10"
                                 />
                             </label>
-                            {formErrors.pointsLost && <p>{formErrors.pointsLost}</p>}
+                            {formErrors.pointsLost && <p className="error">{formErrors.pointsLost}</p>}
                         </div>
                     </div>
                     <div className={styles.rewardFormButtons}>

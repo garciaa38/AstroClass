@@ -121,7 +121,7 @@ function PostReplyField({postReply, classId, currMsgBoardId, sessionUser}) {
         )
     } else {
         return (
-            <div className={styles.postReplyFieldLayout}>
+            <div className={styles.editPostReplyFieldLayout}>
                 <form onSubmit={handleSubmit}>
                     <label>
                         <textarea
@@ -133,8 +133,10 @@ function PostReplyField({postReply, classId, currMsgBoardId, sessionUser}) {
                         />
                     </label>
                     {formErrors.editedPostReply && <p>{formErrors.editedPostReply}</p>}
-                    <button type='submit'>Save</button>
-                    <button onClick={cancelEdit}>Cancel</button>
+                    <div className={styles.editPostReplyButtons}>
+                        <button type='submit'>Save</button>
+                        <button onClick={cancelEdit}>Cancel</button>
+                    </div>
                 </form>
             </div>
         )

@@ -6,10 +6,46 @@
     font-size: 1.5rem;
 }
 
+.postField form {
+    padding: 1rem;
+    border-top: 4px solid black;
+    border-left: 4px solid black;
+    border-right: 4px solid black;
+    width: 65.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .postField form textarea {
-    width: 50rem;
-    height: auto;
+    width: 100%;
     border: 1px solid black;
+    border-radius: 15px;
+    padding-top: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 1.2rem;
+    scroll-behavior: auto;
+}
+
+.editPostButtons {
+    display: flex;
+    gap: 1rem;
+}
+
+.editPostButtons button {
+    border: 2px solid #5574ca;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 15px;
+    color: #182C64;
+    box-shadow: 2px 2px 5px black;
+}
+
+.editPostButtons button:hover {
+    background: #5574ca;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+    color: #E9F1F7;
 }
 
 .post {
@@ -46,7 +82,18 @@
 }
 
 .postButtons {
-    display: none
+    display: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.postButtons button:first-child:hover {
+    transition: color 0.2s ease-in-out;
+    color: #FFBF46;
+}
+
+.postButtons button:last-child:hover {
+    transition: color 0.2s ease-in-out;
+    color: #C03221;
 }
 
 .post:hover .postButtons {

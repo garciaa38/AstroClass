@@ -59,16 +59,18 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
                 <h1>Add a reward here.</h1>
                 <form onSubmit={handleSubmit}>
                     <div className={styles.addRewardInput}>
-                        <label>
-                            <input
-                                type="text"
-                                value={rewardType}
-                                placeholder="Type of Reward"
-                                onChange={(e) => setRewardType(e.target.value)}
-                                required
-                            />
-                        </label>
-                        {formErrors.rewardType && <p>{formErrors.rewardType}</p>}
+                        <div className={styles.formInput}>
+                            <label>
+                                <input
+                                    type="text"
+                                    value={rewardType}
+                                    placeholder="Type of Reward"
+                                    onChange={(e) => setRewardType(e.target.value)}
+                                    required
+                                />
+                            </label>
+                            {formErrors.rewardType && <p className="error">{formErrors.rewardType}</p>}
+                        </div>
                         <label>
                             <input
                                 type="number"
@@ -80,7 +82,7 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
                                 required
                             />
                         </label>
-                        {formErrors.pointsEarned && <p>{formErrors.pointsEarned}</p>}
+                        {formErrors.pointsEarned && <p className="error">{formErrors.pointsEarned}</p>}
                     </div>
                     <div className={styles.addRewardButtons}>
                         <button type="submit">Add Class Reward</button>
