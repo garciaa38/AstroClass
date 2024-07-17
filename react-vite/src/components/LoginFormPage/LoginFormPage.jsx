@@ -16,7 +16,7 @@ function LoginFormPage() {
     <div className={`${styles.loginBody} ${sessionUser ? styles.backgroundPlaying : styles.backgroundPaused}`}>
       <div className={styles.loginGreeting}>
         <div className={styles.title}>
-          <h1>Welcome to AstroClass <img src="/public/rocket.png"/></h1>
+          <h1>Welcome to AstroClass <img src="/rocket.png"/></h1>
           <h3>{`We're here to help your students reach for the stars!`}</h3>
         </div>
         <div className={styles.signUpSection}>
