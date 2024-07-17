@@ -5,7 +5,7 @@
     justify-content: space-around;
     height: 50%;
     width: 100%;
-    padding: 2rem;
+    padding: 2rem 4rem 2rem 4rem;
     gap: 1rem;
 }
 
@@ -15,9 +15,22 @@
     gap: 1rem;
 }
 
-.editPlanetLayout form button {
+.editPlanetLayout form button:hover {
     background: #FFBF46;
     width: 10rem;
     padding: 0.5rem;
     box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out;
+}
+
+.editPlanetLayout form button {
+    background: #E9F1F7;
+    width: 10rem;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    border: 2px solid #5574ca;
+    border-radius: 15px;
+    transition: background 0.2s ease-in-out;
 }

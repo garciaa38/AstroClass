@@ -11,7 +11,7 @@ function EditPlanet({ studentClassId, classId, planet }) {
     const [currPlanet, setCurrPlanet] = useState(planet)
     
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const newPlanet = {
             planet: currPlanet
