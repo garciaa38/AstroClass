@@ -74,7 +74,7 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
                                             <div>Points: {student?.points}</div>
                                         </div>
                                     }
-                                    modalComponent={<StudentInfoModal student={student} classId={classId} rewards={rewards} feedback={feedback} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState}/>}
+                                    modalComponent={<StudentInfoModal sessionUser={sessionUser} student={student} classId={classId} rewards={rewards} feedback={feedback} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState}/>}
                                 />
                             </div>
                         )

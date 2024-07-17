@@ -112,8 +112,17 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                 <div className={styles.navbar}>
                     <div className={styles.navbarGreeting}>
                         <div className={styles.navbarTop}>
-                            <h1>Hey there {suffix} {last_name}.</h1>
-                            <h2>You are currently signed in as a teacher!</h2>
+                            <div className={styles.greetingTop}>
+                                <div className={styles.greetingLogo}>
+                                    <img src="/rocket.png"/>
+                                </div>
+                                <div className={styles.greetingMiddle}>
+                                    <h1>Hey there {suffix} {last_name}!</h1>
+                                    <div className={styles.greetingExplore}>
+                                        <h2>{`You're currently have no classes to explore.`}</h2>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className={styles.noClassLayout}>
@@ -158,8 +167,18 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
             <div className={styles.navbar}>
                 <div className={styles.navbarGreeting}>
                     <div className={styles.navbarTop}>
-                        <h1>Hey there {suffix} {last_name}.</h1>
-                        <h2>You are currently signed in as a teacher!</h2>
+                        <div className={styles.greetingTop}>
+                            <div className={styles.greetingLogo}>
+                                <img src="/rocket.png"/>
+                            </div>
+                            <div className={styles.greetingMiddle}>
+                                <h1>Hey there {suffix} {last_name}!</h1>
+                                <div className={styles.greetingExplore}>
+                                    <h2>{`You're currently exploring `}</h2>
+                                    <h2>&nbsp;{`${currClass?.class_name}: ${currClass?.subject}`}</h2>
+                                </div>
+                            </div>
+                        </div>
                         <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
                     </div>
                 </div>
