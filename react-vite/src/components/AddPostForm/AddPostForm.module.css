@@ -145,13 +145,17 @@
     overflow: hidden;
     transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
 
-    background: #5574ca;
+    background: #E9F1F7;
+    color: #182C64;
+    border-radius: 15px;
     width: 4rem;
     padding: 0.5rem;
     font-size: 1rem;
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+    border: 2px solid #5574ca;
+    box-shadow: 2px 2px 5px black;
 }
 
 .postFormButtons {

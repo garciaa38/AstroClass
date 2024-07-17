@@ -49,7 +49,8 @@ class User(db.Model, UserMixin):
                     'class_id': class_data.id,
                     'class_name': class_data.class_name,
                     'subject': class_data.subject,
-                    'points': student_class.points
+                    'points': student_class.points,
+                    'student_invite_code': class_data.student_invite_code
                 })
         return classes
 

@@ -86,14 +86,48 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
 
     if (classes.length < 1) {
         return (
-            <>
-                <h1>You have no classes</h1>
-                <OpenModalButton
-                    buttonText="Add a class now to get started!"
-                    modalComponent={<AddClassModal sessionUser={sessionUser} />}
-                />
-                <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
-            </>
+            <div className={`${styles.classLayout} ${sideBarOpen ? styles.shifted : ''}`}>
+                <div className={`${styles.sideBarButton} ${sideBarOpen ? styles.shifted : ''}`}>
+                    <GiHamburgerMenu onClick={toggleSideBar}/>
+                </div>
+                <div className={sideBarOpen ? styles.sideBarOpen : styles.sideBarClosed}>
+                    <div className={styles.sideBarList}>
+                        <div className={styles.aboveSignOut}>
+                            <div className={styles.classSettings}>
+                                <div className={styles.classSettingsButton}>
+                                    <ProfileButton role={sessionUser.role} navigate={navigate} noClass={true} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.classList}>
+                            <OpenModalButton buttonText={<div className={styles.addClassSection}><div className={styles.addClassTab} >Add a Class&nbsp;&nbsp;<div className={styles.plusSymbol}><FaPlus /></div></div> </div>} modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
+                            {classes?.map((cls, index) => (
+                                <div key={cls?.id}>
+                                    {cls.class_name.length > 0 && <button className={currClassIdx === index ? styles.activeTab : styles.classTab} onClick={() => switchClass(index)}>{cls.class_name}</button>}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.navbar}>
+                    <div className={styles.navbarGreeting}>
+                        <div className={styles.navbarTop}>
+                            <h1>Hey there {suffix} {last_name}.</h1>
+                            <h2>You are currently signed in as a teacher!</h2>
+                        </div>
+                    </div>
+                    <div className={styles.noClassLayout}>
+                        <div className={styles.noClassBox}>
+                            <div className={styles.noClassMessage}>
+                                <h2>
+                                    {`Looks like you're solar system is empty.`}
+                                </h2>
+                                <OpenModalButton buttonText={<div>Add a Class to get started.</div>} modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         )
     }
 

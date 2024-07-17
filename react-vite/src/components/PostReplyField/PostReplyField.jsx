@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editPostReplyThunk } from "../../redux/messageBoard";
 import { deletePostReplyThunk } from "../../redux/messageBoard";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeletionWarning from "../DeletionWarning/DeletionWarning";
 import { socket } from "../../socket";
 import styles from './PostReplyField.module.css';
 import { MdOutlineModeEdit } from "react-icons/md";
@@ -83,17 +85,17 @@ function PostReplyField({postReply, classId, currMsgBoardId, sessionUser}) {
         setFormErrors({});
     }
 
-    const deletePostReply = async (e) => {
-        e.preventDefault()
+    // const deletePostReply = async (e) => {
+    //     e.preventDefault()
 
-        const deletedPostReply = {
-            id: postReply.id,
-            msgBoardId: currMsgBoardId
-        }
+    //     const deletedPostReply = {
+    //         id: postReply.id,
+    //         msgBoardId: currMsgBoardId
+    //     }
 
-        await dispatch(deletePostReplyThunk(deletedPostReply))
-        socket.emit('updateMsgBoard', {room: classId})
-    }
+    //     await dispatch(deletePostReplyThunk(deletedPostReply))
+    //     socket.emit('updateMsgBoard', {room: classId})
+    // }
 
     if (!isEditing) {
         return (
@@ -114,7 +116,9 @@ function PostReplyField({postReply, classId, currMsgBoardId, sessionUser}) {
                     </div>
                     <div hidden={!checkUserPermission(sessionUser)} className={styles.postReplyButtons}>
                         <button hidden={!checkUserPermission(sessionUser)} onClick={() => setIsEditing(true)}><MdOutlineModeEdit /></button>
-                        <button hidden={!checkUserPermission(sessionUser)} onClick={deletePostReply}><RiDeleteBin6Fill /></button>
+                        <div hidden={!checkUserPermission(sessionUser)}>
+                            <OpenModalButton hidden={!checkUserPermission(sessionUser)} buttonText={<RiDeleteBin6Fill />} modalComponent={<DeletionWarning postId={postReply.id} msgBoardId={currMsgBoardId} classId={classId} type={'reply'}/>}/>
+                        </div>
                     </div>
                 </div>
             </div>

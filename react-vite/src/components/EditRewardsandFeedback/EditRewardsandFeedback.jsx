@@ -51,11 +51,13 @@ function EditRewardsandFeedback ({cls, rewards, feedback}) {
                             </div>
                             <div className={styles.addRewardButton}>
                                 <button onClick={() => setAddRewardFormAppear(true)}>Add a reward</button>
+                                {formErrors.rewardType && <p className={styles.error}>{formErrors.rewardType}</p>}
+                                {formErrors.pointsEarned && <p className="error">{formErrors.pointsEarned}</p>}
                             </div>
                             <div className={styles.rewardList}>
                                 {rewardsState?.map((reward) => {
                                     return (
-                                        <EditReward className={styles.editButton} key={reward.id} reward={reward} classId={classId} handleRewardDelete={handleRewardDelete}/>
+                                        <EditReward className={styles.editButton} key={reward.id} reward={reward} classId={classId} handleRewardDelete={handleRewardDelete} setFormErrors={setFormErrors}/>
                                     )
                                 })}
                             </div>
@@ -68,11 +70,13 @@ function EditRewardsandFeedback ({cls, rewards, feedback}) {
                             </div>
                             <div className={styles.addFeedbackButton}>
                                 <button onClick={() => setAddFeedbackFormAppear(true)}>Add feedback</button>
+                                {formErrors.feedbackType && <p className={styles.error}>{formErrors.feedbackType}</p>}
+                                {formErrors.pointsLost && <p className={styles.error}>{formErrors.pointsLost}</p>}
                             </div>
                             <div className={styles.rewardList}>
                                 {feedbackState?.map((feedback) => {
                                     return (
-                                        <EditFeedback key={feedback.id} feedback={feedback} classId={classId} handleFeedbackDelete={handleFeedbackDelete}/>
+                                        <EditFeedback key={feedback.id} feedback={feedback} classId={classId} handleFeedbackDelete={handleFeedbackDelete} setFormErrors={setFormErrors}/>
                                     )
                                 })}
                             </div>

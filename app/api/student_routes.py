@@ -105,6 +105,9 @@ def remove_student_points(student_class_id, feedback_id):
 
     student.points += lost_points
 
+    if student.points < 0:
+        student.points = 0
+
     db.session.commit()
 
     return jsonify(requested_class.to_dict())
@@ -199,6 +202,18 @@ def student_join_class(student_id):
         planet = pick_random_planet()
 
     requested_class = Class.query.filter(Class.student_invite_code == class_code).first()
+    studentUser = User.query.get_or_404(student_id)
+    student = studentUser.to_dict()
+
+    print("STUDENT INFO", student['classes'])
+
+    for cls in student['classes']:
+        if cls['student_invite_code'] == class_code:
+            return jsonify({"error": "Already joined class."})
+
+    if requested_class == None:
+        print("This class don't exist")
+        return jsonify({"error": "This class doesn't exist."})
 
     new_student = StudentClass(
         student_id=student_id,

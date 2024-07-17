@@ -71,6 +71,15 @@
 
 .addRewardButton {
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addRewardButton .error {
+    display: flex;
+    justify-content: center;
+    color: #C03221;
 }
 
 .addRewardButton button {
@@ -94,6 +103,15 @@
 
 .addFeedbackButton {
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addFeedbackButton .error {
+    display: flex;
+    justify-content: center;
+    color: #C03221;
 }
 
 .editRewardsSection {

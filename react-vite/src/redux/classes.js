@@ -42,9 +42,14 @@ export const studentJoinClassThunk = (student_id, inviteCode) => async (dispatch
         body: JSON.stringify(inviteCode)
     })
         .then(res => res.json())
-        .catch(e => console.error(e))
+        .catch(e => console.error("SERVER RES", e))
 
-        dispatch(loadClass(res))
+        console.log("SERVER RES", res)
+        if (res.error) {
+            return res
+        } else {
+            dispatch(loadClass(res))
+        }
 }
 
 export const addNewClassThunk = (teacher_id, newClass) => async (dispatch) => {
@@ -94,8 +99,13 @@ export const addStudentToClassThunk = (classId, studentId) => async (dispatch) =
     })
         .then(res => res.json())
         .catch(e => console.error(e))
+
+    if (res.error) {
+        return res;
+    } else {
+        dispatch(loadClass(res))
+    }
     
-    dispatch(loadClass(res))
 }
 
 export const addRewardToClassThunk = (classId, reward) => async (dispatch) => {

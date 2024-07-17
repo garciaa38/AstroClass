@@ -5,13 +5,12 @@ import { deleteFeedbackThunk } from "../../redux/classes";
 import { socket } from "../../socket";
 import styles from './EditFeedback.module.css';
 
-function EditFeedback({feedback, classId, handleFeedbackDelete}) {
+function EditFeedback({feedback, classId, handleFeedbackDelete, setFormErrors}) {
     const dispatch = useDispatch()
 
     const [isEditing, setIsEditing] = useState(false);
     const [feedbackType, setFeedbackType] = useState(feedback.feedback_type);
     const [pointsLost, setPointsLost] = useState(feedback.points);
-    const [formErrors, setFormErrors] = useState({});
 
 
     console.log("EDIT FEEDBACK", feedback)
@@ -76,8 +75,9 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
     }
 
     const stopEditing = async () => {
-        setFeedbackType(feedback.feedback_type)
-        setPointsLost(feedback.points)
+        setFeedbackType(feedback.feedback_type);
+        setPointsLost(feedback.points);
+        setFormErrors({});
         setIsEditing(false);
     }
 
@@ -102,7 +102,6 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
                                     required
                                 />
                             </label>
-                            {formErrors.feedbackType && <p className="error">{formErrors.feedbackType}</p>}
                         </div>
                         <div>
                             <label className={styles.rewardPointsInput}>
@@ -116,7 +115,6 @@ function EditFeedback({feedback, classId, handleFeedbackDelete}) {
                                     min="-10"
                                 />
                             </label>
-                            {formErrors.pointsLost && <p className="error">{formErrors.pointsLost}</p>}
                         </div>
                     </div>
                     <div className={styles.rewardFormButtons}>

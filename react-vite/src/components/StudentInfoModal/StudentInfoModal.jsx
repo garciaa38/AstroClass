@@ -42,13 +42,13 @@ function StudentInfoModal({student, classId, rewards, feedback, allStudentsState
     console.log("CLASS REWARDS", rewardsState)
 
     const removeStudent = async (student_class_id) => {
+        closeModal()
         await dispatch(removeStudentFromClassThunk(student_class_id))
         const res = await dispatch(fetchAllStudentsThunk())
         // await setAllStudentsState(res)
         socket.emit('updateClass', { room: classId })
-        socket.emit('updateClasses', { room: classId, type: 'delete' })
+        socket.emit('updateStudentClasses', { room: classId, type: 'delete' })
         socket.emit('updateStudents', { room: classId })
-        closeModal()
     }
 
     if (!addRewardFormAppear && !addFeedbackFormAppear && !editStudentInfoAppear && !deleteModalAppear) {

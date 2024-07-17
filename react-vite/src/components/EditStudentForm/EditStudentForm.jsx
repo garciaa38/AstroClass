@@ -58,11 +58,11 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
             first_name: firstName,
             last_name: lastName
         }
+        closeModal()
         socket.emit('updateClass', { room: classId })
         socket.emit('updateStudentClass', { room: classId })
         socket.emit('updateStudents', { room: classId })
         await dispatch(editStudentInfoThunk(updateStudent, classId ))
-        closeModal()
 
     }
 

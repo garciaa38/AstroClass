@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editPostThunk } from "../../redux/messageBoard";
 import { deletePostThunk } from "../../redux/messageBoard";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeletionWarning from "../DeletionWarning/DeletionWarning";
 import { socket } from "../../socket";
 import styles from "./PostField.module.css"
 import { MdOutlineModeEdit } from "react-icons/md";
@@ -115,12 +117,14 @@ function PostField({post, classId, sessionUser}) {
                     </div>
                     <div hidden={!checkUserPermission(sessionUser)} className={styles.postButtons}>
                         <button  hidden={!checkUserPermission(sessionUser)} onClick={() => setIsEditing(true)}><MdOutlineModeEdit /></button>
-                        <button  hidden={!checkUserPermission(sessionUser)} onClick={deletePost}><RiDeleteBin6Fill /></button>
+                        <div hidden={!checkUserPermission(sessionUser)}>
+                            <OpenModalButton  hidden={!checkUserPermission(sessionUser)} buttonText={<RiDeleteBin6Fill/>} modalComponent={<DeletionWarning postId={post.id} msgBoardId={post.message_board_id} classId={classId} type={'post'}/>}/>
+                        </div>
                     </div>
                 </div>
             </div>
         )
-    } else {
+    } else if (isEditing) {
         return (
             <div className={styles.postField}>
                 <form onSubmit={handleSubmit}>

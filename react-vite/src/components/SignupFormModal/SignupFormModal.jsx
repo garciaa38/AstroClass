@@ -41,6 +41,7 @@ function SignupFormModal({role}) {
 
     const errors = {};
     setFormErrors({});
+    setErrors({});
 
     if (whiteSpaceCheck(email)) {
       if (!email.split("@")[1]?.split(".")[1]) {
@@ -105,10 +106,12 @@ function SignupFormModal({role}) {
       })
     );
 
-    console.log("SERVER RESPONSE", serverResponse)
-
+    
     if (serverResponse) {
-      setErrors(serverResponse);
+      console.log("SERVER RESPONSE", serverResponse)
+      const backEndErrors = {};
+      backEndErrors.email = "This email already exists."
+      setErrors(backEndErrors);
     } else {
       closeModal();
     }

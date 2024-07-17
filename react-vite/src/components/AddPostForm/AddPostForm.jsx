@@ -30,6 +30,9 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
             if (newPost.length <= 0) {
                 errors.newPost = "Cannot send an empty post."
             }
+            if (newPost.length >= 500) {
+                errors.newPost = "Post cannot be longer than 500 characters."
+            }
         } else {
             errors.newPost = "Cannot send an empty post."
         }
@@ -52,7 +55,10 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
         socket.emit('updateMsgBoard', {room: currMsgBoard.class_id})
     }
 
-    const expandPostFeature = () => {
+    const expandPostFeature = (e) => {
+        e.preventDefault();
+
+        setFormErrors({});
         if (addingPost) {
             setAddingPost(false)
         } else {
@@ -60,36 +66,70 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
         }
     }
 
-    return (
-        <div className={styles.addPostLayout}>
-            <div className={styles.addPostButtonLayout} onClick={expandPostFeature}>
-                Click here to make an announcement to the class!
-            </div>
-            <div 
-                className={addingPost ? styles.addPostFormLayout : styles.addPostFormLayoutOff}
-            >
-                <form 
-                    onSubmit={handleSubmit} 
-                    className={addingPost ? styles.addPostForm : styles.addPostFormOff}
+    if (currMsgBoard.posts.length === 0) {
+        return (
+            <div className={styles.addPostLayout}>
+                <div className={styles.addPostButtonLayout}>
+                    Make an announcement to the class!
+                </div>
+                <div 
+                    className={styles.addPostFormLayout}
                 >
-                    <label>
-                        <textarea
-                            className={addingPost ? styles.addPostTextArea : styles.addPostTextAreaOff}
-                            type="text"
-                            placeholder="Make an announcement to the class!"
-                            value={newPost}
-                            onChange={(e) => setNewPost(e.target.value)}
-                        />
-                    </label>
-                    {formErrors.newPost && <p className="error">{formErrors.newPost}</p>}
-                    <div className={addingPost ? styles.postFormButtons : styles.postFormButtonsOff}>
-                        <button type="submit">Send</button>
-                        <button onClick={expandPostFeature}>Cancel</button>
-                    </div>
-                </form>
+                    <form 
+                        onSubmit={handleSubmit} 
+                        className={styles.addPostForm}
+                    >
+                        <label>
+                            <textarea
+                                className={styles.addPostTextArea}
+                                type="text"
+                                placeholder="Make an announcement to the class!"
+                                value={newPost}
+                                onChange={(e) => setNewPost(e.target.value)}
+                            />
+                        </label>
+                        {formErrors.newPost && <p className="error">{formErrors.newPost}</p>}
+                        <div className={styles.postFormButtons}>
+                            <button type="submit">Send</button>
+                            {/* <button onClick={expandPostFeature}>Cancel</button> */}
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return (
+            <div className={styles.addPostLayout}>
+                <div className={styles.addPostButtonLayout} onClick={expandPostFeature}>
+                    Click here to make an announcement to the class!
+                </div>
+                <div 
+                    className={addingPost ? styles.addPostFormLayout : styles.addPostFormLayoutOff}
+                >
+                    <form 
+                        onSubmit={handleSubmit} 
+                        className={addingPost ? styles.addPostForm : styles.addPostFormOff}
+                    >
+                        <label>
+                            <textarea
+                                className={addingPost ? styles.addPostTextArea : styles.addPostTextAreaOff}
+                                type="text"
+                                placeholder="Make an announcement to the class!"
+                                value={newPost}
+                                onChange={(e) => setNewPost(e.target.value)}
+                            />
+                        </label>
+                        {formErrors.newPost && <p className="error">{formErrors.newPost}</p>}
+                        <div className={addingPost ? styles.postFormButtons : styles.postFormButtonsOff}>
+                            <button type="submit">Send</button>
+                            <button onClick={expandPostFeature}>Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        )
+    }
+    
 }
 
 export default AddPostForm;

@@ -32,3 +32,17 @@
   border-radius: 25px;
   border: 10px solid #5574ca;
 }
+
+#exit-modal {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  padding: 1rem;
+  position: absolute;
+  font-size: 3rem;
+  color: #5574ca;
+}
+
+#exit-modal svg {
+  cursor: pointer;
+}

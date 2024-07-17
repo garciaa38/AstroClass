@@ -96,6 +96,7 @@
 .postReply:hover .postReplyButtons {
     display: flex;
     justify-content: start;
+    align-items: center;
     background: none;
     gap: 0.5rem;
     font-size: 1.1rem;

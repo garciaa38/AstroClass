@@ -5,13 +5,12 @@ import { deleteRewardThunk } from "../../redux/classes";
 import { socket } from "../../socket";
 import styles from './EditReward.module.css';
 
-function EditReward({reward, classId, handleRewardDelete}) {
+function EditReward({reward, classId, handleRewardDelete, setFormErrors}) {
     const dispatch = useDispatch()
 
     const [isEditing, setIsEditing] = useState(false);
     const [rewardType, setRewardType] = useState(reward.reward_type);
     const [pointsEarned, setPointsEarned] = useState(reward.points);
-    const [formErrors, setFormErrors] = useState({});
 
     const stringTrim = (string) => {
         if (string.trim().length === 0) {
@@ -100,7 +99,6 @@ function EditReward({reward, classId, handleRewardDelete}) {
                                     required
                                 />
                             </label>
-                            {formErrors.rewardType && <p>{formErrors.rewardType}</p>}
                         </div>
                         <div>
                             <label className={styles.rewardPointsInput}>
@@ -114,7 +112,6 @@ function EditReward({reward, classId, handleRewardDelete}) {
                                     min="1"
                                 />
                             </label>
-                            {formErrors.pointsEarned && <p>{formErrors.pointsEarned}</p>}
                         </div>
                     </div>
                     <div className={styles.rewardFormButtons}>

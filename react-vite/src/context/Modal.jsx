@@ -1,5 +1,6 @@
 import { useRef, useState, useContext, createContext } from 'react';
 import ReactDOM from 'react-dom';
+import { IoCloseCircleOutline } from "react-icons/io5";
 import './Modal.css';
 
 const ModalContext = createContext();
@@ -48,9 +49,10 @@ export function Modal() {
   return ReactDOM.createPortal(
     <div id="modal">
       <div id="modal-background" onClick={closeModal} />
-      <div id="modal-content">
-        {modalContent}
-      </div>
+        <div id="modal-content">
+          <div id="exit-modal"><IoCloseCircleOutline onClick={closeModal}/></div>
+          {modalContent}
+        </div>
     </div>,
     modalRef.current
   );
