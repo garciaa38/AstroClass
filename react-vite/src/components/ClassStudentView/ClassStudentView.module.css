@@ -85,7 +85,6 @@
 .sideBarList {
     display: flex;
     flex-direction: column;
-    padding-top: 5%;
     padding-left: 5%;
     gap: 42rem;
     justify-content: space-between;
@@ -97,6 +96,16 @@
     gap: 0.5rem;
     margin-right: 2rem;
     border-radius: 15px;
+    z-index: 1001;
+    padding-bottom: 2rem;
+    margin-top: 0.5rem;
+}
+
+.aboveSignOut {
+    z-index: 1001;
+    background: #07112A;
+    width: 15rem;
+    height: 4rem;
 }
 
 .classSettingsButton {
@@ -108,7 +117,14 @@
     display: flex;
     flex-direction: column;
     padding-top: 15%;
+    overflow-y: scroll;
+    max-height: 1200px;
+    height: 95%;
+    width: 15rem;
+    scrollbar-width: none;
     gap: 1rem;
+    position: absolute;
+    padding-top: 5rem;
 }
 
 .classList .classTab {
@@ -120,11 +136,13 @@
     color: #182C64;
     font-weight: bold;
     font-size: 1.2rem;
-    border: 5px solid #5574ca
+    border: 5px solid #5574ca;
+    transition: background 0.2s ease-in-out;
 }
 
 .classList .classTab:hover {
     background: #FFBF46;
+    transition: background 0.2s ease-in-out;
 }
 
 .classList .activeTab {
@@ -142,11 +160,12 @@
 .addClassTab {
     background: #07112A;
     border: 5px solid #E9F1F7;
+    color: #E9F1F7;
+    transition: background 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out;
     width: 80%;
     display: flex;
     padding: 0.7rem;
     border-radius: 15px;
-    color: #E9F1F7;
     font-weight: bold;
     font-size: 1.2rem;
     display: flex;
@@ -156,6 +175,7 @@
 .addClassTab:hover {
     background: #E9F1F7;
     border: 5px solid #07112A;
+    transition: background 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out;
     width: 80%;
     display: flex;
     padding: 0.7rem;
@@ -174,4 +194,86 @@
 
 .plusSymbol {
     padding-top: 0.2rem;
+}
+
+.noClassLayout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7rem;
+}
+
+.noClassBox {
+    display: flex;
+    flex-direction: column;
+    height: 35rem;
+    width: 35rem;
+    border-radius: 100%;
+    justify-content: center;
+    color: #E9F1F7;
+    animation: moveShadow 10s linear infinite;
+}
+
+.noClassMessage {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.noClassMessage button {
+    background: #E9F1F7;
+    color: #182C64;
+    padding: 1.5rem;
+    border: 6px solid #5574ca;
+    border-radius: 15px;
+    font-size: 1.3rem;
+    transition: background 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.noClassMessage button:hover {
+    background: #182C64;
+    color: #E9F1F7;
+    padding: 1.5rem;
+    border: 6px solid #E9F1F7;
+    border-radius: 15px;
+    font-size: 1.3rem;
+    transition: background 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+@keyframes moveShadow {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    25% {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(180deg);
+    }
+    75% {
+        transform: translate(-50%, -50%) rotate(270deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes moveShadow {
+    0% {
+        box-shadow: 0 0 20px 0 rgba(255, 0, 0, 0.5), 0 0 40px 0 rgba(0, 255, 0, 0.5), 0 0 60px 0 rgba(0, 0, 255, 0.5);
+    }
+    25% {
+        box-shadow: 0 0 20px 0 rgba(0, 255, 0, 0.5), 0 0 40px 0 rgba(0, 0, 255, 0.5), 0 0 60px 0 rgba(255, 0, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px 0 rgba(0, 0, 255, 0.5), 0 0 40px 0 rgba(255, 0, 0, 0.5), 0 0 60px 0 rgba(0, 255, 0, 0.5);
+    }
+    75% {
+        box-shadow: 0 0 20px 0 rgba(255, 0, 0, 0.5), 0 0 40px 0 rgba(0, 255, 0, 0.5), 0 0 60px 0 rgba(0, 0, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 20px 0 rgba(255, 0, 0, 0.5), 0 0 40px 0 rgba(0, 255, 0, 0.5), 0 0 60px 0 rgba(0, 0, 255, 0.5);
+    }
 }

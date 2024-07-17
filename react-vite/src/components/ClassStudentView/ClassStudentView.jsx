@@ -48,8 +48,13 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
 
     const throttledFetchClasses = useCallback(throttle((data) => {
         if (data.type === 'delete') {
+            const prevIdx = currClassIdx - 1;
             setPrevClassIdx(currClassIdx);
-            setCurrClassIdx(0);
+            if (prevIdx < 0) {
+                setCurrClassIdx(0);
+            } else {
+                setCurrClassIdx(prevIdx)
+            }
         }
         dispatch(fetchAllStudentClassesThunk(sessionUser.id));
     }, 1000), [dispatch, sessionUser.id, currClassIdx]);
@@ -80,12 +85,12 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
             }
     
             socket.on('updateStudentClass', handleUpdateClass);
-            socket.on('updateClasses', handleUpdateClasses);
+            socket.on('updateStudentClasses', handleUpdateClasses);
             socket.on('updateMsgBoard', handleUpdateMsgBoard)
         
             return () => {
                 socket.off('updateStudentClass', handleUpdateClass);
-                socket.off('updateClasses', handleUpdateClasses);
+                socket.off('updateStudentClasses', handleUpdateClasses);
                 socket.off('updateMsgBoard', handleUpdateMsgBoard)
             };
         }, [dispatch, sessionUser.id, currClassIdx, currClass, debouncedFetchClass, throttledFetchClasses, throttledFetchMsgBoard])
@@ -102,14 +107,48 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
 
     if (classes.length < 1) {
         return (
-            <>
-                <h1>You have no classes</h1>
-                <OpenModalButton
-                    buttonText="Join a class now to get started!"
-                    modalComponent={<AddClassModal sessionUser={sessionUser} />}
-                />
-                <h3>{"If you're done with class,"} you can go ahead and {<OpenModalButton buttonText="sign out" modalComponent={<SignOutModal navigate={navigate} />}/>}</h3>
-            </>
+            <div className={`${styles.classLayout} ${sideBarOpen ? styles.shifted : ''}`}>
+                <div className={`${styles.sideBarButton} ${sideBarOpen ? styles.shifted : ''}`}>
+                    <GiHamburgerMenu onClick={toggleSideBar}/>
+                </div>
+                <div className={sideBarOpen ? styles.sideBarOpen : styles.sideBarClosed}>
+                    <div className={styles.sideBarList}>
+                        <div className={styles.aboveSignOut}>
+                            <div className={styles.classSettings}>
+                                <div className={styles.classSettingsButton}>
+                                    <ProfileButton role={sessionUser.role} navigate={navigate} noClass={true} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.classList}>
+                        <OpenModalButton buttonText={<div className={styles.addClassSection}><div className={styles.addClassTab} >Join a Class&nbsp;<div className={styles.plusSymbol}><FaPlus /></div></div> </div>} modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser}/>}/>
+                            {classes?.map((cls, index) => (
+                                <div key={cls?.id}>
+                                    {cls.class_name.length > 0 && <button className={currClassIdx === index ? styles.activeTab : styles.classTab} onClick={() => switchClass(index)}>{cls.class_name}</button>}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.navbar}>
+                    <div className={styles.navbarGreeting}>
+                        <div className={styles.navbarTop}>
+                            <h1>Hey there {first_name} {last_name}.</h1>
+                            <h2>You are currently signed in as a student!</h2>
+                        </div>
+                    </div>
+                    <div className={styles.noClassLayout}>
+                        <div className={styles.noClassBox}>
+                            <div className={styles.noClassMessage}>
+                                <h2>
+                                    {`Looks like you're solar system is empty.`}
+                                </h2>
+                                <OpenModalButton buttonText={<div>Join a Class to get started.</div>} modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser} />}/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         )
     }
 
@@ -126,15 +165,15 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
                                 <ProfileButton role={sessionUser.role} navigate={navigate} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} />
                             </div>
                         </div>
+                    </div>
                         <div className={styles.classList}>
-                            <OpenModalButton buttonText={<div className={styles.addClassSection}><div className={styles.addClassTab} >Join a Class&nbsp;<div className={styles.plusSymbol}><FaPlus /></div></div> </div>} modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser} studentClassId={currClass.id}/>}/>
+                            <OpenModalButton buttonText={<div className={styles.addClassSection}><div className={styles.addClassTab} >Join a Class&nbsp;<div className={styles.plusSymbol}><FaPlus /></div></div> </div>} modalComponent={<AddClassModal sessionUser={sessionUser} setCurrentUser={setCurrentUser}/>}/>
                             {classes?.map((cls, index) => (
                                 <div key={cls?.id}>
                                     <button className={currClassIdx === index ? styles.activeTab : styles.classTab} onClick={() => switchClass(index, cls.class_id, sessionUser.id)}>{cls.class_name}</button>
                                 </div>
                             ))}
                         </div>
-                    </div>
                 </div>
             </div>
             <div className={styles.navbar}>

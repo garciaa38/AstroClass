@@ -32,6 +32,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
 
         const errors = {};
         setFormErrors({});
+        setErrors({});
 
         if (whiteSpaceCheck(email)) {
             if (!email.split("@")[1]?.split(".")[1]) {
@@ -56,14 +57,15 @@ function StudentSignUp({classId, setAllStudentsState}) {
         } else {
             errors.lastName = "Please don't include spaces."
         }
-    
-        if (whiteSpaceCheck(password)) {
-            if (password !== confirmPassword) {
-                errors.confirmPassword = "Confirm Password field must be the same as the Password field"
-            }
-        } else {
+        
+        if (!whiteSpaceCheck(password)) {
             errors.password = "Please don't include spaces."
         }
+
+        if (password !== confirmPassword) {
+            errors.confirmPassword = "Confirm Password field must be the same as the Password field"
+        }
+        
 
         if (Object.keys(errors).length > 0) {
             setFormErrors(errors)
@@ -83,20 +85,29 @@ function StudentSignUp({classId, setAllStudentsState}) {
         console.log("SERVER RESPONSE", serverResponse)
     
         if (!serverResponse.id) {
-            setErrors(serverResponse);
+            const backEndErrors = {}
+            backEndErrors.email = "This email already exists."
+            setErrors(backEndErrors);
         } else {
-            await dispatch(addStudentToClassThunk(classId, serverResponse.id))
-            const res = await dispatch(fetchAllStudentsThunk())
-            await setAllStudentsState(res)
-            socket.emit('updateClass', { room: classId })
-            socket.emit('updateStudents', { room: classId })
-            closeModal();
+            const addStudentRes = await dispatch(addStudentToClassThunk(classId, serverResponse.id))
+            if (addStudentRes?.error) {
+                const backEndErrors = {}
+                backEndErrors.student = "Student already enrolled in class."
+                setErrors(backEndErrors);
+            } else {
+                closeModal();
+                const res = await dispatch(fetchAllStudentsThunk())
+                await setAllStudentsState(res)
+                socket.emit('updateClass', { room: classId })
+                socket.emit('updateStudents', { room: classId })
+            }
         }
     };
 
     return (
         <div className={styles.signUpFormLayout}>
         {errors.server && <p>{errors.server}</p>}
+        {errors.student && <p className="error">{errors.student}</p>}
         <form onSubmit={handleSubmit}>
             <label className={styles.formInput}>
                 Email
@@ -107,8 +118,8 @@ function StudentSignUp({classId, setAllStudentsState}) {
                 required
             />
             </label>
-            {errors.email && <p>{errors.email}</p>}
-            {formErrors.email && <p>{formErrors.email}</p>}
+            {errors.email && <p className="error">{errors.email}</p>}
+            {formErrors.email && <p className="error">{formErrors.email}</p>}
             <label className={styles.formInput}>
                 First Name
             <input
@@ -118,8 +129,8 @@ function StudentSignUp({classId, setAllStudentsState}) {
                 required
             />
             </label>
-            {errors.firstName && <p>{errors.firstName}</p>}
-            {formErrors.firstName && <p>{formErrors.firstName}</p>}
+            {errors.firstName && <p className="error">{errors.firstName}</p>}
+            {formErrors.firstName && <p className="error">{formErrors.firstName}</p>}
             <label className={styles.formInput}>
                 Last Name
             <input
@@ -129,8 +140,8 @@ function StudentSignUp({classId, setAllStudentsState}) {
                 required
             />
             </label>
-            {errors.lastName && <p>{errors.lastName}</p>}
-            {formErrors.lastName && <p>{formErrors.lastName}</p>}
+            {errors.lastName && <p className="error">{errors.lastName}</p>}
+            {formErrors.lastName && <p className="error">{formErrors.lastName}</p>}
             <label className={styles.formInput}>
                 Password
                 <input
@@ -140,8 +151,8 @@ function StudentSignUp({classId, setAllStudentsState}) {
                 required
             />
             </label>
-            {errors.password && <p>{errors.password}</p>}
-            {formErrors.password && <p>{formErrors.password}</p>}
+            {errors.password && <p className="error">{errors.password}</p>}
+            {formErrors.password && <p className="error">{formErrors.password}</p>}
             <label className={styles.formInput}>
                 Confirm Password
             <input
@@ -151,7 +162,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
                 required
             />
             </label>
-            {formErrors.confirmPassword && <p>{formErrors.confirmPassword}</p>}
+            {formErrors.confirmPassword && <p className="error">{formErrors.confirmPassword}</p>}
             <div className={styles.studentSignUpButton}>
                 <button type="submit">Sign Up</button>
             </div>

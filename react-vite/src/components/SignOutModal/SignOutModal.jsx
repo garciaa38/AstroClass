@@ -11,7 +11,6 @@ function SignOutModal({navigate}) {
         e.preventDefault();
         await dispatch(thunkLogout())
         navigate('/')
-        // window.location.href = '/';
         closeModal();
     };
 

@@ -66,6 +66,7 @@ function PostReaction({showReplies, setShowReplies, postId, post_reactions, sess
         <div className={styles.reactionLayout}>
             <div className={styles.reactionList}>
                 {reactionsFilter(post_reactions)?.map((post_reaction, index) => {
+                    console.log("POST REACTION", post_reaction)
                     return (
                         <div className={styles.emojiBox} key={index}>
                             <button onClick={() => handleReaction(post_reaction)}><div className={styles.emojiBoxContent}><div>{post_reaction[0]}</div><div>{post_reaction[1].count}</div></div></button>
@@ -77,7 +78,7 @@ function PostReaction({showReplies, setShowReplies, postId, post_reactions, sess
                 <div className={styles.addReactionButton}>
                     <OpenModalButton
                         buttonText={<div className={styles.reactButton}><div>React</div><MdAddReaction /></div>}
-                        modalComponent={<ReactionModal sessionUserId={sessionUserId} postId={postId} currMsgBoardId={currMsgBoardId} classId={classId} type="post"/>}
+                        modalComponent={<ReactionModal currReactions={reactionsFilter(post_reactions)} sessionUserId={sessionUserId} postId={postId} currMsgBoardId={currMsgBoardId} classId={classId} type="post"/>}
                     />
                 </div>
                 <div className={styles.addCommentButton}>

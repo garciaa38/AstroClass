@@ -11,7 +11,7 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal()
     const [name, setName] = useState("");
-    console.log("ALL STUDENTS", allStudents)
+    const [errors, setErrors] = useState({})
 
     const searchStudents = useMemo(() => {
         if (!name) return [];
@@ -39,18 +39,23 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
 
     const addStudent = async student => {
         console.log("ADDING STUDENT", student)
-        await dispatch(addStudentToClassThunk(classId, student.id))
-        const res = await dispatch(fetchAllStudentsThunk())
-        // console.log("FETCH STUDENTS after redux", res)
-        // await setAllStudentsState(res)
-        socket.emit('updateClass', { room: classId })
-        socket.emit('updateStudentClass', { room: classId })
-        socket.emit('updateStudents', { room: classId })
-        closeModal();
+        const addStudentRes = await dispatch(addStudentToClassThunk(classId, student.id))
+        if (addStudentRes?.error) {
+            const backEndErrors = {};
+            backEndErrors.student = "Student already enrolled in class."
+            setErrors(backEndErrors);
+        } else {
+            closeModal();
+            await dispatch(fetchAllStudentsThunk())
+            socket.emit('updateClass', { room: classId })
+            socket.emit('updateStudentClass', { room: classId })
+            socket.emit('updateStudents', { room: classId })
+        }
     }
 
     return (
         <div className={styles.studentSearchLayout}>
+            {errors.student && <p className="error">{errors.student}</p>}
             <form onSubmit={handleFormSubmit}>
                 <label>
                     <input

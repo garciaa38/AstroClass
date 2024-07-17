@@ -67,7 +67,7 @@ function PostReplyReaction({postReplyId, post_reply_reactions, sessionUserId, cu
             <div className={styles.addReactionButton}>
                 <OpenModalButton
                     buttonText={<div className={styles.reactButton}><div>React</div><MdAddReaction /></div>}
-                    modalComponent={<ReactionModal sessionUserId={sessionUserId} postId={postReplyId} currMsgBoardId={currMsgBoardId} classId={classId} type="postReply"/>}
+                    modalComponent={<ReactionModal currReactions={reactionsFilter(post_reply_reactions)} sessionUserId={sessionUserId} postId={postReplyId} currMsgBoardId={currMsgBoardId} classId={classId} type="postReply"/>}
                 />
             </div>
         </div>

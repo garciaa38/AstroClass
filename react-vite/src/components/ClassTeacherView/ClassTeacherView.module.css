@@ -85,7 +85,6 @@
 .sideBarList {
     display: flex;
     flex-direction: column;
-    padding-top: 5%;
     padding-left: 5%;
     gap: 42rem;
     justify-content: space-between;
@@ -99,6 +98,7 @@
     border-radius: 15px;
     z-index: 1001;
     padding-bottom: 2rem;
+    margin-top: 0.5rem;
 }
 
 .aboveSignOut {
@@ -198,4 +198,86 @@
 
 .plusSymbol {
     padding-top: 0.2rem;
+}
+
+.noClassLayout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7rem;
+}
+
+.noClassBox {
+    display: flex;
+    flex-direction: column;
+    height: 35rem;
+    width: 35rem;
+    border-radius: 100%;
+    justify-content: center;
+    color: #E9F1F7;
+    animation: moveShadow 10s linear infinite;
+}
+
+.noClassMessage {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.noClassMessage button {
+    background: #E9F1F7;
+    color: #182C64;
+    padding: 1.5rem;
+    border: 6px solid #5574ca;
+    border-radius: 15px;
+    font-size: 1.3rem;
+    transition: background 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.noClassMessage button:hover {
+    background: #182C64;
+    color: #E9F1F7;
+    padding: 1.5rem;
+    border: 6px solid #E9F1F7;
+    border-radius: 15px;
+    font-size: 1.3rem;
+    transition: background 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+@keyframes moveShadow {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    25% {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(180deg);
+    }
+    75% {
+        transform: translate(-50%, -50%) rotate(270deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes moveShadow {
+    0% {
+        box-shadow: 0 0 20px 0 rgba(255, 0, 0, 0.5), 0 0 40px 0 rgba(0, 255, 0, 0.5), 0 0 60px 0 rgba(0, 0, 255, 0.5);
+    }
+    25% {
+        box-shadow: 0 0 20px 0 rgba(0, 255, 0, 0.5), 0 0 40px 0 rgba(0, 0, 255, 0.5), 0 0 60px 0 rgba(255, 0, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px 0 rgba(0, 0, 255, 0.5), 0 0 40px 0 rgba(255, 0, 0, 0.5), 0 0 60px 0 rgba(0, 255, 0, 0.5);
+    }
+    75% {
+        box-shadow: 0 0 20px 0 rgba(255, 0, 0, 0.5), 0 0 40px 0 rgba(0, 255, 0, 0.5), 0 0 60px 0 rgba(0, 0, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 20px 0 rgba(255, 0, 0, 0.5), 0 0 40px 0 rgba(0, 255, 0, 0.5), 0 0 60px 0 rgba(0, 0, 255, 0.5);
+    }
 }

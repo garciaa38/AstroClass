@@ -18,8 +18,9 @@ function EditPlanet({ studentClassId, classId, planet }) {
         }
         
         await dispatch(editPlanetThunk(studentClassId, newPlanet))
-        socket.emit('updateClasses', {room: classId, type: 'edit'})
         closeModal()
+        socket.emit('updateStudentClasses', {room: classId, type: 'edit'});
+        socket.emit('updateClasses', {room: classId, type: 'edit'});
     }
     
     return (

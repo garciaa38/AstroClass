@@ -3,6 +3,7 @@
     flex-direction: column;
     padding-top: 3%;
     align-items: center;
+    height: 20%;
     /* background: rgb(14, 13, 13); */
 }
 
@@ -46,13 +47,24 @@
     top: 100%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: revolve 10s linear infinite;
+    opacity: 0;
+    animation: revolve 10s linear infinite, fadeIn 0.3s forwards;
+
 }
 
 .bigStar {
     width: 1rem;
     height: 1rem;
     background: rgb(247, 180, 55);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes revolve {

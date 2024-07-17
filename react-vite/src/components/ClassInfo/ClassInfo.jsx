@@ -65,7 +65,7 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
                                                             (index + 1) % 10 === 0 ? styles.bigStar : ''
                                                         }`}
                                                         style={{
-                                                            animationDelay: `${index * 0.3}s`,
+                                                            animationDelay: `${index * 0.3}s`
                                                         }}
                                                     ></div>
                                                 ))}

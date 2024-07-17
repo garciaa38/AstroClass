@@ -27,6 +27,10 @@ function AddPostReplyForm({currPost, currMsgBoard, sessionUser}) {
             if (newPostReply.length <= 0) {
                 errors.newPostReply = "Cannot send an empty reply."
             }
+
+            if (newPostReply.length > 250) {
+                errors.newPostReply = "Reply cannot be longer than 250 characters."
+            }
         } else {
             errors.newPostReply = "Cannot send an empty reply."
         }

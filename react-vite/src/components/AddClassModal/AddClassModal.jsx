@@ -9,12 +9,13 @@ import { addMessageBoardThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
 import styles from './AddClassModal.module.css';
 
-function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
+function AddClassModal({sessionUser, setCurrentUser, classId}) {
     const dispatch = useDispatch()
     const [className, setClassName] = useState("");
     const [subject, setSubject] = useState("");
     const [studentInviteCode, setStudentInviteCode] = useState("");
-    const [planet, setPlanet] = useState('Any')
+    const [planet, setPlanet] = useState('Any');
+    const [errors, setErrors] = useState({})
     const [formErrors, setFormErrors] = useState({});
     const { closeModal } = useModal()
 
@@ -30,7 +31,8 @@ function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
         e.preventDefault()
 
         const errors = {};
-        setFormErrors({})
+        setFormErrors({});
+        setErrors({});
         
         if (sessionUser.role === 'teacher') {
             if (stringTrim(className)) {
@@ -75,25 +77,38 @@ function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
             classId: res.id,
             permission: "teacher_only"
         }
+        closeModal()
         await dispatch(addMessageBoardThunk(newMessageBoard))
         socket.emit('updateClasses', {room: classId, type: 'add'})
-        closeModal()
+        socket.emit('updateStudentClasses', {room: classId, type: 'add'})
     }
 
     const joinClass = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        setErrors({});
+        setFormErrors({});
 
         const inviteCode = {
             class_code: studentInviteCode,
             planet
         }
 
-        await dispatch(studentJoinClassThunk(sessionUser.id, inviteCode))
-        const currentUser = await dispatch(fetchCurrentUser())
-        console.log("CURRENT STUDENT after joining class", currentUser)
-        await setCurrentUser(currentUser)
-        socket.emit('updateClasses', {room: classId, type: 'add'})
-        closeModal()
+        const serverResponse = await dispatch(studentJoinClassThunk(sessionUser.id, inviteCode))
+        console.log("Are we getting SERVER RES", serverResponse)
+
+
+        if (serverResponse?.error) {
+            const backEndErrors = {};
+            backEndErrors.studentInviteCode = serverResponse.error
+            setErrors(backEndErrors)
+        } else {
+            closeModal()
+            const currentUser = await dispatch(fetchCurrentUser())
+            await setCurrentUser(currentUser)
+            socket.emit('updateClasses', {room: classId, type: 'add'})
+            socket.emit('updateStudentClasses', {room: classId, type: 'add'})
+        }
+
     }
 
     if (sessionUser.role === 'teacher') {
@@ -142,6 +157,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId, studentClassId}) {
                         />
                     </label>
                     {formErrors.studentInviteCode && <p className="error">{formErrors.studentInviteCode}</p>}
+                    {errors.studentInviteCode && <p className="error">{errors.studentInviteCode}</p>}
                     <label className={styles.planetSelect}>
                         Select a planet
                         <select name="planets" id="planets" value={planet} onChange={(e) => setPlanet(e.target.value)}>
