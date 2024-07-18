@@ -71,13 +71,13 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         }
 
         
+        closeModal()
         const res = await dispatch(addNewClassThunk(sessionUser.id, newClass));
         console.log("ADDING CLASS", res.id)
         const newMessageBoard = {
             classId: res.id,
             permission: "teacher_only"
         }
-        closeModal()
         await dispatch(addMessageBoardThunk(newMessageBoard))
         socket.emit('updateClasses', {room: classId, type: 'add'})
         socket.emit('updateStudentClasses', {room: classId, type: 'add'})
