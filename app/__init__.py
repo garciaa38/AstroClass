@@ -150,7 +150,7 @@ def handle_class(data):
         print(f"Error in updateClass: {e}")
 
 @socketio.on('updateStudentClass')
-def handle_class(data):
+def handle_student_class(data):
     try:
         print("UPDATE CLASS", data)
         room = data.get('room')
