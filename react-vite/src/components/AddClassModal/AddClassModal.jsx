@@ -3,11 +3,11 @@ import { useDispatch } from "react-redux";
 import { addNewClassThunk } from "../../redux/classes";
 import { useModal } from "../../context/Modal";
 import { studentJoinClassThunk } from "../../redux/classes";
-import { editPlanetThunk } from "../../redux/classes";
+// import { editPlanetThunk } from "../../redux/classes";
 import { fetchCurrentUser } from "../../redux/session";
 import { addMessageBoardThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
-import ClipLoader from "react-spinners/ClipLoader";
+// import ClipLoader from "react-spinners/ClipLoader";
 import styles from './AddClassModal.module.css';
 
 function AddClassModal({sessionUser, setCurrentUser, classId}) {
@@ -18,7 +18,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
     const [planet, setPlanet] = useState('Any');
     const [errors, setErrors] = useState({})
     const [formErrors, setFormErrors] = useState({});
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const { closeModal } = useModal()
 
     const stringTrim = (string) => {
@@ -35,7 +35,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         const errors = {};
         setFormErrors({});
         setErrors({});
-        setLoading(false);
+        // setLoading(false);
         
         if (sessionUser.role === 'teacher') {
             if (stringTrim(className)) {
@@ -75,7 +75,8 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         }
         
         
-        setLoading(true);
+        // setLoading(true);
+        closeModal()
         const res = await dispatch(addNewClassThunk(sessionUser.id, newClass));
         console.log("ADDING CLASS", res.id)
         const newMessageBoard = {
@@ -85,7 +86,6 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         await dispatch(addMessageBoardThunk(newMessageBoard))
         socket.emit('updateClasses', {room: classId, type: 'add'})
         socket.emit('updateStudentClasses', {room: classId, type: 'add'})
-        closeModal()
     }
 
     const joinClass = async (e) => {
@@ -117,11 +117,11 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
     }
 
     if (sessionUser.role === 'teacher') {
-        if (loading) {
-            return (
-                <ClipLoader />
-            )
-        } else {
+        // if (loading) {
+        //     return (
+        //         <ClipLoader />
+        //     )
+        // } else {
             return (
                 <div className={styles.addClassFormLayout}>
                     <h1>Add A New Class!</h1>
@@ -152,13 +152,13 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
                     </form>
                 </div>
             )
-        }
+        // }
     } else if (sessionUser.role === 'student') {
-        if (loading) {
-            return (
-                <ClipLoader />
-            )
-        } else {
+        // if (loading) {
+        //     return (
+        //         <ClipLoader />
+        //     )
+        // } else {
             return (
                 <div className={styles.joinClassFormLayout}>
                     <h1>Enter class code below</h1>
@@ -196,7 +196,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
                 </div>
             )
         }
-    }
+    // }
 }
 
 export default AddClassModal;
