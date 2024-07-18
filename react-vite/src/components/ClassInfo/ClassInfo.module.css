@@ -31,8 +31,8 @@
 
 .starsContainer {
     position: relative;
-    width: 10rem;
-    height: 1rem;
+    width: 9rem;
+    height: 1.5rem;
     border-radius: 50%;
     overflow: visible;
     padding-top: 2rem;
@@ -69,10 +69,10 @@
 
 @keyframes revolve {
     0% {
-        transform: translate(-50%, -50%) rotate(0deg) translateX(7rem); /* Adjust distance if needed */
+        transform: translate(-50%, -50%) rotate(0deg) translateX(6rem); /* Adjust distance if needed */
     }
     100% {
-        transform: translate(-50%, -50%) rotate(360deg) translateX(7rem); /* Adjust distance if needed */
+        transform: translate(-50%, -50%) rotate(360deg) translateX(6rem); /* Adjust distance if needed */
     }
 }
 

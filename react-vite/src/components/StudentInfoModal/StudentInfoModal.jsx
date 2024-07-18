@@ -13,7 +13,7 @@ import { useModal } from "../../context/Modal";
 import { socket } from "../../socket";
 import styles from './StudentInfoModal.module.css'
 
-function StudentInfoModal({student, classId, rewards, feedback, allStudentsState, setAllStudentsState}) {
+function StudentInfoModal({sessionUser, student, classId, rewards, feedback, allStudentsState, setAllStudentsState}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const {first_name, last_name, email, points, id: studentId, student_class_id} = student;
@@ -95,7 +95,7 @@ function StudentInfoModal({student, classId, rewards, feedback, allStudentsState
     } else if (editStudentInfoAppear) {
         return (
             <>
-                <EditStudentForm student={student} classId={classId} setAllStudentsState={setAllStudentsState}/>
+                <EditStudentForm sessionUser={sessionUser} student={student} classId={classId} setAllStudentsState={setAllStudentsState}/>
             </>
         )
     } else if (deleteModalAppear) {

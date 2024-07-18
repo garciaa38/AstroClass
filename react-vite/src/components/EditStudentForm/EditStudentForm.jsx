@@ -6,7 +6,7 @@ import { useModal } from "../../context/Modal";
 import { socket } from "../../socket";
 import styles from "./EditStudentForm.module.css";
 
-function EditStudentForm({student, classId, setAllStudentsState}) {
+function EditStudentForm({sessionUser, student, classId, setAllStudentsState}) {
     // console.log("EDIT STUDENT", student)
     const dispatch = useDispatch()
     const { closeModal } = useModal()
@@ -62,7 +62,7 @@ function EditStudentForm({student, classId, setAllStudentsState}) {
         socket.emit('updateClass', { room: classId })
         socket.emit('updateStudentClass', { room: classId })
         socket.emit('updateStudents', { room: classId })
-        await dispatch(editStudentInfoThunk(updateStudent, classId ))
+        await dispatch(editStudentInfoThunk(updateStudent, classId, sessionUser.id))
 
     }
 

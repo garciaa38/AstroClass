@@ -154,6 +154,7 @@ class StudentClass(db.Model):
             'student_id': self.student_id,
             'class_id': self.class_id,
             'class_name': class_data.class_name if class_data else None,
+            'subject': class_data.subject if class_data else None,
             'points': self.points,
             'planet': self.planet,
             'created_at': self.created_at,
