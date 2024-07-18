@@ -81,7 +81,7 @@ class Class(db.Model):
     subject = db.Column(db.String(20), nullable=False)
     student_invite_code = db.Column(db.String(255), nullable=False)
     parent_invite_code = db.Column(db.String(255), nullable=False)
-    teacher_id = db.Column(db.Integer, db.ForeignKey(ondelete="CASCADE"), nullable=False)
+    teacher_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
