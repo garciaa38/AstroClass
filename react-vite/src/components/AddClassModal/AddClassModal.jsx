@@ -7,6 +7,7 @@ import { editPlanetThunk } from "../../redux/classes";
 import { fetchCurrentUser } from "../../redux/session";
 import { addMessageBoardThunk } from "../../redux/messageBoard";
 import { socket } from "../../socket";
+import ClipLoader from "react-spinners/ClipLoader";
 import styles from './AddClassModal.module.css';
 
 function AddClassModal({sessionUser, setCurrentUser, classId}) {
@@ -17,6 +18,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
     const [planet, setPlanet] = useState('Any');
     const [errors, setErrors] = useState({})
     const [formErrors, setFormErrors] = useState({});
+    const [loading, setLoading] = useState(false);
     const { closeModal } = useModal()
 
     const stringTrim = (string) => {
@@ -33,6 +35,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         const errors = {};
         setFormErrors({});
         setErrors({});
+        setLoading(false);
         
         if (sessionUser.role === 'teacher') {
             if (stringTrim(className)) {
@@ -65,13 +68,14 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
             return;
         }
 
+        
         const newClass = {
             class_name: className,
             subject
         }
-
         
-        closeModal()
+        
+        setLoading(true);
         const res = await dispatch(addNewClassThunk(sessionUser.id, newClass));
         console.log("ADDING CLASS", res.id)
         const newMessageBoard = {
@@ -81,6 +85,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         await dispatch(addMessageBoardThunk(newMessageBoard))
         socket.emit('updateClasses', {room: classId, type: 'add'})
         socket.emit('updateStudentClasses', {room: classId, type: 'add'})
+        closeModal()
     }
 
     const joinClass = async (e) => {
@@ -112,74 +117,85 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
     }
 
     if (sessionUser.role === 'teacher') {
-        return (
-            <div className={styles.addClassFormLayout}>
-                <h1>Add A New Class!</h1>
-                <form onSubmit={handleSubmit}>
-                    <label className={styles.formInput}>
-                        Class Name
-                        <input
-                            type="text"
-                            value={className}
-                            onChange={(e) => setClassName(e.target.value)}
-                            required
-                        />
-                    </label>
-                    {formErrors.className && <p className="error">{formErrors.className}</p>}
-                    <label className={styles.formInput}>
-                        Subject
-                        <input
-                            type="text"
-                            value={subject}
-                            onChange={(e) => setSubject(e.target.value)}
-                            required
-                        />
-                    </label>
-                    {formErrors.subject && <p className="error">{formErrors.subject}</p>}
-                    <div className={styles.addClassButton}>
-                        <button type="submit">Create Class</button>
-                    </div>
-                </form>
-            </div>
-        )
+        if (loading) {
+            return (
+                <ClipLoader />
+            )
+        } else {
+            return (
+                <div className={styles.addClassFormLayout}>
+                    <h1>Add A New Class!</h1>
+                    <form onSubmit={handleSubmit}>
+                        <label className={styles.formInput}>
+                            Class Name
+                            <input
+                                type="text"
+                                value={className}
+                                onChange={(e) => setClassName(e.target.value)}
+                                required
+                            />
+                        </label>
+                        {formErrors.className && <p className="error">{formErrors.className}</p>}
+                        <label className={styles.formInput}>
+                            Subject
+                            <input
+                                type="text"
+                                value={subject}
+                                onChange={(e) => setSubject(e.target.value)}
+                                required
+                            />
+                        </label>
+                        {formErrors.subject && <p className="error">{formErrors.subject}</p>}
+                        <div className={styles.addClassButton}>
+                            <button type="submit">Create Class</button>
+                        </div>
+                    </form>
+                </div>
+            )
+        }
     } else if (sessionUser.role === 'student') {
-        return (
-            <div className={styles.joinClassFormLayout}>
-                <h1>Enter class code below</h1>
-                <form onSubmit={joinClass}>
-                    <label className={styles.formInput}>
-                        <input
-                            type="text"
-                            placeholder="Class Code"
-                            value={studentInviteCode}
-                            onChange={(e) => setStudentInviteCode(e.target.value)}
-                            required
-                        />
-                    </label>
-                    {formErrors.studentInviteCode && <p className="error">{formErrors.studentInviteCode}</p>}
-                    {errors.studentInviteCode && <p className="error">{errors.studentInviteCode}</p>}
-                    <label className={styles.planetSelect}>
-                        Select a planet
-                        <select name="planets" id="planets" value={planet} onChange={(e) => setPlanet(e.target.value)}>
-                            <option value="Any">Any</option>
-                            <option value="mercury">Mercury</option>
-                            <option value="venus">Venus</option>
-                            <option value="earth">Earth</option>
-                            <option value="mars">Mars</option>
-                            <option value="jupiter">Jupiter</option>
-                            <option value="saturn">Saturn</option>
-                            <option value="uranus">Uranus</option>
-                            <option value="neptune">Neptune</option>
-                            <option value="pluto">Pluto</option>
-                        </select>
-                    </label>
-                    <div className={styles.addClassButton}>
-                        <button type="submit">Join Class</button>
-                    </div>
-                </form>
-            </div>
-        )
-    
+        if (loading) {
+            return (
+                <ClipLoader />
+            )
+        } else {
+            return (
+                <div className={styles.joinClassFormLayout}>
+                    <h1>Enter class code below</h1>
+                    <form onSubmit={joinClass}>
+                        <label className={styles.formInput}>
+                            <input
+                                type="text"
+                                placeholder="Class Code"
+                                value={studentInviteCode}
+                                onChange={(e) => setStudentInviteCode(e.target.value)}
+                                required
+                            />
+                        </label>
+                        {formErrors.studentInviteCode && <p className="error">{formErrors.studentInviteCode}</p>}
+                        {errors.studentInviteCode && <p className="error">{errors.studentInviteCode}</p>}
+                        <label className={styles.planetSelect}>
+                            Select a planet
+                            <select name="planets" id="planets" value={planet} onChange={(e) => setPlanet(e.target.value)}>
+                                <option value="Any">Any</option>
+                                <option value="mercury">Mercury</option>
+                                <option value="venus">Venus</option>
+                                <option value="earth">Earth</option>
+                                <option value="mars">Mars</option>
+                                <option value="jupiter">Jupiter</option>
+                                <option value="saturn">Saturn</option>
+                                <option value="uranus">Uranus</option>
+                                <option value="neptune">Neptune</option>
+                                <option value="pluto">Pluto</option>
+                            </select>
+                        </label>
+                        <div className={styles.addClassButton}>
+                            <button type="submit">Join Class</button>
+                        </div>
+                    </form>
+                </div>
+            )
+        }
     }
 }
 
