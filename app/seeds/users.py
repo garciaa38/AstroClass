@@ -860,7 +860,7 @@ def seed_data():
         subject='Math',
         student_invite_code='4dDxP5dl',
         parent_invite_code='kL4hKiGu',
-        teacher_id=1
+        teacher_id=demo_teacher_1.id
     )
 
     demo_class_2 = Class(
@@ -869,7 +869,7 @@ def seed_data():
         subject='Reading',
         student_invite_code='NmhbVKZF',
         parent_invite_code='QqGHDK33',
-        teacher_id=2
+        teacher_id=demo_teacher_2.id
     )
 
     demo_class_3 = Class(
@@ -878,7 +878,7 @@ def seed_data():
         subject='Math',
         student_invite_code='4dDxP5dl',
         parent_invite_code='kL4hKiGu',
-        teacher_id=1
+        teacher_id=demo_teacher_1.id
     )
 
     db.session.add(demo_class_1)
@@ -887,106 +887,106 @@ def seed_data():
     db.session.commit()
 
     demo_student_class_1 = StudentClass(
-        student_id=3,
-        class_id=1,
+        student_id=demo_student_1.id,
+        class_id=demo_class_1.id,
         planet='mercury',
         points=10
     )
 
     demo_student_class_2 = StudentClass(
-        student_id=5,
-        class_id=1,
+        student_id=demo_student_2.id,
+        class_id=demo_class_1.id,
         planet='earth',
         points=9
     )
 
     demo_student_class_3 = StudentClass(
-        student_id=7,
-        class_id=1,
+        student_id=demo_student_3.id,
+        class_id=demo_class_1.id,
         planet='mars',
         points=8
     )
 
     demo_student_class_4 = StudentClass(
-        student_id=9,
-        class_id=1,
+        student_id=demo_student_4.id,
+        class_id=demo_class_1.id,
         planet='venus',
         points=7
     )
 
     demo_student_class_5 = StudentClass(
-        student_id=11,
-        class_id=1,
+        student_id=demo_student_5.id,
+        class_id=demo_class_1.id,
         planet='jupiter',
         points=6
     )
 
     demo_student_class_6 = StudentClass(
-        student_id=4,
-        class_id=2,
+        student_id=demo_student_6.id,
+        class_id=demo_class_2.id,
         planet='uranus',
         points=5
     )
 
     demo_student_class_7 = StudentClass(
-        student_id=6,
-        class_id=2,
+        student_id=demo_student_7.id,
+        class_id=demo_class_2.id,
         planet='pluto',
         points=4
     )
 
     demo_student_class_8 = StudentClass(
-        student_id=8,
-        class_id=2,
+        student_id=demo_student_8.id,
+        class_id=demo_class_2.id,
         planet='saturn',
         points=3
     )
 
     demo_student_class_9 = StudentClass(
-        student_id=10,
-        class_id=2,
+        student_id=demo_student_9.id,
+        class_id=demo_class_2.id,
         planet='neptune',
         points=2
     )
 
     demo_student_class_10 = StudentClass(
-        student_id=12,
-        class_id=2,
+        student_id=demo_student_10.id,
+        class_id=demo_class_2.id,
         planet='uranus',
         points=1
     )
 
     demo_student_class_11 = StudentClass(
-        student_id=4,
-        class_id=3,
+        student_id=demo_student_11.id,
+        class_id=demo_class_3.id,
         planet='earth',
         points=5
     )
 
     demo_student_class_12 = StudentClass(
-        student_id=6,
-        class_id=3,
+        student_id=demo_student_12.id,
+        class_id=demo_class_3.id,
         planet='jupiter',
         points=4
     )
 
     demo_student_class_13 = StudentClass(
-        student_id=8,
-        class_id=3,
+        student_id=demo_student_13.id,
+        class_id=demo_class_3.id,
         planet='pluto',
         points=3
     )
 
     demo_student_class_14 = StudentClass(
-        student_id=10,
-        class_id=3,
+        student_id=demo_student_14.id,
+        class_id=demo_class_3.id,
         planet='mars',
         points=2
     )
 
     demo_student_class_15 = StudentClass(
-        student_id=12,
-        class_id=3,
+        student_id=demo_student_15.id,
+        class_id=demo_class_3.id,
         planet='mercury',
         points=1
     )
