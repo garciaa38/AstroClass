@@ -1,7 +1,7 @@
 .editStudentFormLayout {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding: 2rem 5rem 2rem 5rem;
     align-items: center;
 }
 

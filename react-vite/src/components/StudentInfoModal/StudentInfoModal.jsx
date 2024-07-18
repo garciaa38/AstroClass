@@ -100,7 +100,7 @@ function StudentInfoModal({sessionUser, student, classId, rewards, feedback, all
         )
     } else if (deleteModalAppear) {
         return (
-            <div className={styles.studentInfoLayout}>
+            <div className={styles.deleteStudentInfoLayout}>
                 <h1>Are you sure you want to remove this student?</h1>
                 <div className={styles.studentInfoButtons}>
                     <button className={styles.removeStudentButton} onClick={() => removeStudent(student_class_id)}>Yes</button>

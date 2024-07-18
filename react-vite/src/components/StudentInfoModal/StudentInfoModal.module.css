@@ -6,6 +6,14 @@
     width: auto;
 }
 
+.deleteStudentInfoLayout {
+    padding: 2rem 5rem 2rem 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+}
+
 .studentInfoTop {
     display: flex;
     flex-direction: column;
