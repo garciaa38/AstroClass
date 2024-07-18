@@ -60,7 +60,7 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
     }, 1000), [dispatch, sessionUser.id, currClassIdx]);
 
     const throttledFetchMsgBoard = useCallback(throttle((data) => {
-        dispatch(fetchMessageBoardThunk(data['room']))
+        dispatch(fetchMessageBoardThunk(data.room))
     }))
 
     useEffect(() => {
