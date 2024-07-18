@@ -957,35 +957,35 @@ def seed_data():
     )
 
     demo_student_class_11 = StudentClass(
-        student_id=demo_student_11.id,
+        student_id=demo_student_6.id,
         class_id=demo_class_3.id,
         planet='earth',
         points=5
     )
 
     demo_student_class_12 = StudentClass(
-        student_id=demo_student_12.id,
+        student_id=demo_student_7.id,
         class_id=demo_class_3.id,
         planet='jupiter',
         points=4
     )
 
     demo_student_class_13 = StudentClass(
-        student_id=demo_student_13.id,
+        student_id=demo_student_8.id,
         class_id=demo_class_3.id,
         planet='pluto',
         points=3
     )
 
     demo_student_class_14 = StudentClass(
-        student_id=demo_student_14.id,
+        student_id=demo_student_9.id,
         class_id=demo_class_3.id,
         planet='mars',
         points=2
     )
 
     demo_student_class_15 = StudentClass(
-        student_id=demo_student_15.id,
+        student_id=demo_student_10.id,
         class_id=demo_class_3.id,
         planet='mercury',
         points=1
@@ -1011,49 +1011,49 @@ def seed_data():
     hard_working_1 = Reward(
         reward_type="Hard Working",
         points=3,
-        class_id=1
+        class_id=demo_class_1.id
     )
 
     kind_to_others_1 = Reward(
         reward_type="Kind to others",
         points=3,
-        class_id=1
+        class_id=demo_class_1.id
     )
 
     completed_homework_1 = Reward(
         reward_type="Completed Homework",
         points=3,
-        class_id=1
+        class_id=demo_class_1.id
     )
 
     test_passed_1 = Reward(
         reward_type="Completed Homework",
         points=3,
-        class_id=1
+        class_id=demo_class_1.id
     )
 
     hard_working_2 = Reward(
         reward_type="Hard Working",
         points=3,
-        class_id=2
+        class_id=demo_class_2.id
     )
 
     kind_to_others_2 = Reward(
         reward_type="Kind to others",
         points=3,
-        class_id=2
+        class_id=demo_class_2.id
     )
 
     completed_homework_2 = Reward(
         reward_type="Completed Homework",
         points=3,
-        class_id=2
+        class_id=demo_class_2.id
     )
 
     test_passed_2 = Reward(
         reward_type="Completed Homework",
         points=3,
-        class_id=2
+        class_id=demo_class_2.id
     )
 
     db.session.add(hard_working_1)
@@ -1069,37 +1069,37 @@ def seed_data():
     lack_of_effort_1 = Feedback(
         feedback_type="Lack of Effort",
         points=-1,
-        class_id=1,
+        class_id=demo_class_1.id,
     )
 
     lack_of_effort_2 = Feedback(
         feedback_type="Lack of Effort",
         points=-1,
-        class_id=2,
+        class_id=demo_class_2.id,
     )
 
     missing_homework_1 = Feedback(
         feedback_type="Missing Homework",
         points=-2,
-        class_id=1,
+        class_id=demo_class_1.id,
     )
 
     missing_homework_2 = Feedback(
         feedback_type="Missing Homework",
         points=-2,
-        class_id=2,
+        class_id=demo_class_2.id,
     )
 
     disrupting_class_1 = Feedback(
         feedback_type="Disruptive Behavior",
         points=-3,
-        class_id=1,
+        class_id=demo_class_1.id,
     )
 
     disrupting_class_2 = Feedback(
         feedback_type="Disruptive Behavior",
         points=-3,
-        class_id=2,
+        class_id=demo_class_2.id,
     )
 
     db.session.add(lack_of_effort_1)
@@ -1112,17 +1112,17 @@ def seed_data():
 
     message_board_class_1 = MessageBoard(
         permission="teacher_and_student",
-        class_id=1
+        class_id=demo_class_1.id
     )
 
     message_board_class_2 = MessageBoard(
         permission="teacher_only",
-        class_id=2
+        class_id=demo_class_2.id
     )
 
     message_board_class_3 = MessageBoard(
         permission="students_partial",
-        class_id=3
+        class_id=demo_class_3.id
     )
 
     db.session.add(message_board_class_1)
@@ -1133,37 +1133,37 @@ def seed_data():
     post_1_message_board_1 = Post(
         text_field="Good morning class! Ready for another awesome day of school?",
         user_id=1,
-        message_board_id=1
+        message_board_id=message_board_class_1.id
     )
 
     post_2_message_board_1 = Post(
         text_field="What's your favorite fortnite skin?",
-        user_id=1,
-        message_board_id=1
+        user_id=demo_teacher_1.id,
+        message_board_id=message_board_class_1.id
     )
 
     post_1_message_board_2 = Post(
         text_field="Make sure to complete today's homework class!",
-        user_id=2,
-        message_board_id=2
+        user_id=demo_teacher_2.id,
+        message_board_id=message_board_class_2.id
     )
 
     post_2_message_board_2 = Post(
         text_field="Don't forget to bring in picture day money for tomorrow",
-        user_id=2,
-        message_board_id=2
+        user_id=demo_teacher_2.id,
+        message_board_id=message_board_class_2.id
     )
 
     post_1_message_board_3 = Post(
         text_field="Hope everyone had a great weekend! We'll be having presentations today after lunch, so make sure you're prepared.",
-        user_id=1,
-        message_board_id=3
+        user_id=demo_teacher_1.id,
+        message_board_id=message_board_class_3.id
     )
 
     post_2_message_board_3 = Post(
         text_field="Remember that we're off this Thursday!",
-        user_id=1,
-        message_board_id=3
+        user_id=demo_teacher_1.id,
+        message_board_id=message_board_class_3.id
     )
 
     db.session.add(post_1_message_board_1)
@@ -1176,50 +1176,50 @@ def seed_data():
 
     post_reply_1_post_1 = PostReply(
         text_field="Hellooooo",
-        user_id=3,
-        post_id=1
+        user_id=demo_student_1.id,
+        post_id=post_1_message_board_1.id
     )
 
     post_reply_2_post_1 = PostReply(
         text_field="Not really but w/e",
-        user_id=5,
-        post_id=1
+        user_id=demo_student_3.id,
+        post_id=post_1_message_board_1.id
     )
 
     post_reply_1_post_2 = PostReply(
         text_field="John Cena, duh",
-        user_id=3,
-        post_id=2
+        user_id=demo_student_1.id,
+        post_id=post_2_message_board_1.id
     )
 
     post_reply_2_post_2 = PostReply(
         text_field="I like the banana",
-        user_id=7,
-        post_id=2
+        user_id=demo_student_5.id,
+        post_id=post_2_message_board_1.id
     )
 
     post_reply_1_post_5 = PostReply(
         text_field="I'M NERVOUS",
-        user_id=4,
-        post_id=5
+        user_id=demo_student_2.id,
+        post_id=post_1_message_board_3.id
     )
 
     post_reply_2_post_5 = PostReply(
         text_field="oh no, I forgot...",
-        user_id=8,
-        post_id=5
+        user_id=demo_student_6.id,
+        post_id=post_1_message_board_3.id
     )
 
     post_reply_1_post_6 = PostReply(
         text_field="YAY NO SCHOOL",
-        user_id=6,
-        post_id=6
+        user_id=demo_student_4.id,
+        post_id=post_2_message_board_3.id
     )
 
     post_reply_2_post_6 = PostReply(
         text_field="Anyone else going to be playing roblox this weekend?",
-        user_id=10,
-        post_id=6
+        user_id=demo_student_8.id,
+        post_id=post_2_message_board_3.id
     )
 
     db.session.add(post_reply_1_post_1)
@@ -1234,50 +1234,50 @@ def seed_data():
 
     post_reaction_1_post_1 = PostReaction(
         emoji="😀",
-        user_id=7,
-        post_id=1
+        user_id=demo_student_5.id,
+        post_id=post_1_message_board_1.id
     )
 
     post_reaction_2_post_1 = PostReaction(
         emoji="😩",
-        user_id=9,
-        post_id=1
+        user_id=demo_student_7.id,
+        post_id=post_1_message_board_1.id
     )
 
     post_reaction_1_post_2 = PostReaction(
         emoji="🤪",
-        user_id=5,
-        post_id=2
+        user_id=demo_student_3.id,
+        post_id=post_2_message_board_1.id
     )
 
     post_reaction_2_post_2 = PostReaction(
         emoji="😱",
-        user_id=3,
-        post_id=2
+        user_id=demo_student_1.id,
+        post_id=post_2_message_board_1.id
     )
 
     post_reaction_1_post_5 = PostReaction(
         emoji="😭",
-        user_id=6,
-        post_id=5
+        user_id=demo_student_4.id,
+        post_id=post_1_message_board_3.id
     )
 
     post_reaction_2_post_5 = PostReaction(
         emoji="😧",
-        user_id=10,
-        post_id=5
+        user_id=demo_student_8.id,
+        post_id=post_1_message_board_3.id
     )
 
     post_reaction_1_post_6 = PostReaction(
         emoji="🥳",
-        user_id=4,
-        post_id=6
+        user_id=demo_student_2.id,
+        post_id=post_2_message_board_3.id
     )
 
     post_reaction_2_post_6 = PostReaction(
         emoji="🤩",
-        user_id=8,
-        post_id=6
+        user_id=demo_student_6.id,
+        post_id=post_2_message_board_3.id
     )
 
     db.session.add(post_reaction_1_post_1)
@@ -1292,98 +1292,98 @@ def seed_data():
 
     post_reply_reaction_1_post_reply_1 = PostReplyReaction(
         emoji="🤓",
-        user_id=7,
-        post_reply_id=1
+        user_id=demo_student_5.id,
+        post_reply_id=post_reply_1_post_1.id
     )
 
     post_reply_reaction_2_post_reply_1 = PostReplyReaction(
         emoji="😆",
-        user_id=9,
-        post_reply_id=1
+        user_id=demo_student_7.id,
+        post_reply_id=post_reply_1_post_1.id
     )
 
     post_reply_reaction_1_post_reply_2 = PostReplyReaction(
         emoji="🤣",
-        user_id=3,
-        post_reply_id=2
+        user_id=demo_student_1.id,
+        post_reply_id=post_reply_2_post_1.id
     )
 
     post_reply_reaction_2_post_reply_2 = PostReplyReaction(
         emoji="😬",
-        user_id=5,
-        post_reply_id=2
+        user_id=demo_student_3.id,
+        post_reply_id=post_reply_2_post_1.id
     )
 
     post_reply_reaction_1_post_reply_3 = PostReplyReaction(
         emoji="😎",
-        user_id=3,
-        post_reply_id=3
+        user_id=demo_student_1.id,
+        post_reply_id=post_reply_1_post_2.id
     )
 
     post_reply_reaction_2_post_reply_3 = PostReplyReaction(
         emoji="😎",
-        user_id=9,
-        post_reply_id=3
+        user_id=demo_student_7.id,
+        post_reply_id=post_reply_1_post_2.id
     )
 
     post_reply_reaction_1_post_reply_4 = PostReplyReaction(
         emoji="😂",
-        user_id=9,
-        post_reply_id=4
+        user_id=demo_student_7.id,
+        post_reply_id=post_reply_2_post_2.id
     )
 
     post_reply_reaction_2_post_reply_4 = PostReplyReaction(
         emoji="🤮",
-        user_id=5,
-        post_reply_id=4
+        user_id=demo_student_3.id,
+        post_reply_id=post_reply_2_post_2.id
     )
 
     post_reply_reaction_1_post_reply_5 = PostReplyReaction(
         emoji="😨",
-        user_id=6,
-        post_reply_id=5
+        user_id=demo_student_4.id,
+        post_reply_id=post_reply_1_post_5.id
     )
 
     post_reply_reaction_2_post_reply_5 = PostReplyReaction(
         emoji="😓",
-        user_id=10,
-        post_reply_id=5
+        user_id=demo_student_8.id,
+        post_reply_id=post_reply_1_post_5.id
     )
 
     post_reply_reaction_1_post_reply_6 = PostReplyReaction(
         emoji="😱",
-        user_id=10,
-        post_reply_id=6
+        user_id=demo_student_8.id,
+        post_reply_id=post_reply_2_post_5.id
     )
 
     post_reply_reaction_2_post_reply_6 = PostReplyReaction(
         emoji="😱",
-        user_id=4,
-        post_reply_id=6
+        user_id=demo_student_2.id,
+        post_reply_id=post_reply_2_post_5.id
     )
 
     post_reply_reaction_1_post_reply_7 = PostReplyReaction(
         emoji="🙂",
-        user_id=8,
-        post_reply_id=7
+        user_id=demo_student_6.id,
+        post_reply_id=post_reply_1_post_6.id
     )
 
     post_reply_reaction_2_post_reply_7 = PostReplyReaction(
         emoji="😁",
-        user_id=4,
-        post_reply_id=7
+        user_id=demo_student_2.id,
+        post_reply_id=post_reply_1_post_6.id
     )
 
     post_reply_reaction_1_post_reply_8 = PostReplyReaction(
         emoji="🤩",
-        user_id=4,
-        post_reply_id=8
+        user_id=demo_student_2.id,
+        post_reply_id=post_reply_2_post_6.id
     )
 
     post_reply_reaction_2_post_reply_8 = PostReplyReaction(
         emoji="🤩",
-        user_id=6,
-        post_reply_id=8
+        user_id=demo_student_4.id,
+        post_reply_id=post_reply_2_post_6.id
     )
 
     db.session.add(post_reply_reaction_1_post_reply_1)
