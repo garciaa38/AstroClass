@@ -82,8 +82,8 @@ class Class(db.Model):
     student_invite_code = db.Column(db.String(255), nullable=False)
     parent_invite_code = db.Column(db.String(255), nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete="CASCADE"), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
     student_class_rel = db.relationship('StudentClass', backref='cls', cascade="all, delete", lazy=True)
     class_reward_rel = db.relationship('Reward', backref='class', cascade="all, delete", lazy=True)
@@ -142,8 +142,8 @@ class StudentClass(db.Model):
     class_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('classes.id')), nullable=False)
     points = db.Column(db.Integer, default=0)
     planet = db.Column(db.String, default="Any", nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
     
 
@@ -171,8 +171,8 @@ class Reward(db.Model):
     reward_type = db.Column(db.String(20), nullable=False)
     points = db.Column(db.Integer, nullable=False)
     class_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('classes.id')), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
     reward_class_rel = db.relationship('Class', backref='reward', lazy=True)
 
@@ -196,8 +196,8 @@ class Feedback(db.Model):
     feedback_type = db.Column(db.String(20), nullable=False)
     points = db.Column(db.Integer, nullable=False)
     class_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('classes.id')), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
     feedback_class_rel = db.relationship('Class', backref='feedback', lazy=True)
 
@@ -220,8 +220,8 @@ class MessageBoard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     permission = db.Column(db.String, nullable=False)
     class_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('classes.id')), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
     message_board_post_rel = db.relationship('Post', backref='message_board', cascade="all, delete", lazy=True)
 
@@ -248,8 +248,8 @@ class Post(db.Model):
     text_field = db.Column(db.String(500), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     message_board_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('message_boards.id')), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
     post_post_image_rel = db.relationship("PostImage", backref="post", cascade="all, delete", lazy=True)
     post_post_reply_rel = db.relationship("PostReply", backref="post", cascade="all, delete", lazy=True)
@@ -288,8 +288,8 @@ class PostImage(db.Model):
     url = db.Column(db.String(1000), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
     def to_dict(self):
         return {
@@ -311,8 +311,8 @@ class PostReply(db.Model):
     text_field = db.Column(db.String(250), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
     post_reply_post_reply_reaction_rel = db.relationship("PostReplyReaction", backref="post_reply", cascade="all, delete", lazy=True)
     post_reply_user_rel = db.relationship("User", backref="post_reply", lazy=True)
@@ -345,8 +345,8 @@ class PostReaction(db.Model):
     emoji = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
     def to_dict(self):
         return {
@@ -368,8 +368,8 @@ class PostReplyReaction(db.Model):
     emoji = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     post_reply_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('post_replies.id')), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
-    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
 
     def to_dict(self):
         return {
