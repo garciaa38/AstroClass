@@ -147,7 +147,7 @@ def seed_users():
     db.session.add(demo_student_10)
     db.session.add(demo_parent_1)
     db.session.add(demo_parent_2)
-    db.session.commit()
+    # db.session.commit()
 
 def seed_classes():
     demo_class_1 = Class(
@@ -180,7 +180,7 @@ def seed_classes():
     db.session.add(demo_class_1)
     db.session.add(demo_class_2)
     db.session.add(demo_class_3)
-    db.session.commit()
+    # db.session.commit()
 
 def seed_student_class():
     demo_student_class_1 = StudentClass(
@@ -303,7 +303,7 @@ def seed_student_class():
     db.session.add(demo_student_class_13)
     db.session.add(demo_student_class_14)
     db.session.add(demo_student_class_15)
-    db.session.commit()
+    # db.session.commit()
 
 def seed_rewards():
     hard_working_1 = Reward(
@@ -362,7 +362,7 @@ def seed_rewards():
     db.session.add(kind_to_others_2)
     db.session.add(completed_homework_2)
     db.session.add(test_passed_2)
-    db.session.commit()
+    # db.session.commit()
 
 def seed_feedback():
     lack_of_effort_1 = Feedback(
@@ -407,7 +407,7 @@ def seed_feedback():
     db.session.add(missing_homework_2)
     db.session.add(disrupting_class_1)
     db.session.add(disrupting_class_2)
-    db.session.commit()
+    # db.session.commit()
 
 def seed_message_board():
     message_board_class_1 = MessageBoard(
@@ -428,7 +428,7 @@ def seed_message_board():
     db.session.add(message_board_class_1)
     db.session.add(message_board_class_2)
     db.session.add(message_board_class_3)
-    db.session.commit()
+    # db.session.commit()
 
 def seed_posts():
     post_1_message_board_1 = Post(
@@ -473,7 +473,7 @@ def seed_posts():
     db.session.add(post_2_message_board_2)
     db.session.add(post_1_message_board_3)
     db.session.add(post_2_message_board_3)
-    db.session.commit()
+    # db.session.commit()
 
 def seed_post_replies():
     post_reply_1_post_1 = PostReply(
@@ -532,7 +532,7 @@ def seed_post_replies():
     db.session.add(post_reply_2_post_5)
     db.session.add(post_reply_1_post_6)
     db.session.add(post_reply_2_post_6)
-    db.session.commit()
+    # db.session.commit()
 
 def seed_post_reactions():
     post_reaction_1_post_1 = PostReaction(
@@ -591,7 +591,7 @@ def seed_post_reactions():
     db.session.add(post_reaction_2_post_5)
     db.session.add(post_reaction_1_post_6)
     db.session.add(post_reaction_2_post_6)
-    db.session.commit()
+    # db.session.commit()
 
 def seed_post_reply_reactions():
     post_reply_reaction_1_post_reply_1 = PostReplyReaction(
