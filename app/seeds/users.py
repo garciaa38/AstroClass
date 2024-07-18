@@ -1132,7 +1132,7 @@ def seed_data():
 
     post_1_message_board_1 = Post(
         text_field="Good morning class! Ready for another awesome day of school?",
-        user_id=1,
+        user_id=demo_teacher_1.id,
         message_board_id=message_board_class_1.id
     )
 
