@@ -39,13 +39,13 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
 
     const addStudent = async student => {
         console.log("ADDING STUDENT", student)
+        closeModal();
         const addStudentRes = await dispatch(addStudentToClassThunk(classId, student.id))
         if (addStudentRes?.error) {
             const backEndErrors = {};
             backEndErrors.student = "Student already enrolled in class."
             setErrors(backEndErrors);
         } else {
-            closeModal();
             await dispatch(fetchAllStudentsThunk())
             socket.emit('updateClass', { room: classId })
             socket.emit('updateStudentClass', { room: classId })

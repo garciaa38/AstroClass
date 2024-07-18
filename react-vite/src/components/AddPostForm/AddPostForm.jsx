@@ -51,7 +51,7 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
         dispatch(addNewPostThunk(createdPost))
         setNewPost("")
         
-        socket.emit('updateClass', {room: currMsgBoard.class_id})
+        socket.emit('updateStudentClass', {room: currMsgBoard.class_id})
         socket.emit('updateMsgBoard', {room: currMsgBoard.class_id})
     }
 
