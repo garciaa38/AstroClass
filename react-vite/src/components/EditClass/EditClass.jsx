@@ -76,7 +76,7 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
         }
         closeModal();
         socket.emit('updateClasses', {room: classId, classIdx: currClassIdx, type: 'delete'});
-        socket.emit('updateStudentClasses', {room: classId, classIdx: currClassIdx, type: 'delete'});
+        socket.emit('updateStudentClasses', {room: classId, type: 'delete'});
         socket.emit('updateStudents', {room: classId});
     }
 
