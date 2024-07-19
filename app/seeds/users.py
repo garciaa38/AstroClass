@@ -1027,7 +1027,7 @@ def seed_data():
     )
 
     test_passed_1 = Reward(
-        reward_type="Completed Homework",
+        reward_type="Aced a Test",
         points=3,
         class_id=demo_class_1.id
     )
@@ -1051,7 +1051,7 @@ def seed_data():
     )
 
     test_passed_2 = Reward(
-        reward_type="Completed Homework",
+        reward_type="Aced a Test",
         points=3,
         class_id=demo_class_2.id
     )
