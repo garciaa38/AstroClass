@@ -5,7 +5,7 @@ import { deleteRewardThunk } from "../../redux/classes";
 import { socket } from "../../socket";
 import styles from './EditReward.module.css';
 
-function EditReward({reward, classId, handleRewardDelete, setFormErrors}) {
+function EditReward({reward, classId, handleRewardDelete, setFormErrors, setErrors}) {
     const dispatch = useDispatch()
 
     const [isEditing, setIsEditing] = useState(false);
@@ -25,6 +25,7 @@ function EditReward({reward, classId, handleRewardDelete, setFormErrors}) {
 
         const errors = {};
         setFormErrors({});
+        setErrors({});
 
         if (stringTrim(rewardType)) {
             if (rewardType.length > 20 || rewardType.length < 3) {
@@ -50,13 +51,24 @@ function EditReward({reward, classId, handleRewardDelete, setFormErrors}) {
             classId
         }
 
-        reward.reward_type = rewardType
-        reward.points = Number(pointsEarned)
-        socket.emit('updateClass', { room: classId })
-        await dispatch(editRewardThunk(updatedReward))
+        const serverResponse = await dispatch(editRewardThunk(updatedReward))
 
-        await setIsEditing(false)
-
+        if (serverResponse?.error) {
+            if (serverResponse?.error === 'Cannot have more than one of the same reward type.') {
+                const backEndErrors = {};
+                backEndErrors.rewardType = serverResponse.error;
+                setErrors(backEndErrors);
+            } else {
+                const backEndErrors = {};
+                backEndErrors.pointsEarned = serverResponse?.error;
+                setErrors(backEndErrors);
+            }
+        } else {
+            socket.emit('updateClass', { room: classId })
+            reward.reward_type = rewardType
+            reward.points = Number(pointsEarned)
+            await setIsEditing(false)
+        }
     }
 
     const deleteReward = async () => {
@@ -75,6 +87,7 @@ function EditReward({reward, classId, handleRewardDelete, setFormErrors}) {
         setRewardType(reward.reward_type)
         setPointsEarned(reward.points)
         setFormErrors({});
+        setErrors({});
         setIsEditing(false);
     }
 

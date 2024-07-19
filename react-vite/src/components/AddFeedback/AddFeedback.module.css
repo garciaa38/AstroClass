@@ -16,6 +16,8 @@
     width: 10rem;
     box-shadow: 2px 2px 5px black;
     transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+    overflow-wrap: break-word;
+
 }
 
 .addRewardButton:hover {

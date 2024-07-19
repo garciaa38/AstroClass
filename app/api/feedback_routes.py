@@ -17,20 +17,29 @@ def get_reward_by_id(feedback_id):
 @feedback_routes.route('/<int:feedback_id>', methods=["PUT"])
 @login_required
 def update_feedback(feedback_id):
-    print("HELLOO???")
     data = request.get_json()
     feedback_type = data.get('feedback_type')
     points = data.get('points')
     classId = data.get('classId')
-
-
     requested_feedback = Feedback.query.get_or_404(feedback_id)
+    requested_class = Class.query.get_or_404(classId)
+
+    if int(points) >= 0:
+        return jsonify({"error": "Feedback points must be negative."})
+    
+    if feedback_type == requested_feedback.to_dict()['feedback_type']:
+        requested_feedback.points = points
+        db.session.commit()
+        return jsonify(requested_class.to_dict())
+    
+    for feedback in requested_class.to_dict()['feedback']:
+        if feedback_type == feedback['feedback_type']:
+            return jsonify({'error': 'Cannot have more than one of the same feedback type.'})
+
     requested_feedback.feedback_type = feedback_type
     requested_feedback.points = points
 
     db.session.commit()
-
-    requested_class = Class.query.get_or_404(classId)
 
     return jsonify(requested_class.to_dict())
 

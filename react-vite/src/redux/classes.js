@@ -116,9 +116,13 @@ export const addRewardToClassThunk = (classId, reward) => async (dispatch) => {
     })
         .then(res => res.json())
         .catch(e => console.error(e))
-        
-    dispatch(loadClass(res[0]))
-    return res[1]
+    console.log("CHECKING REWARDS", res)
+    if (res.error) {
+        return res
+    } else {
+        dispatch(loadClass(res[0]))
+        return res[1]
+    }
 }
 
 export const editRewardThunk = (reward) => async (dispatch) => {
@@ -130,7 +134,11 @@ export const editRewardThunk = (reward) => async (dispatch) => {
         .then(res => res.json())
         .catch(e => console.error(e))
     
-    dispatch(loadClass(res))
+    if (res.error) {
+        return res
+    } else {
+        dispatch(loadClass(res))
+    }
 }
 
 export const deleteRewardThunk = (rewardId, classId) => async (dispatch) => {
@@ -155,8 +163,12 @@ export const addFeedbackToClassThunk = (classId, feedback) => async (dispatch) =
         .then(res => res.json())
         .catch(e => console.error(e))
     
-    dispatch(loadClass(res[0]))
-    return res[1]
+    if (res.error) {
+        return res;
+    } else {
+        dispatch(loadClass(res[0]))
+        return res[1]
+    }
 }
 
 export const editFeedbackThunk = (feedback) => async (dispatch) => {
@@ -169,9 +181,11 @@ export const editFeedbackThunk = (feedback) => async (dispatch) => {
         .then(res => res.json())
         .catch(e => console.error(e))
     
-        console.log("EDITING FEEDBACK REDUX", res)
-    
-    dispatch(loadClass(res))
+    if (res.error) {
+        return res
+    } else {
+        dispatch(loadClass(res))
+    }
 }
 
 export const deleteFeedbackThunk = (feedbackId, classId) => async (dispatch) => {

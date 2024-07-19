@@ -9,6 +9,7 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
     const [feedbackType, setFeedbackType] = useState("");
     const [pointsLost, setPointsLost] = useState(-1);
     const [formErrors, setFormErrors] = useState({});
+    const [errors, setErrors] = useState({});
 
     const stringTrim = (string) => {
         if (string.trim().length === 0) {
@@ -23,6 +24,7 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
 
         const errors = {};
         setFormErrors({});
+        setErrors({});
 
         if (stringTrim(feedbackType)) {
             if (feedbackType.length > 20 || feedbackType.length < 3) {
@@ -47,10 +49,22 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
         }
 
         const serverResponse = await dispatch(addFeedbackToClassThunk(classId, newFeedback))
-        socket.emit('updateClass', { room: classId })
-        handleFeedbackUpdate(serverResponse)
-
-        setAddFeedbackFormAppear(false);
+        if (serverResponse?.error) {
+            if (serverResponse?.error === 'Cannot have more than one of the same feedback type.') {
+                const backEndErrors = {};
+                backEndErrors.feedbackType = serverResponse?.error;
+                setErrors(backEndErrors);
+            } else {
+                const backEndErrors = {};
+                backEndErrors.pointsLost = serverResponse?.error;
+                setErrors(backEndErrors);
+            }
+        } else {
+            socket.emit('updateClass', { room: classId })
+            handleFeedbackUpdate(serverResponse)
+            setAddFeedbackFormAppear(false);
+        }
+        
     }
 
     return (
@@ -70,6 +84,7 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
                                 />
                             </label>
                             {formErrors.feedbackType && <p className="error">{formErrors.feedbackType}</p>}
+                            {errors.feedbackType && <p className="error">{errors.feedbackType}</p>}
                         </div>
                         <label>
                             <input
@@ -83,6 +98,7 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
                             />
                         </label>
                         {formErrors.pointsLost && <p className="error">{formErrors.pointsLost}</p>}
+                        {errors.pointsLost && <p className="error">{errors.pointsLost}</p>}
                     </div>
                     <div className={styles.addRewardButtons}>
                         <button type="submit">Add Class Feedback</button>

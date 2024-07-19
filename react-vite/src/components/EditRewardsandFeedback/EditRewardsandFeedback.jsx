@@ -19,6 +19,7 @@ function EditRewardsandFeedback ({cls, rewards, feedback}) {
     const [rewardsState, setRewardsState] = useState(rewards);
     const [feedbackState, setFeedbackState] = useState(feedback);
     const [formErrors, setFormErrors] = useState({});
+    const [errors, setErrors] = useState({});
 
     const handleRewardUpdate = (newReward) => {
         setRewardsState((prevRewards) => [...prevRewards, newReward]);
@@ -52,12 +53,14 @@ function EditRewardsandFeedback ({cls, rewards, feedback}) {
                             <div className={styles.addRewardButton}>
                                 <button onClick={() => setAddRewardFormAppear(true)}>Add a reward</button>
                                 {formErrors.rewardType && <p className={styles.error}>{formErrors.rewardType}</p>}
+                                {errors.rewardType && <p className={styles.error}>{errors.rewardType}</p>}
                                 {formErrors.pointsEarned && <p className="error">{formErrors.pointsEarned}</p>}
+                                {errors.pointsEarned && <p className="error">{errors.pointsEarned}</p>}
                             </div>
                             <div className={styles.rewardList}>
                                 {rewardsState?.map((reward) => {
                                     return (
-                                        <EditReward className={styles.editButton} key={reward.id} reward={reward} classId={classId} handleRewardDelete={handleRewardDelete} setFormErrors={setFormErrors}/>
+                                        <EditReward className={styles.editButton} key={reward.id} reward={reward} classId={classId} handleRewardDelete={handleRewardDelete} setFormErrors={setFormErrors} setErrors={setErrors} />
                                     )
                                 })}
                             </div>
@@ -71,12 +74,15 @@ function EditRewardsandFeedback ({cls, rewards, feedback}) {
                             <div className={styles.addFeedbackButton}>
                                 <button onClick={() => setAddFeedbackFormAppear(true)}>Add feedback</button>
                                 {formErrors.feedbackType && <p className={styles.error}>{formErrors.feedbackType}</p>}
+                                {errors.feedbackType && <p className={styles.error}>{errors.feedbackType}</p>}
                                 {formErrors.pointsLost && <p className={styles.error}>{formErrors.pointsLost}</p>}
+                                {errors.pointsLost && <p className={styles.error}>{errors.pointsLost}</p>}
+
                             </div>
                             <div className={styles.rewardList}>
                                 {feedbackState?.map((feedback) => {
                                     return (
-                                        <EditFeedback key={feedback.id} feedback={feedback} classId={classId} handleFeedbackDelete={handleFeedbackDelete} setFormErrors={setFormErrors}/>
+                                        <EditFeedback key={feedback.id} feedback={feedback} classId={classId} handleFeedbackDelete={handleFeedbackDelete} setFormErrors={setFormErrors} setErrors={setErrors}/>
                                     )
                                 })}
                             </div>

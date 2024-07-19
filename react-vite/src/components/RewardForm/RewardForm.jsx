@@ -9,6 +9,7 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
     const [rewardType, setRewardType] = useState("");
     const [pointsEarned, setPointsEarned] = useState(1);
     const [formErrors, setFormErrors] = useState({});
+    const [errors, setErrors] = useState({});
 
     const stringTrim = (string) => {
         if (string.trim().length === 0) {
@@ -23,6 +24,7 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
 
         const errors = {};
         setFormErrors({});
+        setErrors({});
 
         if (stringTrim(rewardType)) {
             if (rewardType.length > 20 || rewardType.length < 3) {
@@ -47,10 +49,22 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
         }
 
         const serverResponse = await dispatch(addRewardToClassThunk(classId, newReward))
-        socket.emit('updateClass', { room: classId })
-        handleRewardUpdate(serverResponse)
-
-        setAddRewardFormAppear(false);
+        console.log('CHECKING REWARDS', serverResponse)
+        if (serverResponse?.error) {
+            if (serverResponse?.error === 'Cannot have more than one of the same reward type.') {
+                const backEndErrors = {};
+                backEndErrors.rewardType = serverResponse?.error;
+                setErrors(backEndErrors);
+            } else {
+                const backEndErrors = {};
+                backEndErrors.pointsEarned = serverResponse?.error;
+                setErrors(backEndErrors);
+            }
+        } else {
+            socket.emit('updateClass', { room: classId })
+            handleRewardUpdate(serverResponse)
+            setAddRewardFormAppear(false);
+        }
     }
 
     return (
@@ -70,6 +84,7 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
                                 />
                             </label>
                             {formErrors.rewardType && <p className="error">{formErrors.rewardType}</p>}
+                            {errors.rewardType && <p className="error">{errors.rewardType}</p>}
                         </div>
                         <label>
                             <input
@@ -83,6 +98,7 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
                             />
                         </label>
                         {formErrors.pointsEarned && <p className="error">{formErrors.pointsEarned}</p>}
+                        {errors.pointsEarned && <p className="error">{errors.pointsEarned}</p>}
                     </div>
                     <div className={styles.addRewardButtons}>
                         <button type="submit">Add Class Reward</button>

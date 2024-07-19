@@ -259,8 +259,13 @@ def create_reward(class_id):
     reward_type = data.get("reward_type")
     points = data.get("points")
 
+
     if int(points) <= 0:
         return jsonify({"error": "Rewards must be higher than 0 points."})
+    
+    for reward in requested_class.to_dict()['rewards']:
+        if reward_type == reward['reward_type']:
+            return jsonify({'error': 'Cannot have more than one of the same reward type.'})
     
     new_reward = Reward(
         reward_type=reward_type,
@@ -271,6 +276,7 @@ def create_reward(class_id):
     db.session.add(new_reward)
     db.session.commit()
 
+    print("CHECKING REWARDS", requested_class.to_dict()['rewards'])
     return jsonify(requested_class.to_dict(), new_reward.to_dict()), 201
 
 # Get all feedback from a class
@@ -310,6 +316,10 @@ def create_feedback(class_id):
 
     if int(points) >= 0:
         return jsonify({"error": "Feedback points must be negative."})
+    
+    for feedback in requested_class.to_dict()['feedback']:
+        if feedback_type == feedback['feedback_type']:
+            return jsonify({'error': 'Cannot have more than one of the same feedback type.'})
     
     new_feedback = Feedback(
         feedback_type=feedback_type,

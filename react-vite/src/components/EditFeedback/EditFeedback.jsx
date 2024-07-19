@@ -5,7 +5,7 @@ import { deleteFeedbackThunk } from "../../redux/classes";
 import { socket } from "../../socket";
 import styles from './EditFeedback.module.css';
 
-function EditFeedback({feedback, classId, handleFeedbackDelete, setFormErrors}) {
+function EditFeedback({feedback, classId, handleFeedbackDelete, setFormErrors, setErrors}) {
     const dispatch = useDispatch()
 
     const [isEditing, setIsEditing] = useState(false);
@@ -28,6 +28,7 @@ function EditFeedback({feedback, classId, handleFeedbackDelete, setFormErrors}) 
 
         const errors = {};
         setFormErrors({});
+        setErrors({});
 
         if (stringTrim(feedbackType)) {
             if (feedbackType.length > 20 || feedbackType.length < 3) {
@@ -53,12 +54,24 @@ function EditFeedback({feedback, classId, handleFeedbackDelete, setFormErrors}) 
             classId
         }
 
-        feedback.reward_type = feedbackType
-        feedback.points = Number(pointsLost)
-        socket.emit('updateClass', { room: classId })
-        await dispatch(editFeedbackThunk(updatedFeedback))
-
-        await setIsEditing(false)
+        const serverResponse = await dispatch(editFeedbackThunk(updatedFeedback))
+        
+        if (serverResponse?.error) {
+            if (serverResponse?.error === 'Cannot have more than one of the same feedback type.') {
+                const backEndErrors = {};
+                backEndErrors.feedbackType = serverResponse?.error;
+                setErrors(backEndErrors);
+            } else {
+                const backEndErrors = {};
+                backEndErrors.pointsLost = serverResponse?.error;
+                setErrors(backEndErrors);
+            }
+        } else {
+            socket.emit('updateClass', { room: classId })
+            feedback.reward_type = feedbackType
+            feedback.points = Number(pointsLost)
+            await setIsEditing(false)
+        }
 
     }
 
