@@ -21,8 +21,7 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
     const currClass = classes[currClassIdx];
     const prevClass = classes[prevClassIdx];
     const [sideBarOpen, setSideBarOpen] = useState(false);
-    console.log("CURRENT CLASS 1", currClass)
-
+    
     function debounce(func, wait) {
         let timeout;
         return function(...args) {
@@ -56,11 +55,11 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
                 setCurrClassIdx(prevIdx)
             }
         }
-        dispatch(fetchAllStudentClassesThunk(sessionUser.id));
-    }, 1000), [dispatch, sessionUser.id, currClassIdx]);
+        dispatch(fetchAllStudentClassesThunk(sessionUser?.id));
+    }, 1000), [dispatch, sessionUser?.id, currClassIdx]);
 
     const throttledFetchMsgBoard = useCallback(throttle((data) => {
-        dispatch(fetchMessageBoardThunk(data.room))
+        dispatch(fetchMessageBoardThunk(data?.room))
     }))
 
     useEffect(() => {
@@ -80,7 +79,6 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
             };
 
             const handleUpdateMsgBoard = (data) => {
-                console.log('Update msg board')
                 throttledFetchMsgBoard(data)
             }
     
@@ -93,7 +91,7 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
                 socket.off('updateStudentClasses', handleUpdateClasses);
                 socket.off('updateMsgBoard', handleUpdateMsgBoard)
             };
-        }, [dispatch, sessionUser.id, currClassIdx, currClass, debouncedFetchClass, throttledFetchClasses, throttledFetchMsgBoard])
+        }, [dispatch, sessionUser?.id, currClassIdx, currClass, debouncedFetchClass, throttledFetchClasses, throttledFetchMsgBoard])
 
     const switchClass = async (idx) => {
         const prevIdx = currClassIdx
@@ -200,7 +198,7 @@ function ClassStudentView({sessionUser, navigate, setCurrentUser, classes}) {
                                 </div>
                             </div>
                         </div>
-                        <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} />
+                        <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser?.role} />
                     </div>
                 </div>
             </div>

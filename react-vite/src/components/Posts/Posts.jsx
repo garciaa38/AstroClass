@@ -3,7 +3,6 @@ import PostReplyContainer from "../PostReplyContainer/PostReplyContainer";
 import styles from "./Posts.module.css";
 
 function Posts({allPosts, currMsgBoard, sessionUser}) {
-    console.log("CHECK ALL POSTS", allPosts);
     
     const sortPosts = allPosts => {
         if (allPosts?.length <= 1) {
@@ -15,7 +14,7 @@ function Posts({allPosts, currMsgBoard, sessionUser}) {
         let rightArr = [];
 
         for (let i = 1; i < allPosts?.length; i++) {
-            if (allPosts[i]?.created_at > pivot.created_at) {
+            if (allPosts[i]?.created_at > pivot?.created_at) {
                 leftArr.push(allPosts[i])
             } else {
                 rightArr.push(allPosts[i])
@@ -31,7 +30,7 @@ function Posts({allPosts, currMsgBoard, sessionUser}) {
         <div className={styles.postList}>
             {sortedPosts?.map(post => {
                 return (
-                    <div className={styles.postArea} key={post.id}>
+                    <div className={styles.postArea} key={post?.id}>
                         <PostField post={post} classId={currMsgBoard.class_id} sessionUser={sessionUser}/>
                         <PostReplyContainer post_replies={post.post_replies} classId={currMsgBoard.class_id} currMsgBoardId={currMsgBoard.id} sessionUserId={sessionUser.id} currPost={post} currMsgBoard={currMsgBoard} sessionUser={sessionUser}/>
                     </div>

@@ -10,14 +10,6 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
     const dispatch = useDispatch()
     const {class_name, students, id: classId, rewards, feedback} = cls;
 
-    console.log("SELECTED PLANET", cls)
-
-    const randomNum = () => {
-        const planets = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto']
-
-        return planets[Math.floor(Math.random() * 9)]
-    }
-
     if (role === 'teacher') {
         const sortStudents = studentArr => {
             if (studentArr?.length <= 1) {
@@ -29,12 +21,12 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
             let rightArr = [];
             
             for (let i = 1; i < studentArr?.length; i++) {
-                if (studentArr[i]?.first_name < pivot.first_name) {
+                if (studentArr[i]?.first_name < pivot?.first_name) {
                     leftArr.push(studentArr[i])
-                } else if (studentArr[i]?.first_name === pivot.first_name) {
-                    if (studentArr[i]?.last_name < pivot.last_name) {
+                } else if (studentArr[i]?.first_name === pivot?.first_name) {
+                    if (studentArr[i]?.last_name < pivot?.last_name) {
                         leftArr.push(studentArr[i])
-                    } else if (studentArr[i]?.last_name >= pivot.last_name) {
+                    } else if (studentArr[i]?.last_name >= pivot?.last_name) {
                         rightArr.push(studentArr[i])
                     }
                 } else {
@@ -56,7 +48,7 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
                             <div key={student?.id}>
                                 <OpenModalButton 
                                     buttonText={
-                                        <div className={`${styles.student}  ${styles[student.planet]}`}>
+                                        <div className={`${styles.student}  ${styles[student?.planet]}`}>
                                             <div className={styles.starsContainer}>
                                                 {Array.from({ length: student.points }).map((_, index) => (
                                                     <div
@@ -106,7 +98,7 @@ function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allSt
                         </div>
                 </div>
                 <div className={styles.studentPoints}>
-                    <h2>Your current class score is {cls.points}.</h2>
+                    <h2>Your current class score is {cls?.points}.</h2>
                 </div>
                 </div>
             </div>

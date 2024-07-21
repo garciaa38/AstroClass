@@ -28,7 +28,7 @@ function EditReward({reward, classId, handleRewardDelete, setFormErrors, setErro
         setErrors({});
 
         if (stringTrim(rewardType)) {
-            if (rewardType.length > 20 || rewardType.length < 3) {
+            if (rewardType?.length > 20 || rewardType?.length < 3) {
                 errors.rewardType = "Reward Type must be between 3 and 20 characters."
             }
         } else {
@@ -45,7 +45,7 @@ function EditReward({reward, classId, handleRewardDelete, setFormErrors, setErro
         }
 
         const updatedReward = {
-            id: reward.id,
+            id: reward?.id,
             reward_type: rewardType,
             points: pointsEarned,
             classId
@@ -84,8 +84,8 @@ function EditReward({reward, classId, handleRewardDelete, setFormErrors, setErro
     }
 
     const stopEditing = async () => {
-        setRewardType(reward.reward_type)
-        setPointsEarned(reward.points)
+        setRewardType(reward?.reward_type)
+        setPointsEarned(reward?.points)
         setFormErrors({});
         setErrors({});
         setIsEditing(false);

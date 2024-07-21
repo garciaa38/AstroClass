@@ -67,14 +67,11 @@ export const thunkSignup = (user) => async (dispatch) => {
 
   if(response.ok) {
     const data = await response.json();
-    console.log("SERVER RESPONSE", data)
     dispatch(setUser(data));
   } else if (response.status < 500) {
     const errorMessages = await response.json();
-    console.log("SERVER RESPONSE", errorMessages)
     return errorMessages
   } else {
-    console.log("SERVER RESPONSE", response)
     return { server: "Something went wrong. Please try again" }
   }
 };
@@ -88,14 +85,11 @@ export const thunkStudentSignup = (user) => async (dispatch) => {
 
   if(response.ok) {
     const data = await response.json();
-    console.log("SERVER RESPONSE", data)
     return data
   } else if (response.status < 500) {
     const errorMessages = await response.json();
-    console.log("SERVER RESPONSE", errorMessages)
     return errorMessages
   } else {
-    console.log("SERVER RESPONSE", response)
     return { server: "Something went wrong. Please try again" }
   }
 };
@@ -110,7 +104,6 @@ export const fetchCurrentUser = () => async (dispatch) => {
     .then(res => res.json())
     .catch(e => console.error(e))
   dispatch(setUser(res))
-  console.log("FETCH CURRENT USER", res)
   return res;
 }
 

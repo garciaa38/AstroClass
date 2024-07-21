@@ -27,7 +27,7 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
         setErrors({});
 
         if (stringTrim(rewardType)) {
-            if (rewardType.length > 20 || rewardType.length < 3) {
+            if (rewardType?.length > 20 || rewardType?.length < 3) {
                 errors.rewardType = "Reward Type must be between 3 and 20 characters."
             }
         } else {
@@ -49,7 +49,6 @@ function RewardForm({classId, setAddRewardFormAppear, handleRewardUpdate}) {
         }
 
         const serverResponse = await dispatch(addRewardToClassThunk(classId, newReward))
-        console.log('CHECKING REWARDS', serverResponse)
         if (serverResponse?.error) {
             if (serverResponse?.error === 'Cannot have more than one of the same reward type.') {
                 const backEndErrors = {};

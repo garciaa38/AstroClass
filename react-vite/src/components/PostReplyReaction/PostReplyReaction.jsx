@@ -9,7 +9,6 @@ import { MdAddReaction } from "react-icons/md";
 
 function PostReplyReaction({postReplyId, post_reply_reactions, sessionUserId, currMsgBoardId, classId}) {
     const dispatch = useDispatch()
-    console.log("POST REPLY REACTIONS BEFORE", post_reply_reactions)
 
     const reactionsFilter = (reactionsArr) => {
         const emojiFilter = reactionsArr?.reduce((acc, obj) => {
@@ -29,15 +28,10 @@ function PostReplyReaction({postReplyId, post_reply_reactions, sessionUserId, cu
         }
     }
 
-    console.log("POST REPLY REACTIONS AFTER", reactionsFilter(post_reply_reactions))
-
     const handleReaction = async (reactions) => {
-        if (reactions[1].user_ids.includes(sessionUserId)) {
-            const userIdx = reactions[1].user_ids.indexOf(sessionUserId);
-            console.log("POST REACTIONS userId", sessionUserId)
-            console.log("POST REACTIONS user index", userIdx)
-            const reactionId = reactions[1].reaction_ids[userIdx]
-            console.log("POST REACTIONS reaction id", reactionId)
+        if (reactions[1]?.user_ids?.includes(sessionUserId)) {
+            const userIdx = reactions[1]?.user_ids?.indexOf(sessionUserId);
+            const reactionId = reactions[1]?.reaction_ids[userIdx]
             await dispatch(deleteReplyReactionThunk(reactionId, currMsgBoardId))
             socket.emit('updateMsgBoard', {room: classId})
         } else {

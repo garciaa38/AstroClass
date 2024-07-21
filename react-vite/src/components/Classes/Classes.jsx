@@ -24,8 +24,6 @@ function Classes() {
     }, [dispatch, sessionUser?.id])
 
     if (sessionUser) {
-        console.log("ALL CLASSES", allClasses)
-        console.log("ALL CLASSES STUDENT", allStudentClasses)
         if (sessionUser?.role === 'teacher') {
             return (
                 <ClassTeacherView sessionUser={currentUser} navigate={navigate} classes={allClasses}/>

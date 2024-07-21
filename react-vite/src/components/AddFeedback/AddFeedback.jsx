@@ -17,7 +17,7 @@ function AddFeedback({first_name, feedback, student_class_id, classId }) {
 
     return (
             <div className={styles.rewardGrid}>
-                {feedback.map(feedback => {
+                {feedback?.map(feedback => {
                     return (
                         <div key={feedback.id}>
                             <button className={styles.addRewardButton} onClick={() => removePoints(student_class_id, feedback.id, classId, feedback.points)}>{feedback.feedback_type} {feedback.points}</button>

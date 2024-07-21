@@ -37,7 +37,7 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
         setFormErrors({})
 
         if (stringTrim(className)) {
-            if (className.length > 10 || className.length <= 2) {
+            if (className?.length > 10 || className?.length <= 2) {
                 errors.className = "Class Name must be between 3 and 10 characters."
             }
         } else {
@@ -45,7 +45,7 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
         }
 
         if (stringTrim(currSubject)) {
-            if (currSubject.length > 20 || currSubject.length <= 2) {
+            if (currSubject?.length > 20 || currSubject?.length <= 2) {
                 errors.subject = "Subject must be between 3 and 20 characters."
             }
         } else {

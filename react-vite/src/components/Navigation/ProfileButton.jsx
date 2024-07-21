@@ -21,7 +21,6 @@ function ProfileButton({ role, navigate, cls, currClassIdx, setCurrClassIdx, rew
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
 
-  console.log("CURRENT CLASS", cls)
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -123,7 +122,7 @@ function ProfileButton({ role, navigate, cls, currClassIdx, setCurrClassIdx, rew
           {showMenu && (
             <ul className={showMenu ? styles.settingsDropDown : styles.settingsDropDownClosed} ref={ulRef}>
                 <div className={styles.settingsDropdownList}>
-                  <li>{`Hey there ${user.first_name} ${user.last_name}`}</li>
+                  <li>{`Hey there ${user?.first_name} ${user?.last_name}`}</li>
                   <li>
                     <OpenModalButton buttonText="Sign Out" modalComponent={<SignOutModal navigate={navigate} />}/>
                   </li>

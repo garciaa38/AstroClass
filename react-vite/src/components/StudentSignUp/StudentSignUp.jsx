@@ -19,8 +19,8 @@ function StudentSignUp({classId, setAllStudentsState}) {
     const { closeModal } = useModal();
 
     const whiteSpaceCheck = (string) => {
-        for (let i = 0; i < string.length; i++) {
-            if (string.charAt(i) === " ") {
+        for (let i = 0; i < string?.length; i++) {
+            if (string?.charAt(i) === " ") {
                 return false;
             }
         }
@@ -43,7 +43,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
         }
 
         if (whiteSpaceCheck(firstName)) {
-            if (firstName.length <= 2 || firstName.length > 20) {
+            if (firstName?.length <= 2 || firstName?.length > 20) {
                 errors.firstName = "First Name must be between 3 and 20 characters."
             }
         } else {
@@ -51,7 +51,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
         }
 
         if (whiteSpaceCheck(lastName)) {
-            if (lastName.length <= 2 || lastName.length > 20) {
+            if (lastName?.length <= 2 || lastName?.length > 20) {
                 errors.lastName = "Last Name must be between 3 and 20 characters."
             }
         } else {
@@ -81,9 +81,7 @@ function StudentSignUp({classId, setAllStudentsState}) {
                 role: 'student'
             })
         );
-    
-        console.log("SERVER RESPONSE", serverResponse)
-    
+        
         if (!serverResponse.id) {
             const backEndErrors = {}
             backEndErrors.email = "This email already exists."

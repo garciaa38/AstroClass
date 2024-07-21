@@ -24,8 +24,8 @@ function PostReplyField({postReply, classId, currMsgBoardId, sessionUser}) {
     }
 
     const checkUserPermission = (user) => {
-        if (user.role === "student") {
-            if (user.id !== postReply.user_id) {
+        if (user?.role === "student") {
+            if (user?.id !== postReply?.user_id) {
                 return false
             }
         }
@@ -33,10 +33,10 @@ function PostReplyField({postReply, classId, currMsgBoardId, sessionUser}) {
     }
 
     const postUserName = () => {
-        if (postReply.user_role === "student") {
-            return `${postReply.user_first_name} ${postReply.user_last_name}`
+        if (postReply?.user_role === "student") {
+            return `${postReply?.user_first_name} ${postReply?.user_last_name}`
         } else {
-            return `${postReply.user_suffix} ${postReply.user_last_name}`
+            return `${postReply?.user_suffix} ${postReply?.user_last_name}`
         }
     }
 
@@ -107,11 +107,11 @@ function PostReplyField({postReply, classId, currMsgBoardId, sessionUser}) {
                                 {postUserName()}
                             </div>
                             <div className={styles.postReplyDate}>
-                                {postDate(postReply.created_at)}
+                                {postDate(postReply?.created_at)}
                             </div>
                         </div>
                         <div className={styles.postReplyText}>
-                            {postReply.text_field}
+                            {postReply?.text_field}
                         </div>
                     </div>
                     <div hidden={!checkUserPermission(sessionUser)} className={styles.postReplyButtons}>

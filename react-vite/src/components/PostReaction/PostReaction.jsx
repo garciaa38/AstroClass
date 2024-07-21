@@ -10,7 +10,6 @@ import { FaCommentDots } from "react-icons/fa";
 
 function PostReaction({showReplies, setShowReplies, postId, post_reactions, sessionUserId, currMsgBoardId, classId}) {
     const dispatch = useDispatch()
-    console.log("POST REACTIONS BEFORE", post_reactions)
 
     const reactionsFilter = (reactionsArr) => {
         const emojiFilter = reactionsArr?.reduce((acc, obj) => {
@@ -30,15 +29,11 @@ function PostReaction({showReplies, setShowReplies, postId, post_reactions, sess
         }
     }
 
-    console.log("POST REACTIONS AFTER", reactionsFilter(post_reactions))
 
     const handleReaction = async (reactions) => {
         if (reactions[1].user_ids.includes(sessionUserId)) {
             const userIdx = reactions[1].user_ids.indexOf(sessionUserId);
-            console.log("POST REACTIONS userId", sessionUserId)
-            console.log("POST REACTIONS user index", userIdx)
             const reactionId = reactions[1].reaction_ids[userIdx]
-            console.log("POST REACTIONS reaction id", reactionId)
             await dispatch(deleteReactionThunk(reactionId, currMsgBoardId))
             socket.emit('updateMsgBoard', {room: classId})
         } else {
@@ -66,7 +61,6 @@ function PostReaction({showReplies, setShowReplies, postId, post_reactions, sess
         <div className={styles.reactionLayout}>
             <div className={styles.reactionList}>
                 {reactionsFilter(post_reactions)?.map((post_reaction, index) => {
-                    console.log("POST REACTION", post_reaction)
                     return (
                         <div className={styles.emojiBox} key={index}>
                             <button onClick={() => handleReaction(post_reaction)}><div className={styles.emojiBoxContent}><div>{post_reaction[0]}</div><div>{post_reaction[1].count}</div></div></button>

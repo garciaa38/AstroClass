@@ -27,7 +27,7 @@ function FeedbackForm({classId, setAddFeedbackFormAppear, handleFeedbackUpdate})
         setErrors({});
 
         if (stringTrim(feedbackType)) {
-            if (feedbackType.length > 20 || feedbackType.length < 3) {
+            if (feedbackType?.length > 20 || feedbackType?.length < 3) {
                 errors.feedbackType = "Feedback Type must be between 3 and 20 characters."
             }
         } else {

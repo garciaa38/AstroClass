@@ -12,20 +12,16 @@ export const loadStudentClass = (cls) => ({
 })
 
 export const fetchAllStudentClassesThunk = (studentId) => async (dispatch) => {
-    console.log("ALL CLASSES STUDENT id", studentId)
     const res = await fetch(`/api/students/${studentId}`)
         .then(res => res.json())
         .catch(e => console.error(e))
-    console.log("ALL CLASSES STUDENT", res)
     dispatch(loadStudentClasses(res))
 }
 
 export const fetchStudentClassById = (studentId, classId) => async (dispatch) => {
-    console.log("GETTING STUDENT CLASS???", studentId, classId)
     const res = await fetch(`/api/students/${studentId}/class/${classId}`)
         .then(res => res.json())
         .catch(e => console.error("GETTING STUDENT CLASS", e))
-    console.log("GETTING STUDENT CLASS", res)
     dispatch(loadStudentClass(res))
 }
 

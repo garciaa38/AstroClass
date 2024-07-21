@@ -13,7 +13,6 @@ export const fetchAllStudentsThunk = () => async (dispatch) => {
         .then(res => res.json())
         .catch(e => console.error(e))
     
-    console.log("FETCH STUDENTS from redux", res)
     dispatch(loadStudents(res))
     return res
 }

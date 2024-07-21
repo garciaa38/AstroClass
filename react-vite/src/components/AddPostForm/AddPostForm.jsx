@@ -10,8 +10,6 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
     const [addingPost, setAddingPost] = useState(false);
     const [formErrors, setFormErrors] = useState({});
 
-    console.log("CURR MESSAGE BOARD", currMsgBoard.posts.length)
-
     const stringTrim = (string) => {
         if (string.trim().length === 0) {
             return false;
@@ -66,7 +64,7 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
         }
     }
 
-    if (currMsgBoard.posts.length === 0) {
+    if (currMsgBoard?.posts?.length === 0) {
         return (
             <div className={styles.addPostLayout}>
                 <div className={styles.addPostButtonLayout}>
@@ -91,7 +89,6 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
                         {formErrors.newPost && <p className="error">{formErrors.newPost}</p>}
                         <div className={styles.postFormButtons}>
                             <button type="submit">Send</button>
-                            {/* <button onClick={expandPostFeature}>Cancel</button> */}
                         </div>
                     </form>
                 </div>

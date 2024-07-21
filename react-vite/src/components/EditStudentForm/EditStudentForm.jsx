@@ -7,7 +7,6 @@ import { socket } from "../../socket";
 import styles from "./EditStudentForm.module.css";
 
 function EditStudentForm({sessionUser, student, classId, setAllStudentsState}) {
-    // console.log("EDIT STUDENT", student)
     const dispatch = useDispatch()
     const { closeModal } = useModal()
 
@@ -33,7 +32,7 @@ function EditStudentForm({sessionUser, student, classId, setAllStudentsState}) {
         setFormErrors({});
 
         if (whiteSpaceCheck(firstName)) {
-            if (firstName.length <= 2 || firstName.length > 20) {
+            if (firstName?.length <= 2 || firstName?.length > 20) {
                 errors.firstName = "First Name must be between 3 and 20 characters."
             }
         } else {
@@ -41,7 +40,7 @@ function EditStudentForm({sessionUser, student, classId, setAllStudentsState}) {
         }
 
         if (whiteSpaceCheck(lastName)) {
-            if (lastName.length <= 2 || lastName.length > 20) {
+            if (lastName?.length <= 2 || lastName?.length > 20) {
                 errors.lastName = "Last Name must be between 3 and 20 characters."
             }
         } else {

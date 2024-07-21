@@ -108,7 +108,6 @@ function SignupFormModal({role}) {
 
     
     if (serverResponse) {
-      console.log("SERVER RESPONSE", serverResponse)
       const backEndErrors = {};
       backEndErrors.email = "This email already exists."
       setErrors(backEndErrors);

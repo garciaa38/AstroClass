@@ -25,7 +25,6 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
     const prevClass = classes[prevClassIdx];
     const [allStudentsState, setAllStudentsState] = useState(allStudents);
     const [sideBarOpen, setSideBarOpen] = useState(false);
-    console.log("ALL STUDENTS", allStudents);
 
     useEffect(() => {
         
@@ -46,7 +45,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                     setPrevClassIdx(currClassIdx)
                     setCurrClassIdx(0)
                 }
-                dispatch(fetchAllClassesThunk(sessionUser.id))
+                dispatch(fetchAllClassesThunk(sessionUser?.id))
             }
 
             const fetchStudents = () => {
@@ -70,7 +69,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                 socket.off('updateStudents', fetchStudents)
                 socket.off('updateMsgBoard', fetchMsgBoard)
             };
-        }, [dispatch, sessionUser.id, currClassIdx, currClass?.id])
+        }, [dispatch, sessionUser?.id, currClassIdx, currClass?.id])
 
 
 
@@ -95,7 +94,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                         <div className={styles.aboveSignOut}>
                             <div className={styles.classSettings}>
                                 <div className={styles.classSettingsButton}>
-                                    <ProfileButton role={sessionUser.role} navigate={navigate} noClass={true} />
+                                    <ProfileButton role={sessionUser?.role} navigate={navigate} noClass={true} />
                                 </div>
                             </div>
                         </div>
@@ -150,7 +149,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                     <div className={styles.aboveSignOut}>
                         <div className={styles.classSettings}>
                             <div className={styles.classSettingsButton}>
-                                <ProfileButton role={sessionUser.role} navigate={navigate} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={currClass.rewards} feedback={currClass.feedback}/>
+                                <ProfileButton role={sessionUser?.role} navigate={navigate} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} rewards={currClass?.rewards} feedback={currClass?.feedback}/>
                             </div>
                         </div>
                     </div>
@@ -158,7 +157,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                             <OpenModalButton buttonText={<div className={styles.addClassSection}><div className={styles.addClassTab} >Add a Class&nbsp;&nbsp;<div className={styles.plusSymbol}><FaPlus /></div></div> </div>} modalComponent={<AddClassModal sessionUser={sessionUser} classId={currClass?.id} />}/>
                             {classes?.map((cls, index) => (
                                 <div key={cls?.id}>
-                                    {cls.class_name.length > 0 && <button className={currClassIdx === index ? styles.activeTab : styles.classTab} onClick={() => switchClass(index)}>{cls.class_name}</button>}
+                                    {cls?.class_name?.length > 0 && <button className={currClassIdx === index ? styles.activeTab : styles.classTab} onClick={() => switchClass(index)}>{cls?.class_name}</button>}
                                 </div>
                             ))}
                         </div>
@@ -179,7 +178,7 @@ function ClassTeacherView({sessionUser, navigate, classes}) {
                                 </div>
                             </div>
                         </div>
-                        <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
+                        <Navigation sessionUser={sessionUser} cls={currClass} currClassIdx={currClassIdx} setCurrClassIdx={setCurrClassIdx} role={sessionUser?.role} allStudentsState={allStudentsState} setAllStudentsState={setAllStudentsState} allStudents={allStudents}/>
                     </div>
                 </div>
             </div>

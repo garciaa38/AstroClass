@@ -24,7 +24,6 @@ function StudentInfoModal({sessionUser, student, classId, rewards, feedback, all
     const [rewardsState, setRewardsState] = useState(rewards);
     const [feedbackState, setFeedbackState] = useState(feedback);
 
-    console.log("ONE STUDENT", student)
 
     useEffect(() => {
         dispatch(fetchAllRewardsThunk(classId))
@@ -39,7 +38,6 @@ function StudentInfoModal({sessionUser, student, classId, rewards, feedback, all
         setFeedbackState((prevFeedback) => [...prevFeedback, newFeedback])
     }
 
-    console.log("CLASS REWARDS", rewardsState)
 
     const removeStudent = async (student_class_id) => {
         closeModal()

@@ -37,7 +37,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         setErrors({});
         // setLoading(false);
         
-        if (sessionUser.role === 'teacher') {
+        if (sessionUser?.role === 'teacher') {
             if (stringTrim(className)) {
                 if (className.length > 10 || className.length <= 2) {
                     errors.className = "Class Name must be between 3 and 10 characters."
@@ -47,7 +47,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
             }
         }
         
-        if (sessionUser.role === 'teacher') {
+        if (sessionUser?.role === 'teacher') {
             if (stringTrim(subject)) {
                 if (subject.length > 20 || subject.length <= 2) {
                     errors.subject = "Subject must be between 3 and 20 characters."
@@ -57,7 +57,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
             }
         }   
 
-        if (sessionUser.role === 'student') {
+        if (sessionUser?.role === 'student') {
             if (studentInviteCode.length !== 8) {
                 errors.studentInviteCode = "Invite Code MUST be 8 characters."
             }
@@ -78,7 +78,6 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         // setLoading(true);
         closeModal()
         const res = await dispatch(addNewClassThunk(sessionUser.id, newClass));
-        console.log("ADDING CLASS", res.id)
         const newMessageBoard = {
             classId: res.id,
             permission: "teacher_only"
@@ -99,7 +98,6 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
         }
 
         const serverResponse = await dispatch(studentJoinClassThunk(sessionUser.id, inviteCode))
-        console.log("Are we getting SERVER RES", serverResponse)
 
 
         if (serverResponse?.error) {
@@ -116,7 +114,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
 
     }
 
-    if (sessionUser.role === 'teacher') {
+    if (sessionUser?.role === 'teacher') {
         // if (loading) {
         //     return (
         //         <ClipLoader />
@@ -153,7 +151,7 @@ function AddClassModal({sessionUser, setCurrentUser, classId}) {
                 </div>
             )
         // }
-    } else if (sessionUser.role === 'student') {
+    } else if (sessionUser?.role === 'student') {
         // if (loading) {
         //     return (
         //         <ClipLoader />

@@ -5,9 +5,7 @@ import { socket } from "../../socket"
 import styles from './MessageBoard.module.css';
 
 function MessageBoard({currMsgBoard, sessionUser, setCurrMsgBoard}) {
-    console.log("ADDING POST parent", currMsgBoard)
     const allPosts = currMsgBoard?.posts
-    console.log("CURRENT CLASS POSTS", allPosts)
 
     return (
         <div className={styles.messageBoardLayout}>

@@ -13,7 +13,6 @@ function EditFeedback({feedback, classId, handleFeedbackDelete, setFormErrors, s
     const [pointsLost, setPointsLost] = useState(feedback.points);
 
 
-    console.log("EDIT FEEDBACK", feedback)
 
     const stringTrim = (string) => {
         if (string.trim().length === 0) {
@@ -31,7 +30,7 @@ function EditFeedback({feedback, classId, handleFeedbackDelete, setFormErrors, s
         setErrors({});
 
         if (stringTrim(feedbackType)) {
-            if (feedbackType.length > 20 || feedbackType.length < 3) {
+            if (feedbackType?.length > 20 || feedbackType?.length < 3) {
                 errors.feedbackType = "Reward Type must be between 3 and 20 characters."
             }
         } else {
@@ -48,7 +47,7 @@ function EditFeedback({feedback, classId, handleFeedbackDelete, setFormErrors, s
         }
 
         const updatedFeedback = {
-            id: feedback.id,
+            id: feedback?.id,
             feedback_type: feedbackType,
             points: pointsLost,
             classId
@@ -88,8 +87,8 @@ function EditFeedback({feedback, classId, handleFeedbackDelete, setFormErrors, s
     }
 
     const stopEditing = async () => {
-        setFeedbackType(feedback.feedback_type);
-        setPointsLost(feedback.points);
+        setFeedbackType(feedback?.feedback_type);
+        setPointsLost(feedback?.points);
         setFormErrors({});
         setIsEditing(false);
     }

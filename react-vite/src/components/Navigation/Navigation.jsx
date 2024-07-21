@@ -12,16 +12,13 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
   const [view, setView] = useState("class")
   const messageBoard = Object.values(useSelector((state) => state.messageBoard))
   const [currMsgBoard, setCurrMsgBoard] = useState(messageBoard[0])
-  console.log("MESSAGE BOARD", messageBoard)
-  console.log("MESSAGE BOARD class", cls)
-  const currentMsgBoard = messageBoard.find(msgB => {
+  const currentMsgBoard = messageBoard?.find(msgB => {
     if (role === 'teacher') {
       return msgB.class_id === cls.id
     } else {
       return msgB.class_id === cls.class_id
     }
   })
-  console.log("MESSAGE BOARD current", currentMsgBoard)
 
   useEffect(() => {
     if (role === 'student') {

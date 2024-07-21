@@ -15,12 +15,10 @@ export const loadClass = (cls) => ({
 // ================= THUNKS =================
 
 export const fetchAllClassesThunk = (teacherId) => async (dispatch) => {
-    console.log('ALL CLASSES', teacherId)
     const res = await fetch(`/api/classes/${teacherId}`)
         .then(res => res.json())
         .catch(e => console.error(e))
 
-    console.log('ALL CLASSES', res)
     dispatch(loadClasses(res))
     
 }
@@ -44,7 +42,6 @@ export const studentJoinClassThunk = (student_id, inviteCode) => async (dispatch
         .then(res => res.json())
         .catch(e => console.error("SERVER RES", e))
 
-        console.log("SERVER RES", res)
         if (res.error) {
             return res
         } else {
@@ -116,7 +113,6 @@ export const addRewardToClassThunk = (classId, reward) => async (dispatch) => {
     })
         .then(res => res.json())
         .catch(e => console.error(e))
-    console.log("CHECKING REWARDS", res)
     if (res.error) {
         return res
     } else {
@@ -150,7 +146,6 @@ export const deleteRewardThunk = (rewardId, classId) => async (dispatch) => {
         .then(res => res.json())
         .catch(e => console.error(e))
     
-    console.log("DELETE REWARD REDUX", res)
     dispatch(loadClass(res[0]))
 }
 
@@ -172,7 +167,6 @@ export const addFeedbackToClassThunk = (classId, feedback) => async (dispatch) =
 }
 
 export const editFeedbackThunk = (feedback) => async (dispatch) => {
-    console.log("EDITING FEEDBACK REDUX", feedback)
     const res = await fetch(`/api/feedback/${feedback.id}`, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -197,7 +191,6 @@ export const deleteFeedbackThunk = (feedbackId, classId) => async (dispatch) => 
         .then(res => res.json())
         .catch(e => console.error(e))
     
-    console.log("DELETE FEEDBACK REDUX", res)
     dispatch(loadClass(res[0]))
 }
 
@@ -226,7 +219,6 @@ export const removePointsFromStudentThunk = (student_class_id, feedback_id) => a
 }
 
 export const editPlanetThunk = (student_class_id, planet) => async (dispatch) => {
-    console.log("SELECTED PLANET", planet)
     const res = await fetch(`/api/students/student-class/${student_class_id}`, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -234,12 +226,10 @@ export const editPlanetThunk = (student_class_id, planet) => async (dispatch) =>
     })
         .then(res => res.json())
         .catch(e => console.error(e))
-        console.log("SELECTED PLANET", res)
         dispatch(loadClass(res))
 }
 
 export const editStudentInfoThunk = (student, class_id, teacher_id) => async (dispatch) => {
-    console.log("EDIT STUDENT", student)
     const res = await fetch(`/api/students/${student.id}/class/${class_id}`, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},

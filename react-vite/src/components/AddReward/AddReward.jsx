@@ -8,7 +8,6 @@ import styles from './AddReward.module.css';
 function AddReward({first_name, rewards, student_class_id, classId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
-    console.log("CLASS ID", classId)
 
 
     const addPoints = async (student_class_id, rewardId, classId, points) => {

@@ -15,8 +15,6 @@ function PostField({post, classId, sessionUser}) {
     const [textField, setTextField] = useState(post.text_field);
     const [formErrors, setFormErrors] = useState({});
 
-    console.log("CHECKING USER AND POST", sessionUser, post)
-
     const stringTrim = (string) => {
         if (string.trim().length === 0) {
             return false;
@@ -26,8 +24,8 @@ function PostField({post, classId, sessionUser}) {
     }
 
     const checkUserPermission = (user) => {
-        if (user.role === "student") {
-            if (user.id !== post.user_id) {
+        if (user?.role === "student") {
+            if (user?.id !== post?.user_id) {
                 return false
             }
         }
@@ -35,10 +33,10 @@ function PostField({post, classId, sessionUser}) {
     }
 
     const postUserName = () => {
-        if (post.user_role === "student") {
-            return `${post.user_first_name} ${post.user_last_name}`
+        if (post?.user_role === "student") {
+            return `${post?.user_first_name} ${post?.user_last_name}`
         } else {
-            return `${post.user_suffix} ${post.user_last_name}`
+            return `${post?.user_suffix} ${post?.user_last_name}`
         }
     }
 
@@ -58,7 +56,7 @@ function PostField({post, classId, sessionUser}) {
         setFormErrors({});
 
         if (stringTrim(textField)) {
-            if (textField.length <= 0) {
+            if (textField?.length <= 0) {
                 errors.editedPost = "Cannot send an empty post."
             }
         } else {
@@ -71,7 +69,7 @@ function PostField({post, classId, sessionUser}) {
         }
 
         const editedPost = {
-            id: post.id,
+            id: post?.id,
             text_field: textField
         }
 
@@ -90,8 +88,8 @@ function PostField({post, classId, sessionUser}) {
         e.preventDefault()
 
         const deletedPost = {
-            id: post.id,
-            msgBoardId: post.message_board_id
+            id: post?.id,
+            msgBoardId: post?.message_board_id
         }
 
         await dispatch(deletePostThunk(deletedPost))
@@ -118,7 +116,7 @@ function PostField({post, classId, sessionUser}) {
                     <div hidden={!checkUserPermission(sessionUser)} className={styles.postButtons}>
                         <button  hidden={!checkUserPermission(sessionUser)} onClick={() => setIsEditing(true)}><MdOutlineModeEdit /></button>
                         <div hidden={!checkUserPermission(sessionUser)}>
-                            <OpenModalButton  hidden={!checkUserPermission(sessionUser)} buttonText={<RiDeleteBin6Fill/>} modalComponent={<DeletionWarning postId={post.id} msgBoardId={post.message_board_id} classId={classId} type={'post'}/>}/>
+                            <OpenModalButton  hidden={!checkUserPermission(sessionUser)} buttonText={<RiDeleteBin6Fill/>} modalComponent={<DeletionWarning postId={post?.id} msgBoardId={post?.message_board_id} classId={classId} type={'post'}/>}/>
                         </div>
                     </div>
                 </div>

@@ -37,7 +37,6 @@ export const addMessageBoardThunk = (newMsgBoard) => async (dispatch) => {
     })
         .then(res => res.json())
         .catch(e => console.error(e))
-    console.log("ADDING MSG BOARD", res)
     dispatch(loadMsgBoard(res))
 }
 
@@ -49,7 +48,6 @@ export const addNewPostThunk = (newPost) => async (dispatch) => {
     })
         .then(res => res.json())
         .catch(e => console.error(e))
-    console.log("ADDING POST", res)
     await dispatch(fetchMessageBoardThunk(res.message_board_id))
 }
 
@@ -131,7 +129,6 @@ export const addNewReplyReactionThunk = (reaction, message_board_id) => async (d
 }
 
 export const deleteReactionThunk = (reactionId, message_board_id) => async (dispatch) => {
-    console.log("POST REACTIONS redux", reactionId)
     await fetch(`/api/post-reactions/${reactionId}`, {
         method: 'DELETE',
         headers: {'Content-Type': 'application/json'},

@@ -19,7 +19,7 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
         const [firstName, lastName] = name.split(" ");
         if (!firstName) return [];
 
-        return allStudents.filter(student => {
+        return allStudents?.filter(student => {
             const { first_name, last_name } = student;
             const matchesFirstName = first_name.toLowerCase().startsWith(firstName.toLowerCase());
             const matchesLastName = lastName ? last_name.toLowerCase().startsWith(lastName.toLowerCase()) : true;
@@ -38,7 +38,6 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
     };
 
     const addStudent = async student => {
-        console.log("ADDING STUDENT", student)
         closeModal();
         const addStudentRes = await dispatch(addStudentToClassThunk(classId, student.id))
         if (addStudentRes?.error) {
@@ -70,8 +69,8 @@ function StudentSearch({allStudents, classId, setAllStudentsState}) {
                         <div className={styles.studentSearchArea}>
                             <h2>Search Results</h2>
                             <ul>
-                                {searchStudents.map(student => (
-                                    <button key={student.id} onClick={() => addStudent(student)}>{student.first_name} {student.last_name}</button>
+                                {searchStudents?.map(student => (
+                                    <button key={student?.id} onClick={() => addStudent(student)}>{student?.first_name} {student?.last_name}</button>
                                 ))}
                             </ul>
                         </div>

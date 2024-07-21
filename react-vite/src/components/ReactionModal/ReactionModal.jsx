@@ -18,13 +18,12 @@ function ReactionModal({currReactions, sessionUserId, postId, currMsgBoardId, cl
         "🧑‍🏫", "👩‍🏫", "👨‍🏫", "🎓", "🏫", "🚌"
     ];
 
-    console.log("CURRENT REACTIONS", currReactions)
 
     const addEmoji = async emoji => {
         
-        for (let i = 0; i < currReactions.length; i++) {
+        for (let i = 0; i < currReactions?.length; i++) {
             if (currReactions[i][0] === emoji) {
-                if (currReactions[i][1].user_ids.includes(sessionUserId)) {
+                if (currReactions[i][1]?.user_ids?.includes(sessionUserId)) {
                     closeModal();
                     return;
                 }

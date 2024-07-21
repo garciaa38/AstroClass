@@ -15,7 +15,7 @@ function PostReply({post_replies, classId, currMsgBoardId, sessionUserId, sessio
             let rightArr = [];
     
             for (let i = 1; i < allPosts?.length; i++) {
-                if (allPosts[i]?.created_at > pivot.created_at) {
+                if (allPosts[i]?.created_at > pivot?.created_at) {
                     leftArr.push(allPosts[i])
                 } else {
                     rightArr.push(allPosts[i])
@@ -34,7 +34,7 @@ function PostReply({post_replies, classId, currMsgBoardId, sessionUserId, sessio
                 return (
                     <div className={styles.postReply} key={post_reply.id}>
                         <PostReplyField postReply={post_reply} classId={classId} currMsgBoardId={currMsgBoardId} sessionUser={sessionUser} />
-                        <PostReplyReaction postReplyId={post_reply.id} post_reply_reactions={post_reply.post_reply_reactions} sessionUserId={sessionUserId} currMsgBoardId={currMsgBoardId} classId={classId}/>
+                        <PostReplyReaction postReplyId={post_reply?.id} post_reply_reactions={post_reply?.post_reply_reactions} sessionUserId={sessionUserId} currMsgBoardId={currMsgBoardId} classId={classId}/>
                     </div>
                 )
             })}
