@@ -45,7 +45,7 @@ function AddPostReplyForm({currPost, currMsgBoard, sessionUser}) {
             user_id: sessionUser.id,
             post_id: currPost.id
         }
-        currPost.post_replies.push(createdPostReply)
+        // currPost.post_replies.push(createdPostReply)
         dispatch(addNewPostReplyThunk(createdPostReply, currMsgBoard.id))
         setNewPostReply("")
         

@@ -47,7 +47,7 @@ function AddPostForm({currMsgBoard, setCurrMsgBoard, sessionUser}) {
             user_id: sessionUser.id,
             message_board_id: currMsgBoard.id
         }
-        currMsgBoard.posts.push(createdPost)
+        // currMsgBoard.posts.push(createdPost)
         dispatch(addNewPostThunk(createdPost))
         setNewPost("")
         
