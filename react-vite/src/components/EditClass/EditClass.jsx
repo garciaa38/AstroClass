@@ -69,15 +69,14 @@ function EditClass({cls, currClassIdx, setCurrClassIdx, rewards, feedback}) {
     }
 
     const deleteClass = async (classId) => {
-        await dispatch(deleteClassThunk(classId, teacher_id))
-
-        if (currClassIdx > 0) {
-            await setCurrClassIdx(currClassIdx-1)
-        }
         closeModal();
-        socket.emit('updateClasses', {room: classId, classIdx: currClassIdx, type: 'delete'});
-        socket.emit('updateStudentClasses', {room: classId, type: 'delete'});
-        socket.emit('updateStudents', {room: classId});
+        await dispatch(deleteClassThunk(classId, teacher_id))
+            if (currClassIdx > 0) {
+                await setCurrClassIdx(currClassIdx-1)
+            }
+            socket.emit('updateClasses', {room: classId, classIdx: currClassIdx, type: 'delete'});
+            socket.emit('updateStudentClasses', {room: classId, type: 'delete'});
+            socket.emit('updateStudents', {room: classId});
     }
 
     if (!deletionWarning) {

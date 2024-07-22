@@ -14,9 +14,9 @@ function Navigation({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allS
   const [currMsgBoard, setCurrMsgBoard] = useState(messageBoard[0])
   const currentMsgBoard = messageBoard?.find(msgB => {
     if (role === 'teacher') {
-      return msgB.class_id === cls.id
+      return msgB?.class_id === cls?.id
     } else {
-      return msgB.class_id === cls.class_id
+      return msgB?.class_id === cls?.class_id
     }
   })
 

@@ -8,7 +8,13 @@ import styles from './ClassInfo.module.css';
 
 function ClassInfo({sessionUser, cls, currClassIdx, setCurrClassIdx, role, allStudentsState, setAllStudentsState}) {
     const dispatch = useDispatch()
+    
+    if (!cls) {
+        return <h1>This class has been deleted.</h1>
+    }
+    
     const {class_name, students, id: classId, rewards, feedback} = cls;
+
 
     if (role === 'teacher') {
         const sortStudents = studentArr => {
