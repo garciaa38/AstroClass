@@ -139,7 +139,7 @@ function PostReplyField({postReply, classId, currMsgBoardId, sessionUser}) {
                             placeholder="Enter reply..."
                         />
                     </label>
-                    {formErrors.editedPostReply && <p>{formErrors.editedPostReply}</p>}
+                    {formErrors.editedPostReply && <p className='error'>{formErrors.editedPostReply}</p>}
                     <div className={styles.editPostReplyButtons}>
                         <button type='submit'>Save</button>
                         <button onClick={cancelEdit}>Cancel</button>

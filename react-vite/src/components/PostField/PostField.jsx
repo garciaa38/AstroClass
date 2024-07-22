@@ -138,7 +138,7 @@ function PostField({post, classId, sessionUser}) {
                             placeholder="Enter post..."
                         />
                     </label>
-                    {formErrors.editedPost && <p>{formErrors.editedPost}</p>}
+                    {formErrors.editedPost && <p className='error'>{formErrors.editedPost}</p>}
                     <div className={styles.editPostButtons}>
                         <button type='submit'>Save</button>
                         <button onClick={cancelEdit}>Cancel</button>
