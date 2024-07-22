@@ -69,7 +69,7 @@ function SignupFormModal({role}) {
 
     if (role === 'teacher' || role === 'parent') {
       if (whiteSpaceCheck(phoneNumber)) {
-        if (phoneNumber.length <= 9) {
+        if (phoneNumber.length <= 9 || phoneNumber.length > 12) {
           errors.phoneNumber = "Please input a valid phone number."
         } else if (isNaN(Number(phoneNumber))) {
           errors.phoneNumber = "Please input a valid phone number."
