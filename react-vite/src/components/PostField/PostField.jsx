@@ -59,6 +59,9 @@ function PostField({post, classId, sessionUser}) {
             if (textField?.length <= 0) {
                 errors.editedPost = "Cannot send an empty post."
             }
+            if (textField?.length >= 500) {
+                errors.editedPost = "Post cannot be longer than 500 characters."
+            }
         } else {
             errors.editedPost = "Cannot send an empty post."
         }

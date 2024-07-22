@@ -56,8 +56,11 @@ function PostReplyField({postReply, classId, currMsgBoardId, sessionUser}) {
         setFormErrors({});
 
         if (stringTrim(textField)) {
-            if (textField.length <= 0) {
+            if (textField?.length <= 0) {
                 errors.editedPostReply = "Cannot send an empty reply."
+            }
+            if (textField?.length > 250) {
+                errors.editedPostReply = "Reply cannot be longer than 250 characters."
             }
         } else {
             errors.editedPostReply = "Cannot send an empty reply."
