@@ -1,0 +1,21 @@
+.deadLinkLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20rem;
+    font-size: 2rem;
+    color: #E9F1F7;
+    -webkit-text-stroke: 3px #5574ca;
+}
+
+.deadLinkLink {
+    text-decoration: none;
+    color: #FFBF46;
+    transition: color 0.2s ease-in-out;
+}
+
+.deadLinkLink:hover {
+    color: #5574ca;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
