@@ -2,7 +2,7 @@
 Welcome to AstroClass, an app designed to be the all-in-one classroom managament app that connects teachers, students, and parents to help elementary and middle school students shine to be the brightest star they can be.
 
 # Link to Live Site
-[https://bonfire-j5fr.onrender.com/](https://astroclass.onrender.com/)
+https://astroclass.onrender.com/
 
 
 # WikiLinks
