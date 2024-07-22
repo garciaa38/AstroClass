@@ -7,6 +7,10 @@ import styles from './MessageBoard.module.css';
 function MessageBoard({currMsgBoard, sessionUser, setCurrMsgBoard}) {
     const allPosts = currMsgBoard?.posts
 
+    if (!currMsgBoard) {
+        return <h1>This class has been deleted.</h1>
+    }
+
     return (
         <div className={styles.messageBoardLayout}>
             <AddPostForm currMsgBoard={currMsgBoard} setCurrMsgBoard={setCurrMsgBoard} sessionUser={sessionUser}/>
