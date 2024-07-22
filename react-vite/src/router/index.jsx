@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import Classes from '../components/Classes/Classes';
-// import SignupFormPage from '../components/SignupFormPage';
+import DeadLinkPage from '../components/DeadLinkPage/DeadLinkPage';
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <h1>Looks like your class is in another castle.</h1>
+        element: <DeadLinkPage />
       }
     ],
   },
